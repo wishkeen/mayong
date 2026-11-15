@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       if (!appParams.appId) {
         setAuthError({
           type: 'config_error',
-          message: 'Link this project to a Base44 app with `base44 link`, then start it with `base44 dev`.',
+          message: 'This deployment is not connected to a Base44 app. Set VITE_BASE44_APP_ID in the production build environment and rebuild the app.',
         });
         setIsLoadingPublicSettings(false);
         setIsLoadingAuth(false);
