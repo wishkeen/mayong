@@ -10,7 +10,6 @@ import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
 import { toast } from "@/components/ui/use-toast";
 import { safeReturnTo } from "@/lib/authReturnTo";
-import { signInWithProvider } from "@/lib/authMfaFlow";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -71,7 +70,7 @@ export default function Register() {
   const handleGoogle = async () => {
     setError("");
     try {
-      await signInWithProvider("google", safeReturnTo());
+      base44.auth.loginWithProvider("google", safeReturnTo());
     } catch (err) {
       setError(err.message || "Google sign-in could not start. Please try again.");
     }
