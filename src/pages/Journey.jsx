@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TrendingUp, Target, Flame, Sparkles, LineChart } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import JourneyRitualCard from "@/components/journey/JourneyRitualCard";
 import AchievedRitualCard from "@/components/journey/AchievedRitualCard";
@@ -18,7 +18,7 @@ export default function Journey() {
         return;
       }
       try {
-        const all = await base44.entities.RitualSession.filter(
+        const all = await supabaseEntities.RitualSession.filter(
           { user_id: user.id },
           "-created_date",
           200
@@ -26,7 +26,7 @@ export default function Journey() {
         setSessions(all);
         const ids = [...new Set(all.map((s) => s.ritual_id))];
         if (ids.length) {
-          const rits = await base44.entities.Ritual.list("-created_date", 100);
+          const rits = await supabaseEntities.Ritual.list("-created_date", 100);
           const map = {};
           rits.forEach((r) => (map[r.id] = r));
           setRituals(map);

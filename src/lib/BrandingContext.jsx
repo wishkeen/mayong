@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { base44 } from "@/api/base44Client";
 
 const defaultBranding = {
   app_name: "RitualOS",
@@ -21,26 +20,11 @@ export function BrandingProvider({ children }) {
 
     const loadBranding = async () => {
       try {
-        const publicSettings = base44?.app?.getPublicSettings
-          ? await base44.app.getPublicSettings()
-          : null;
-
-        const nextBranding = {
-          ...defaultBranding,
-          ...(publicSettings?.branding || {}),
-          ...(publicSettings || {}),
-        };
-
         if (isMounted) {
-          setBranding({
-            ...defaultBranding,
-            ...nextBranding,
-            app_name: nextBranding.app_name || defaultBranding.app_name,
-            logo_url: nextBranding.logo_url || "",
-          });
+          setBranding(defaultBranding);
         }
       } catch (error) {
-        console.warn("Branding settings unavailable:", error);
+        console.error("Branding settings could not be initialized:", error);
       } finally {
         if (isMounted) setLoading(false);
       }

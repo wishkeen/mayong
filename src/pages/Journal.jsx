@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StarRating from "@/components/StarRating";
 
@@ -21,7 +21,7 @@ export default function Journal() {
   useEffect(() => {
     (async () => {
       try {
-        const e = await base44.entities.JournalEntry.filter({ user_id: user.id }, "-created_date", 100);
+        const e = await supabaseEntities.JournalEntry.filter({ user_id: user.id }, "-created_date", 100);
         setEntries(e);
       } finally {
         setLoading(false);

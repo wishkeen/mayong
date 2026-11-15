@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StepView from "@/components/player/StepView";
 import ContentLanguageSwitcher from "@/components/player/ContentLanguageSwitcher";
@@ -25,14 +25,14 @@ export default function RitualPlayer() {
   useEffect(() => {
     (async () => {
       try {
-        const r = await base44.entities.Ritual.get(id);
+        const r = await supabaseEntities.Ritual.get(id);
         setRitual(r);
-        const all = await base44.entities.RitualStep.filter({ ritual_id: id });
+        const all = await supabaseEntities.RitualStep.filter({ ritual_id: id });
         const sorted = all.sort((a, b) => a.order - b.order);
         setSteps(sorted);
 
         const lastIdx = Math.max(sorted.length - 1, 0);
-        const open = await base44.entities.RitualSession.filter({
+        const open = await supabaseEntities.RitualSession.filter({
           user_id: user.id,
           ritual_id: id,
           status: "in_progress",
@@ -52,7 +52,7 @@ export default function RitualPlayer() {
           s = resumable;
           startIdx = Math.min(resumable.current_step || 0, lastIdx);
         } else {
-          s = await base44.entities.RitualSession.create({
+          s = await supabaseEntities.RitualSession.create({
             user_id: user.id,
             ritual_id: id,
             ritual_name: r.name,
@@ -65,7 +65,7 @@ export default function RitualPlayer() {
         // Collapse leftover in-progress attempts so exactly one stays active.
         const stale = open.filter((sess) => sess.id !== s.id);
         await Promise.all(
-          stale.map((sess) => base44.entities.RitualSession.delete(sess.id))
+          stale.map((sess) => supabaseEntities.RitualSession.delete(sess.id))
         );
 
         setSession(s);
@@ -107,7 +107,7 @@ export default function RitualPlayer() {
   const persist = async (nextSession, fields) => {
     if (!nextSession) return;
     try {
-      await base44.entities.RitualSession.update(nextSession.id, fields);
+      await supabaseEntities.RitualSession.update(nextSession.id, fields);
     } catch (e) {
       console.error(e);
     }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import AdminGuard from "@/components/admin/AdminGuard";
 import RitualForm from "@/components/admin/RitualForm";
@@ -41,7 +41,6 @@ function AdminInner() {
   const [sessions, setSessions] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sending, setSending] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [managing, setManaging] = useState(null);
@@ -52,12 +51,12 @@ function AdminInner() {
     setLoading(true);
     try {
       const [r, c, u, o, s, ip] = await Promise.all([
-        base44.entities.Ritual.list("sort_order", 100),
-        base44.entities.Category.list("sort_order", 20),
-        base44.entities.User.list("-created_date", 100).catch(() => []),
-        base44.entities.Order.list("-created_date", 100).catch(() => []),
-        base44.entities.RitualSession.filter({ status: "completed" }, "-completed_at", 100).catch(() => []),
-        base44.entities.RitualSession.filter({ status: "in_progress" }, "-created_date", 100).catch(() => []),
+        supabaseEntities.Ritual.list("sort_order", 100),
+        supabaseEntities.Category.list("sort_order", 20),
+        supabaseEntities.User.list("-created_date", 100).catch(() => []),
+        supabaseEntities.Order.list("-created_date", 100).catch(() => []),
+        supabaseEntities.RitualSession.filter({ status: "completed" }, "-completed_at", 100).catch(() => []),
+        supabaseEntities.RitualSession.filter({ status: "in_progress" }, "-created_date", 100).catch(() => []),
       ]);
       setRituals(r);
       setCategories(c);
@@ -81,52 +80,27 @@ function AdminInner() {
   const openEdit = (ritual) => { setEditing(ritual); setFormOpen(true); };
 
   const togglePublish = async (ritual) => {
-    await base44.entities.Ritual.update(ritual.id, { is_published: !ritual.is_published });
+    await supabaseEntities.Ritual.update(ritual.id, { is_published: !ritual.is_published });
     loadAll();
-  };
-
-  const sendReminder = async (sessionId) => {
-    setSending(true);
-    try {
-      await base44.functions.invoke("sendRitualReminders", { sessionId });
-      await loadAll();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setSending(false);
-    }
-  };
-
-  const sendAllReminders = async () => {
-    setSending(true);
-    try {
-      await base44.functions.invoke("sendRitualReminders", {});
-      await loadAll();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setSending(false);
-    }
   };
 
   const removeRitual = async (ritual) => {
     if (!confirm(`Delete "${ritual.name}"? This also removes its steps.`)) return;
-    const steps = await base44.entities.RitualStep.filter({ ritual_id: ritual.id });
-    await base44.entities.RitualStep.deleteMany({ ritual_id: ritual.id });
-    await base44.entities.Ritual.delete(ritual.id);
+    await supabaseEntities.RitualStep.deleteMany({ ritual_id: ritual.id });
+    await supabaseEntities.Ritual.delete(ritual.id);
     loadAll();
   };
 
   const reorderRituals = async (nextList) => {
     setRituals(nextList);
-    await base44.entities.Ritual.bulkUpdate(
+    await supabaseEntities.Ritual.bulkUpdate(
       nextList.map((r, i) => ({ id: r.id, sort_order: i }))
     );
   };
 
   const reorderCategories = async (nextList) => {
     setCategories(nextList);
-    await base44.entities.Category.bulkUpdate(
+    await supabaseEntities.Category.bulkUpdate(
       nextList.map((c, i) => ({ id: c.id, sort_order: i }))
     );
   };
@@ -136,7 +110,7 @@ function AdminInner() {
 
   const removeCategory = async (cat) => {
     if (!confirm(`Delete category "${cat.name}"? Rituals in it will remain but lose their category link.`)) return;
-    await base44.entities.Category.delete(cat.id);
+    await supabaseEntities.Category.delete(cat.id);
     loadAll();
   };
 
@@ -321,13 +295,12 @@ function AdminInner() {
         <DatabaseSettings />
       ) : (
         <div className="space-y-3">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-xs text-[#AAA5B5]">Users who started a ritual but haven't completed it.</p>
-            <button onClick={sendAllReminders} disabled={sending || inProgress.length === 0}
-              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] text-xs font-semibold disabled:opacity-50 whitespace-nowrap">
-              {sending ? "Sending…" : "Send all"}
-            </button>
+          <div className="rounded-xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-3">
+            <p className="text-xs leading-relaxed text-[#AAA5B5]">
+              Reminder delivery is not configured for this Supabase deployment. Connect an email provider and a server-side reminder function before sending emails.
+            </p>
           </div>
+          <p className="text-xs text-[#AAA5B5]">Users who started a ritual but haven't completed it.</p>
           {inProgress.length === 0 ? (
             <p className="text-sm text-[#AAA5B5]">No incomplete rituals right now.</p>
           ) : inProgress.map((s) => {
@@ -340,10 +313,6 @@ function AdminInner() {
                   <p className="text-xs text-[#AAA5B5] truncate">{u?.email || s.created_by_id || "—"}</p>
                   <p className="text-[10px] text-[#AAA5B5] mt-0.5">Started {days === 0 ? "today" : `${days}d ago`} · step {(s.current_step || 0) + 1}</p>
                 </div>
-                <button onClick={() => sendReminder(s.id)} disabled={sending}
-                  className="px-3 py-1.5 rounded-lg border border-[#D6B56A]/40 text-[#D6B56A] text-xs whitespace-nowrap disabled:opacity-50">
-                  Remind
-                </button>
               </div>
             );
           })}

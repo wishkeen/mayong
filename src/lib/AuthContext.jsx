@@ -1,11 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
-import { appParams } from '@/lib/app-params';
-import {
-  LOCAL_DEMO_SESSION_KEY,
-  localDemoAccount,
-  localDemoEnabled,
-} from '@/lib/localDemo';
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { getSupabaseConfigurationError, isSupabaseConfigured, supabase } from "@/api/supabaseClient";
 
 const AuthContext = createContext(null);
 
@@ -16,186 +10,160 @@ export const AuthProvider = ({ children }) => {
   const [isLoadingPublicSettings, setIsLoadingPublicSettings] = useState(true);
   const [authError, setAuthError] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
-  const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
+  const [appPublicSettings, setAppPublicSettings] = useState(null);
 
-  useEffect(() => {
-    checkAppState();
+  const clearAuthState = useCallback(() => {
+    setUser(null);
+    setIsAuthenticated(false);
+    setAuthError(null);
+    setIsLoadingAuth(false);
+    setAuthChecked(true);
   }, []);
 
-  const checkAppState = async () => {
+  const loadProfile = useCallback(async (authUser) => {
+    setIsLoadingAuth(true);
     try {
-      setIsLoadingPublicSettings(true);
-      setAuthError(null);
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("id, email, full_name, role, preferred_language, avatar_url, created_date")
+        .eq("id", authUser.id)
+        .single();
+      if (error) throw error;
 
-      if (localDemoEnabled) {
-        const hasDemoSession = window.localStorage.getItem(LOCAL_DEMO_SESSION_KEY) === 'active';
-        setUser(hasDemoSession ? localDemoAccount : null);
-        setIsAuthenticated(hasDemoSession);
-        setAppPublicSettings({ local_demo: true });
-        setIsLoadingPublicSettings(false);
-        setIsLoadingAuth(false);
-        setAuthChecked(true);
-        return;
-      }
-
-      if (!appParams.appId) {
-        setAuthError({
-          type: 'config_error',
-          message: 'This deployment is not connected to a Base44 app. Set VITE_BASE44_APP_ID in the production build environment and rebuild the app.',
-        });
-        setIsLoadingPublicSettings(false);
-        setIsLoadingAuth(false);
-        setAuthChecked(true);
-        return;
-      }
-      
-      try {
-        const publicSettings = await base44.app.getPublicSettings();
-        setAppPublicSettings(publicSettings);
-        
-        // If we got the app public settings successfully, check if user is authenticated
-        if (appParams.token) {
-          await checkUserAuth();
-        } else {
-          setIsLoadingAuth(false);
-          setIsAuthenticated(false);
-          setAuthChecked(true);
-        }
-        setIsLoadingPublicSettings(false);
-      } catch (appError) {
-        console.error('App state check failed:', appError);
-        
-        // Handle app-level errors
-        if (appError.status === 403 && appError.data?.extra_data?.reason) {
-          const reason = appError.data.extra_data.reason;
-          if (reason === 'auth_required') {
-            setAuthError({
-              type: 'auth_required',
-              message: 'Authentication required'
-            });
-          } else if (reason === 'user_not_registered') {
-            setAuthError({
-              type: 'user_not_registered',
-              message: 'User not registered for this app'
-            });
-          } else {
-            setAuthError({
-              type: reason,
-              message: appError.message
-            });
-          }
-        } else {
-          setAuthError({
-            type: 'unknown',
-            message: appError.message || 'Failed to load app'
-          });
-        }
-        setIsLoadingPublicSettings(false);
-        setIsLoadingAuth(false);
-      }
-    } catch (error) {
-      console.error('Unexpected error:', error);
-      setAuthError({
-        type: 'unknown',
-        message: error.message || 'An unexpected error occurred'
+      setUser({
+        ...profile,
+        email: authUser.email || profile.email,
+        full_name: profile.full_name || authUser.user_metadata?.full_name || "",
       });
-      setIsLoadingPublicSettings(false);
-      setIsLoadingAuth(false);
-    }
-  };
-
-  const checkUserAuth = async () => {
-    try {
-      // Now check if the user is authenticated
-      setIsLoadingAuth(true);
-      const currentUser = await base44.auth.me();
-      setUser(currentUser);
       setIsAuthenticated(true);
-      setIsLoadingAuth(false);
-      setAuthChecked(true);
+      setAuthError(null);
     } catch (error) {
-      console.error('User auth check failed:', error);
-      const rejectedToken =
-        error?.status === 401 ||
-        error?.status === 403 ||
-        error?.status === 404 ||
-        error?.error_type === 'ObjectNotFoundError';
-      // A stale/corrupt token makes /me fail and then poisons the login
-      // request (sent as Bearer). Clear it so the user can sign in cleanly.
-      if (rejectedToken) {
-        try { base44.auth.logout(); } catch (e) { /* ignore */ }
-      }
-      setIsLoadingAuth(false);
+      console.error("Could not load the signed-in user's profile:", error);
+      setUser(null);
       setIsAuthenticated(false);
+      setAuthError({
+        type: "profile_error",
+        message: error.message || "Could not load your account profile.",
+      });
+    } finally {
+      setIsLoadingAuth(false);
       setAuthChecked(true);
-      
-      // If user auth fails, it might be an expired token
-      if (error.status === 401 || error.status === 403) {
-        setAuthError({
-          type: 'auth_required',
-          message: 'Authentication required'
-        });
-      }
     }
-  };
+  }, []);
 
-  const logout = (shouldRedirect = true) => {
+  const checkUserAuth = useCallback(async () => {
+    if (!isSupabaseConfigured) return;
+
+    setIsLoadingAuth(true);
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      if (!session?.user) {
+        clearAuthState();
+        return;
+      }
+      await loadProfile(session.user);
+    } catch (error) {
+      console.error("Supabase authentication check failed:", error);
+      setUser(null);
+      setIsAuthenticated(false);
+      setAuthError({
+        type: "profile_error",
+        message: error.message || "Could not verify your account. Please sign in again.",
+      });
+      setIsLoadingAuth(false);
+      setAuthChecked(true);
+    }
+  }, [clearAuthState, loadProfile]);
+
+  const checkAppState = useCallback(async () => {
+    setIsLoadingPublicSettings(true);
+    setAuthError(null);
+
+    if (!isSupabaseConfigured) {
+      setAuthError({
+        type: "config_error",
+        message: getSupabaseConfigurationError(),
+      });
+      setIsLoadingAuth(false);
+      setIsLoadingPublicSettings(false);
+      setAuthChecked(true);
+      return;
+    }
+
+    setAppPublicSettings({ provider: "supabase" });
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      if (session?.user) {
+        await loadProfile(session.user);
+      } else {
+        clearAuthState();
+      }
+    } catch (error) {
+      console.error("Could not initialize Supabase authentication:", error);
+      setAuthError({
+        type: "profile_error",
+        message: error.message || "Could not connect to Supabase Auth.",
+      });
+      setIsLoadingAuth(false);
+      setAuthChecked(true);
+    } finally {
+      setIsLoadingPublicSettings(false);
+    }
+  }, [clearAuthState, loadProfile]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      checkAppState();
+      return undefined;
+    }
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      queueMicrotask(() => {
+        if (session?.user) {
+          loadProfile(session.user);
+        } else {
+          clearAuthState();
+        }
+      });
+    });
+
+    checkAppState();
+    return () => subscription.unsubscribe();
+  }, [checkAppState, clearAuthState, loadProfile]);
+
+  const logout = async (shouldRedirect = true) => {
     setUser(null);
     setIsAuthenticated(false);
 
-    if (localDemoEnabled) {
-      window.localStorage.removeItem(LOCAL_DEMO_SESSION_KEY);
-      if (shouldRedirect) window.location.assign('/login');
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setAuthError({ type: "profile_error", message: error.message });
       return;
     }
-    
-    if (shouldRedirect) {
-      // Use the SDK's logout method which handles token cleanup and redirect
-      base44.auth.logout(window.location.href);
-    } else {
-      // Just remove the token without redirect
-      base44.auth.logout();
-    }
+    if (shouldRedirect) window.location.assign("/login");
   };
 
   const navigateToLogin = () => {
-    // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
-  };
-
-  const loginDemo = (email, password) => {
-    const expectedPassword = import.meta.env.VITE_LOCAL_DEMO_PASSWORD;
-    if (!localDemoEnabled || !localDemoAccount.email || !expectedPassword) {
-      throw new Error('Local demo login is not configured. Check the ignored .env.local file and restart the dev server.');
-    }
-    if (
-      email.trim().toLowerCase() !== localDemoAccount.email.toLowerCase() ||
-      password !== expectedPassword
-    ) {
-      throw new Error('Invalid local demo email or password.');
-    }
-
-    window.localStorage.setItem(LOCAL_DEMO_SESSION_KEY, 'active');
-    setUser(localDemoAccount);
-    setIsAuthenticated(true);
-    setAuthChecked(true);
+    const returnTo = window.location.pathname + window.location.search;
+    window.location.assign(`/login?returnTo=${encodeURIComponent(returnTo)}`);
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      isAuthenticated, 
-      demoMode: localDemoEnabled,
+    <AuthContext.Provider value={{
+      user,
+      isAuthenticated,
+      demoMode: false,
       isLoadingAuth,
       isLoadingPublicSettings,
       authError,
       appPublicSettings,
       authChecked,
       logout,
-      loginDemo,
       navigateToLogin,
       checkUserAuth,
-      checkAppState
+      checkAppState,
     }}>
       {children}
     </AuthContext.Provider>
@@ -204,8 +172,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 };

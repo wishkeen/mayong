@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import CategoryCard from "@/components/CategoryCard";
 import RitualCard from "@/components/RitualCard";
@@ -26,18 +26,18 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const cats = await base44.entities.Category.list("sort_order", 10);
+        const cats = await supabaseEntities.Category.list("sort_order", 10);
         setCategories(cats);
         const cm = {};
         cats.forEach((c) => (cm[c.id] = c));
         setCatMap(cm);
 
-        const all = await base44.entities.Ritual.filter({ is_published: true }, "sort_order", 50);
+        const all = await supabaseEntities.Ritual.filter({ is_published: true }, "sort_order", 50);
         const feat = all.filter((r) => r.is_featured).slice(0, 6);
         setFeatured(feat.length ? feat : all.slice(0, 6));
 
         if (isAuthenticated && user?.id) {
-          const sess = await base44.entities.RitualSession.filter(
+          const sess = await supabaseEntities.RitualSession.filter(
             { user_id: user.id, status: "completed" },
             "-completed_at",
             5

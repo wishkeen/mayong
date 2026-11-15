@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { requireSupabase } from "@/api/supabaseClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +29,16 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      await base44.auth.register({ email, password });
+      const { data, error } = await requireSupabase().auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}${safeReturnTo()}` },
+      });
+      if (error) throw error;
+      if (data.session) {
+        window.location.href = safeReturnTo();
+        return;
+      }
       setShowOtp(true);
     } catch (err) {
       setError(err.message || "Registration failed");
@@ -42,10 +51,12 @@ export default function Register() {
     setError("");
     setLoading(true);
     try {
-      const result = await base44.auth.verifyOtp({ email, otpCode });
-      if (result?.access_token) {
-        base44.auth.setToken(result.access_token);
-      }
+      const { error } = await requireSupabase().auth.verifyOtp({
+        email,
+        token: otpCode,
+        type: "signup",
+      });
+      if (error) throw error;
       window.location.href = safeReturnTo();
     } catch (err) {
       setError(err.message || "Invalid verification code");
@@ -57,7 +68,8 @@ export default function Register() {
   const handleResend = async () => {
     setError("");
     try {
-      await base44.auth.resendOtp(email);
+      const { error } = await requireSupabase().auth.resend({ type: "signup", email });
+      if (error) throw error;
       toast({
         title: "Code sent",
         description: "Check your email for the new code.",
@@ -70,7 +82,11 @@ export default function Register() {
   const handleGoogle = async () => {
     setError("");
     try {
-      base44.auth.loginWithProvider("google", safeReturnTo());
+      const { error } = await requireSupabase().auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}${safeReturnTo()}` },
+      });
+      if (error) throw error;
     } catch (err) {
       setError(err.message || "Google sign-in could not start. Please try again.");
     }
@@ -81,7 +97,7 @@ export default function Register() {
       <AuthLayout
         icon={Mail}
         title="Verify your email"
-        subtitle={`We sent a code to ${email}`}
+        subtitle={`Check ${email} for a confirmation link or one-time code.`}
       >
         {error && (
           <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">

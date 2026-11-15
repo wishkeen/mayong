@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import RitualCard from "@/components/RitualCard";
 
 export default function Browse() {
@@ -13,13 +13,13 @@ export default function Browse() {
   useEffect(() => {
     (async () => {
       try {
-        const cats = await base44.entities.Category.list("sort_order", 10);
+        const cats = await supabaseEntities.Category.list("sort_order", 10);
         setCategories(cats);
         const cm = {};
         cats.forEach((c) => (cm[c.id] = c));
         setCatMap(cm);
 
-        const all = await base44.entities.Ritual.filter({ is_published: true }, "sort_order", 60);
+        const all = await supabaseEntities.Ritual.filter({ is_published: true }, "sort_order", 60);
         setRituals(all);
       } finally {
         setLoading(false);

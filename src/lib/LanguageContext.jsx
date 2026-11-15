@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import { detectPreferredLanguage } from "@/lib/languages";
 
@@ -34,7 +34,8 @@ export function LanguageProvider({ children }) {
       /* storage unavailable */
     }
     if (isAuthenticated && user?.id && user.preferred_language !== code) {
-      base44.auth.updateMe({ preferred_language: code }).catch((e) => console.error(e));
+      supabaseEntities.User.update(user.id, { preferred_language: code })
+        .catch((error) => console.error("Could not save preferred language:", error));
     }
   }, [isAuthenticated, user?.id, user?.preferred_language]);
 

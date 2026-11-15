@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Check, BookOpen } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StarRating from "@/components/StarRating";
 
@@ -27,11 +27,11 @@ export default function Completion() {
   useEffect(() => {
     (async () => {
       try {
-        const s = await base44.entities.RitualSession.get(sessionId);
+        const s = await supabaseEntities.RitualSession.get(sessionId);
         setSession(s);
         if (s.ritual_id) {
           try {
-            const r = await base44.entities.Ritual.get(s.ritual_id);
+            const r = await supabaseEntities.Ritual.get(s.ritual_id);
             setRitual(r);
           } catch {}
         }
@@ -44,7 +44,7 @@ export default function Completion() {
   const save = async () => {
     setSaving(true);
     try {
-      await base44.entities.JournalEntry.create({
+      await supabaseEntities.JournalEntry.create({
         user_id: user.id,
         session_id: sessionId,
         ritual_id: session.ritual_id,

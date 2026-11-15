@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Clock, Gem, Heart, BookOpen, ShieldQuestion, Info } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import RitualCover from "@/components/RitualCover";
 import MockPaymentDialog from "@/components/MockPaymentDialog";
@@ -22,21 +22,21 @@ export default function RitualDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const r = await base44.entities.Ritual.get(id);
+        const r = await supabaseEntities.Ritual.get(id);
         setRitual(r);
         if (r.category_id) {
           try {
-            const c = await base44.entities.Category.get(r.category_id);
+            const c = await supabaseEntities.Category.get(r.category_id);
             setCategory(c);
           } catch {}
         }
-        const all = await base44.entities.RitualStep.filter({ ritual_id: id });
+        const all = await supabaseEntities.RitualStep.filter({ ritual_id: id });
         setSteps(all.sort((a, b) => a.order - b.order));
 
         if (isAuthenticated && user?.id) {
-          const ent = await base44.entities.Entitlement.filter({ user_id: user.id, ritual_id: id });
+          const ent = await supabaseEntities.Entitlement.filter({ user_id: user.id, ritual_id: id });
           setEntitled(ent.length > 0);
-          const favs = await base44.entities.Favorite.filter({ user_id: user.id, ritual_id: id });
+          const favs = await supabaseEntities.Favorite.filter({ user_id: user.id, ritual_id: id });
           setFav(favs[0] || null);
         }
       } finally {
@@ -51,10 +51,10 @@ export default function RitualDetail() {
       return;
     }
     if (fav) {
-      await base44.entities.Favorite.delete(fav.id);
+      await supabaseEntities.Favorite.delete(fav.id);
       setFav(null);
     } else {
-      const f = await base44.entities.Favorite.create({ user_id: user.id, ritual_id: id });
+      const f = await supabaseEntities.Favorite.create({ user_id: user.id, ritual_id: id });
       setFav(f);
     }
   };

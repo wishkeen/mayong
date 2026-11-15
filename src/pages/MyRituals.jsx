@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Play, Heart, Check, Lock } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { Play, Check } from "lucide-react";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import RitualCover from "@/components/RitualCover";
 import { formatPrice } from "@/lib/rituals";
@@ -26,10 +26,10 @@ export default function MyRituals() {
     (async () => {
       try {
         const [ents, sess, favs, allRituals] = await Promise.all([
-          base44.entities.Entitlement.filter({ user_id: user.id }),
-          base44.entities.RitualSession.filter({ user_id: user.id }, "-created_date", 50),
-          base44.entities.Favorite.filter({ user_id: user.id }),
-          base44.entities.Ritual.list("-created_date", 100),
+          supabaseEntities.Entitlement.filter({ user_id: user.id }),
+          supabaseEntities.RitualSession.filter({ user_id: user.id }, "-created_date", 50),
+          supabaseEntities.Favorite.filter({ user_id: user.id }),
+          supabaseEntities.Ritual.list("-created_date", 100),
         ]);
         setEntitlements(ents);
         setSessions(sess);
