@@ -1,92 +1,55 @@
-# Base44 Project
+# RitualOS
 
-Use this repository to run and edit the app locally, then publish changes back through Base44.
+RitualOS is a Vite + React single-page app. Supabase is the primary backend for authentication, application data, and public ritual media.
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
+## Local setup
 
-## Prerequisites
+1. Install dependencies with `npm install`.
+2. Copy `.env.example` to `.env.local`.
+3. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local`.
+4. Run the SQL migration in `supabase/migrations/20261115000000_ritualos_schema.sql` from the Supabase SQL Editor.
+5. Start the frontend with `npm run dev`.
 
-1. Clone the repository using the project's Git URL.
-2. Navigate to the project directory.
-3. Install dependencies: `npm install`.
-4. Install the Base44 CLI: `npm install -g base44@latest`.
-5. Install [Deno](https://docs.deno.com/runtime/getting_started/installation/) — the local Base44 backend runs on it.
+The Supabase publishable key is intended for browser use. **Never put a Supabase `service_role` or secret key in frontend code, a `VITE_` variable, or a committed file.**
 
-Run `base44 --help` (or see the [CLI reference](https://docs.base44.com/developers/references/cli/commands/introduction)) for the full command surface.
+## Supabase project setup
 
-## Run Locally
+The SQL migration creates the app's tables, row-level security policies, profile trigger, and public `ritual-assets` storage bucket. It does not import records from Base44.
 
-Three commands, from the project root:
+After running the migration:
 
-```bash
-base44 login   # one-time per machine
-base44 link    # one-time per clone
-base44 dev     # local backend + frontend together
-```
+1. In Supabase Authentication settings, enable email/password sign-in and configure the confirmation and password-reset email templates.
+2. If using Google sign-in, configure the Google OAuth provider in Supabase and add the production and local callback URLs to its redirect allow list.
+3. Add the production site URL and any preview/local URLs used by auth email redirects to Supabase's allowed redirect URLs.
+4. Register your own account, then promote it to admin in the SQL Editor:
 
-Open the frontend URL that `base44 dev` prints (typically `http://localhost:5173`).
+   ```sql
+   update public.profiles
+   set role = 'admin'
+   where lower(email) = lower('your-admin-email@example.com');
+   ```
 
-Notes:
+Admin permissions are enforced by database row-level security. Never grant admin roles from frontend code.
 
-- **Every fresh clone needs `base44 link`.** It writes `base44/.app.jsonc` (the app-id pointer), which is deliberately gitignored. Your app id is in the Builder URL (`app.base44.com/apps/<id>/...`); `base44 link --help` shows the non-interactive flags.
-- **`base44 dev` runs the frontend for you** (via `site.serveCommand` in this repo's `base44/config.jsonc`) — never run `npm run dev` yourself: alone it serves a UI with no backend behind it (`[base44] Proxy not enabled`, every `/api` call fails), and alongside `base44 dev` the second Vite silently takes the next port and you end up looking at the wrong one.
-- **The app must be published at least once for the UI to load under `base44 dev`.** The frontend boots by fetching app settings from the hosted app; before the first publish that fails and every page redirects to login. The local API works regardless.
-- Entities, functions, and auth run locally — entity data is **in-memory only**, wiped when `base44 dev` restarts. Everything else (Core integrations, OAuth login) is forwarded to your deployed app. Full breakdown: [Local development overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview).
+### Existing Base44 data and users
 
-### Run a local-only UI demo (no Base44 account required)
+The app now reads and writes to Supabase. It does not automatically copy Base44 records. Existing rituals, categories, purchases, sessions, favorites, and journal entries remain in Base44 until exported and imported separately. The migration SQL only prepares an empty Supabase schema.
 
-This checkout includes a local demo admin identity and sample rituals for manually testing the UI without a Base44 app or CLI. From the project root:
+Base44 password hashes and sessions are not transferred to Supabase Auth. Existing users must create/reset their account in Supabase. Review any historical purchases before importing entitlements: the old checkout was a mock flow and did not verify real payment.
 
-```bash
-npm run dev -- --host 127.0.0.1
-```
+## Vercel deployment
 
-Open the local URL printed by Vite, then sign in at `/login` with:
+In the Vercel project settings, add these environment variables for every environment you use (Production, Preview, and Development as applicable):
 
-- Email: `demo.admin@ritualos.test`
-- Password: `RitualOS-local-2026!`
+- `VITE_SUPABASE_URL` — the Supabase project URL.
+- `VITE_SUPABASE_PUBLISHABLE_KEY` — the Supabase publishable key.
 
-The local-only credentials are configured in the ignored `.env.local` file. Change them there if needed, then restart Vite. Demo sign-in is enabled only in Vite development mode and is not a real Base44 account. The demo admin dashboard includes the same tabs as the connected admin (Overview, Rituals, Categories, Users, Purchases, Completions, Reminders, and Database). Rituals and categories can be created, edited, published, and deleted; these changes persist in this browser's local storage and only affect this local demo catalog. Purchases, completions, and reminder delivery require a connected backend and are not simulated offline. The demo does not sync to Base44 or any shared production site. Do not deploy the demo credentials or use this mode for production.
+Then redeploy so Vite embeds the values in the new build. Do not set or expose a `service_role` key in Vercel frontend variables. The checked-in `vercel.json` rewrites client-side routes, including `/login` and `/reset-password`, to the SPA entry point.
 
-### Production login
+The build command is `npm run build` and the output directory is `dist`.
 
-The local demo credentials cannot authenticate on a live site. Production users must sign in with an account registered to the connected Base44 app, or register a new account. When deploying outside Base44, provide the app's `VITE_BASE44_APP_ID` as a build-time environment variable and rebuild the frontend; without it, authentication requests cannot reach the correct app. Configure the static host to serve `index.html` for client-side routes such as `/login` and `/admin`.
+## Operational limitations
 
-### Test with a real Base44 app
-
-There is no shared demo admin account or seeded ritual data in this repository. For a safe test setup:
-
-1. Link the clone to your Base44 app and publish it once, as described above.
-2. Start `base44 dev`, register your own test account at `/register`, and complete email verification.
-3. Promote that account to the `admin` role in the Base44 dashboard. Admin permissions are managed by Base44; do not grant admin access from frontend code or use a hard-coded shared password.
-4. Open `/admin` to create a category and ritual, add its steps, and publish it. Public pages show published rituals only.
-
-The local database is temporary. Recreate demo categories and rituals after restarting the local backend, or add content in the hosted app if you are testing with `base44 dev --remote` (which writes to production data).
-
-## Frontend Only, Hosted Backend
-
-To work on just the frontend against your app's live hosted backend:
-
-```bash
-base44 dev --remote
-```
-
-⚠️ In this mode writes go to your app's **production data** — plain `base44 dev` keeps everything local.
-
-## Publish Your Changes
-
-After pushing your changes to git, open the Base44 dashboard and publish the app:
-
-```bash
-base44 dashboard open
-```
-
-This repo syncs to Base44 through git, so publish from the dashboard rather than `base44 deploy` — a CLI deploy ships your local tree directly, bypassing the sync, and the deployed state silently diverges from the repo.
-
-## Docs & Support
-
-GitHub integration: [https://docs.base44.com/developers/app-code/local-development/github](https://docs.base44.com/developers/app-code/local-development/github)
-
-Local development: [https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+- Paid checkout is intentionally disabled until a server-verified payment provider is integrated; the previous mock checkout did not charge customers.
+- Reminder emails are disabled until a server-side email provider/function is configured.
+- Multi-factor sign-in is not yet implemented for Supabase; the former MFA handoff was Base44-specific.
