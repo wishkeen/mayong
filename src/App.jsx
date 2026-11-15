@@ -40,6 +40,17 @@ const AuthenticatedApp = () => {
     );
   }
 
+  if (authError?.type === 'config_error') {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-background px-4">
+        <section className="max-w-lg rounded-2xl border border-border bg-card p-8 text-center shadow-sm" role="alert">
+          <h1 className="text-2xl font-semibold text-foreground">App configuration required</h1>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{authError.message}</p>
+        </section>
+      </main>
+    );
+  }
+
   // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
