@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 30% 4%;
+    --foreground: 42 39% 94%;
+    --card: 249 24% 11%;
+    --card-foreground: 42 39% 94%;
+    --popover: 249 24% 11%;
+    --popover-foreground: 42 39% 94%;
+    --primary: 42 57% 63%;
+    --primary-foreground: 250 30% 4%;
+    --secondary: 249 24% 16%;
+    --secondary-foreground: 42 39% 94%;
+    --muted: 249 20% 16%;
+    --muted-foreground: 259 10% 68%;
+    --accent: 259 51% 62%;
+    --accent-foreground: 42 39% 94%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 42 39% 94%;
+    --border: 249 24% 18%;
+    --input: 249 24% 20%;
+    --ring: 42 57% 63%;
+    --radius: 1rem;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-background: 249 24% 11%;
+    --sidebar-foreground: 42 39% 94%;
+    --sidebar-primary: 42 57% 63%;
+    --sidebar-primary-foreground: 250 30% 4%;
+    --sidebar-accent: 249 24% 16%;
+    --sidebar-accent-foreground: 42 39% 94%;
+    --sidebar-border: 249 24% 18%;
+    --sidebar-ring: 42 57% 63%;
+    --chart-1: 42 57% 63%;
+    --chart-2: 259 51% 62%;
+    --chart-3: 249 24% 40%;
+    --chart-4: 0 70% 50%;
+    --chart-5: 259 10% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    background-color: #08070D;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .bg-mystic {
+    background:
+      radial-gradient(circle at 50% -10%, rgba(139, 108, 207, 0.18), transparent 45%),
+      radial-gradient(circle at 90% 10%, rgba(214, 181, 106, 0.10), transparent 40%),
+      #08070D;
+  }
+  .glow-gold { box-shadow: 0 0 40px rgba(214, 181, 106, 0.18); }
+  .glow-violet { box-shadow: 0 0 40px rgba(139, 108, 207, 0.20); }
+  .text-gradient-gold {
+    background: linear-gradient(120deg, #D6B56A 0%, #F5F1E8 50%, #8B6CCF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
