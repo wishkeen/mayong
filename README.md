@@ -48,6 +48,10 @@ Open the local URL printed by Vite, then sign in at `/login` with:
 
 The local-only credentials are configured in the ignored `.env.local` file. Change them there if needed, then restart Vite. Demo sign-in is enabled only in Vite development mode and is not a real Base44 account. The demo admin dashboard includes the same tabs as the connected admin (Overview, Rituals, Categories, Users, Purchases, Completions, Reminders, and Database). Rituals and categories can be created, edited, published, and deleted; these changes persist in this browser's local storage and only affect this local demo catalog. Purchases, completions, and reminder delivery require a connected backend and are not simulated offline. The demo does not sync to Base44 or any shared production site. Do not deploy the demo credentials or use this mode for production.
 
+### Production login
+
+The local demo credentials cannot authenticate on a live site. Production users must sign in with an account registered to the connected Base44 app, or register a new account. When deploying outside Base44, provide the app's `VITE_BASE44_APP_ID` as a build-time environment variable and rebuild the frontend; without it, authentication requests cannot reach the correct app. Configure the static host to serve `index.html` for client-side routes such as `/login` and `/admin`.
+
 ### Test with a real Base44 app
 
 There is no shared demo admin account or seeded ritual data in this repository. For a safe test setup:
