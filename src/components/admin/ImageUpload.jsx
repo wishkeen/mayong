@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { ImageIcon, Loader2, Upload, X } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { uploadRitualAsset } from "@/api/supabaseStorage";
 import { Image } from "@/components/ui/image";
 
 /**
@@ -17,7 +17,7 @@ export default function ImageUpload({ value, onChange }) {
     setError("");
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
+      const { file_url } = await uploadRitualAsset(file);
       onChange(file_url);
     } catch (e) {
       console.error("Image upload failed", e);

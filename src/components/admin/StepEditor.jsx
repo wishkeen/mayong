@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import AudioUpload from "@/components/admin/AudioUpload";
 import StepTranslations from "@/components/admin/StepTranslations";
 
@@ -27,7 +27,7 @@ export default function StepEditor({ ritual, onBack }) {
 
   const load = async () => {
     setLoading(true);
-    const all = await base44.entities.RitualStep.filter({ ritual_id: ritual.id });
+    const all = await supabaseEntities.RitualStep.filter({ ritual_id: ritual.id });
     setSteps(all.sort((a, b) => a.order - b.order));
     setLoading(false);
   };
@@ -38,7 +38,7 @@ export default function StepEditor({ ritual, onBack }) {
 
   const addStep = async () => {
     const order = steps.length;
-    const created = await base44.entities.RitualStep.create({ ritual_id: ritual.id, order, ...blank });
+    const created = await supabaseEntities.RitualStep.create({ ritual_id: ritual.id, order, ...blank });
     setSteps([...steps, created]);
   };
 
@@ -49,7 +49,7 @@ export default function StepEditor({ ritual, onBack }) {
   const setAudio = async (id, url) => {
     updateField(id, "audio_url", url);
     try {
-      await base44.entities.RitualStep.update(id, { audio_url: url });
+      await supabaseEntities.RitualStep.update(id, { audio_url: url });
     } catch (e) {
       console.error(e);
     }
@@ -58,7 +58,7 @@ export default function StepEditor({ ritual, onBack }) {
   const saveStep = async (st) => {
     setSavingId(st.id);
     try {
-      await base44.entities.RitualStep.update(st.id, {
+      await supabaseEntities.RitualStep.update(st.id, {
         type: st.type, title: st.title, content: st.content,
         repetitions: Number(st.repetitions) || 0,
         duration_seconds: Number(st.duration_seconds) || 0, audio_url: st.audio_url,
@@ -70,7 +70,7 @@ export default function StepEditor({ ritual, onBack }) {
   };
 
   const removeStep = async (st) => {
-    await base44.entities.RitualStep.delete(st.id);
+    await supabaseEntities.RitualStep.delete(st.id);
     await load();
   };
 
@@ -79,8 +79,8 @@ export default function StepEditor({ ritual, onBack }) {
     const j = i + dir;
     if (j < 0 || j >= steps.length) return;
     const a = steps[i], b = steps[j];
-    await base44.entities.RitualStep.update(a.id, { order: j });
-    await base44.entities.RitualStep.update(b.id, { order: i });
+    await supabaseEntities.RitualStep.update(a.id, { order: j });
+    await supabaseEntities.RitualStep.update(b.id, { order: i });
     await load();
   };
 

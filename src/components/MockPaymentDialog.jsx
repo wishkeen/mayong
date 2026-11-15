@@ -1,35 +1,30 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Lock, ShieldCheck, Sparkles } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { Lock, ShieldCheck } from "lucide-react";
+import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import { formatPrice } from "@/lib/rituals";
 
 export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState("");
   if (!ritual) return null;
+  const isFree = Number(ritual.price) === 0;
 
   const pay = async () => {
+    if (!isFree) return;
     setProcessing(true);
+    setError("");
     try {
-      const order = await base44.entities.Order.create({
+      await supabaseEntities.Entitlement.create({
         user_id: user.id,
         ritual_id: ritual.id,
-        ritual_name: ritual.name,
-        amount: ritual.price,
-        status: "paid",
-        payment_mode: "mock",
-        payment_id: "mock_" + Math.random().toString(36).slice(2, 12),
-      });
-      await base44.entities.Entitlement.create({
-        user_id: user.id,
-        ritual_id: ritual.id,
-        order_id: order.id,
       });
       onSuccess?.();
     } catch (e) {
       console.error("Mock payment failed", e);
+      setError(e.message || "Could not unlock this ritual. Please try again.");
     } finally {
       setProcessing(false);
     }
@@ -41,16 +36,18 @@ export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) 
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 rounded text-[10px] tracking-widest uppercase bg-[#8B6CCF]/20 text-[#8B6CCF] border border-[#8B6CCF]/40">
-              Test Mode
+              {isFree ? "Free access" : "Checkout unavailable"}
             </span>
-            <DialogTitle className="font-display text-xl text-[#F5F1E8]">Checkout</DialogTitle>
+            <DialogTitle className="font-display text-xl text-[#F5F1E8]">{isFree ? "Unlock ritual" : "Paid checkout"}</DialogTitle>
           </div>
           <DialogDescription className="text-[#AAA5B5]">
-            Mock Razorpay-style checkout. No real charge is made — this unlocks the ritual for your account.
+            {isFree
+              ? "This ritual is free. Unlock it for your account."
+              : "Paid checkout is not configured. No charge or access will be created until a secure payment provider is connected."}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
+        {isFree && <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#AAA5B5]">{ritual.name}</span>
             <span className="font-display text-2xl text-[#D6B56A]">{formatPrice(ritual.price)}</span>
@@ -73,24 +70,27 @@ export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) 
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
         <button
           onClick={pay}
-          disabled={processing}
+          disabled={processing || !isFree}
           className="mt-4 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide flex items-center justify-center gap-2 disabled:opacity-60 glow-gold"
         >
           {processing ? (
             "Processing…"
           ) : (
             <>
-              <Lock className="w-4 h-4" /> Pay {formatPrice(ritual.price)} & Unlock
+              <Lock className="w-4 h-4" /> {isFree ? "Unlock free ritual" : "Paid checkout unavailable"}
             </>
           )}
         </button>
-        <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-[#AAA5B5]">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#D6B56A]" /> Secured · Test transaction
-        </p>
+        {error && <p className="mt-3 text-center text-xs text-[#e0a0a0]" role="alert">{error}</p>}
+        {isFree && (
+          <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-[#AAA5B5]">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#D6B56A]" /> No payment required
+          </p>
+        )}
       </DialogContent>
     </Dialog>
   );

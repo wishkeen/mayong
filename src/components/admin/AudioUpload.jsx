@@ -1,19 +1,22 @@
 import React, { useState, useRef } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { uploadRitualAsset } from "@/api/supabaseStorage";
 
 export default function AudioUpload({ value, onChange }) {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
   const inputRef = useRef(null);
 
   const handleFile = async (file) => {
     if (!file) return;
+    setError("");
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
+      const { file_url } = await uploadRitualAsset(file);
       onChange(file_url);
     } catch (e) {
       console.error("Audio upload failed", e);
+      setError(e.message || "Upload failed. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -31,7 +34,7 @@ export default function AudioUpload({ value, onChange }) {
   }
 
   return (
-    <>
+    <div>
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
@@ -51,6 +54,7 @@ export default function AudioUpload({ value, onChange }) {
         className="hidden"
         onChange={(e) => handleFile(e.target.files?.[0])}
       />
-    </>
+      {error && <p className="mt-1.5 text-[11px] text-[#c97a7a]">{error}</p>}
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 
 function slugify(s) {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -37,9 +37,9 @@ export default function CategoryForm({ open, category, onClose, onSaved }) {
         description: description.trim(),
       };
       if (category) {
-        await base44.entities.Category.update(category.id, payload);
+        await supabaseEntities.Category.update(category.id, payload);
       } else {
-        await base44.entities.Category.create({ ...payload, sort_order: 999 });
+        await supabaseEntities.Category.create({ ...payload, sort_order: 999 });
       }
       onSaved();
       onClose();

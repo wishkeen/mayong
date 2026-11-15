@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { base44 } from "@/api/base44Client";
+import { supabaseEntities } from "@/api/supabaseData";
 import ImageUpload from "@/components/admin/ImageUpload";
 
 const DIFFICULTIES = ["Beginner", "Intermediate", "Advanced"];
@@ -53,9 +53,9 @@ export default function RitualForm({ open, ritual, categories, onClose, onSaved 
         is_featured: !!form.is_featured,
       };
       if (ritual) {
-        await base44.entities.Ritual.update(ritual.id, payload);
+        await supabaseEntities.Ritual.update(ritual.id, payload);
       } else {
-        await base44.entities.Ritual.create(payload);
+        await supabaseEntities.Ritual.create(payload);
       }
       onSaved?.();
       onClose?.();
