@@ -1,0 +1,8 @@
+argostranslate==1.11.0
+fastapi==0.115.4
+huggingface-hub==0.26.2
+indictranstoolkit==1.1.1
+pydantic==2.9.2
+sentencepiece==0.2.0
+transformers==4.45.2
+uvicorn[standard]==0.32.0
