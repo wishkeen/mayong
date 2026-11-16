@@ -1,7 +1,9 @@
 import React from "react";
 import { Outlet, NavLink, Link } from "react-router-dom";
-import { Home, Compass, BookMarked, BookOpen, Moon, TrendingUp, ShieldCheck } from "lucide-react";
+import { Home, Compass, BookMarked, BookOpen, TrendingUp, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { useBranding } from "@/lib/BrandingContext";
+import BrandLogo from "@/components/BrandLogo";
 
 const navItems = [
   { to: "/", label: "Home", icon: Home, end: true },
@@ -13,6 +15,7 @@ const navItems = [
 
 export default function Layout() {
   const { isAuthenticated, user, demoMode } = useAuth();
+  const { branding } = useBranding();
   const visibleNavItems = demoMode
     ? [
         ...navItems.slice(0, 2),
@@ -25,14 +28,22 @@ export default function Layout() {
       <div className="max-w-md mx-auto min-h-screen flex flex-col relative">
         <header className="px-5 pt-5 pb-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#D6B56A] to-[#8B6CCF] flex items-center justify-center glow-gold">
-              <Moon className="w-4 h-4 text-[#08070D]" />
-            </span>
-            <span className="font-display text-xl tracking-wide text-[#F5F1E8]">RitualOS</span>
+            <BrandLogo
+              logoUrl={branding.logo_url}
+              mark={branding.app_name?.charAt(0)}
+              alt={`${branding.app_name} logo`}
+              className="w-7 h-7"
+              iconClassName="text-sm"
+            />
+            <span className="font-display text-xl tracking-wide text-[#F5F1E8]">{branding.app_name}</span>
           </Link>
           {isAuthenticated ? (
-            <Link to={demoMode ? "/admin" : "/my-rituals"} className="w-8 h-8 rounded-full border border-[#D6B56A]/40 bg-[#171522] flex items-center justify-center text-xs font-medium text-[#D6B56A]">
-              {(user?.email || user?.full_name || "✦").charAt(0).toUpperCase()}
+            <Link
+              to="/profile"
+              aria-label="Open profile"
+              className="w-8 h-8 rounded-full border border-[#D6B56A]/40 bg-[#171522] flex items-center justify-center text-xs font-medium text-[#D6B56A] hover:border-[#D6B56A] transition-colors"
+            >
+              {(user?.full_name || user?.email || "✦").charAt(0).toUpperCase()}
             </Link>
           ) : (
             <Link to="/login" className="text-xs tracking-wide text-[#AAA5B5] hover:text-[#D6B56A] transition-colors">
@@ -59,6 +70,7 @@ export default function Layout() {
                       isActive ? "text-[#D6B56A]" : "text-[#AAA5B5]"
                     }`
                   }
+                  style={({ isActive }) => isActive ? { color: branding.accent_color } : undefined}
                 >
                   <Icon className="w-5 h-5" />
                   {item.label}
