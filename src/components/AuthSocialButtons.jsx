@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Facebook, Loader2 } from "lucide-react";
 import { requireSupabase } from "@/api/supabaseClient";
-import { AUTH_PROVIDER_MIGRATION, getAuthProviderSettings } from "@/api/authProviders";
+import { getAuthProviderSettings } from "@/api/authProviders";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/components/GoogleIcon";
 
@@ -10,21 +10,12 @@ const PROVIDERS = [
   { id: "facebook", label: "Facebook", icon: Facebook },
 ];
 
-function getOAuthErrorMessage(error, providerLabel) {
-  const providerDisabled =
-    error?.error_code === "validation_failed" &&
-    /unsupported provider|provider is not enabled/i.test(error?.msg || error?.message || "");
-
-  if (providerDisabled) {
-    return `${providerLabel} sign-in is not enabled in Supabase yet. In your Supabase dashboard, open Authentication → Sign In / Providers → ${providerLabel}, add the OAuth Client ID and Secret, enable the provider, and save. Then try again.`;
-  }
-
-  return error?.message || `${providerLabel} sign-in could not start. Please try again.`;
+function getOAuthErrorMessage(providerLabel) {
+  return `${providerLabel} sign-in could not start. Please try again or use your email and password.`;
 }
 
 export default function AuthSocialButtons({ returnTo = "/" }) {
   const [settings, setSettings] = useState(null);
-  const [settingsError, setSettingsError] = useState("");
   const [loadingProvider, setLoadingProvider] = useState("");
   const [authError, setAuthError] = useState("");
 
@@ -36,11 +27,6 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
       })
       .catch((error) => {
         console.error("Could not load social sign-in settings:", error);
-        if (active) {
-          setSettingsError(
-            `Social sign-in settings are unavailable. Apply ${AUTH_PROVIDER_MIGRATION} and reload.`
-          );
-        }
       });
 
     return () => {
@@ -63,7 +49,7 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
       if (error) throw error;
     } catch (error) {
       console.error(`${provider} OAuth could not start:`, error);
-      setAuthError(getOAuthErrorMessage(error, providerLabel));
+      setAuthError(getOAuthErrorMessage(providerLabel));
       setLoadingProvider("");
     }
   };
@@ -72,21 +58,7 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
     settings?.[`${provider.id}_enabled`] && settings?.[`${provider.id}_configured`]
   );
 
-  if (settingsError) {
-    return (
-      <div className="mb-5 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive" role="alert">
-        {settingsError}
-      </div>
-    );
-  }
-
-  if (enabledProviders.length === 0) {
-    return (
-      <p className="mb-5 text-sm text-muted-foreground">
-        Social sign-in is not currently enabled. You can continue with email and password.
-      </p>
-    );
-  }
+  if (!settings || enabledProviders.length === 0) return null;
 
   return (
     <div className="mb-6 space-y-3">
@@ -117,10 +89,16 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
         </Button>
       ))}
       {authError && (
-        <p className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive" role="alert">
+        <p className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive" role="alert" aria-live="polite">
           {authError}
         </p>
       )}
+      <div className="relative pt-2">
+        <div className="absolute inset-x-0 top-1/2 border-t border-border" />
+        <div className="relative flex justify-center text-xs uppercase tracking-wider">
+          <span className="bg-card px-3 text-muted-foreground">or continue with email</span>
+        </div>
+      </div>
     </div>
   );
 }
