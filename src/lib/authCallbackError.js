@@ -15,29 +15,21 @@ export function getAuthCallbackError(urlLike) {
 
   if (description.includes("unable to exchange external code")) {
     return {
-      title: "Social sign-in could not be completed",
-      message: "The provider returned you to Supabase, but Supabase Auth could not exchange the authorization code for account tokens. This usually means the provider's Client ID and Client Secret saved in Supabase do not belong to the same OAuth app, or the secret is incorrect or expired.",
-      steps: [
-        "Open the OAuth app for the provider you selected (for Google, use Google Cloud Console) and locate the web OAuth client used for RitualOS.",
-        "Confirm its authorized redirect URI exactly matches the Supabase callback URL shown in Admin → Social sign-in.",
-        "Copy the Client ID and current Client Secret from that same OAuth client into the matching provider under Supabase → Authentication → Sign In / Providers, then save.",
-        "Retry in a private window. If it still fails, inspect Supabase Auth logs at the time of the attempt; the provider token-exchange response will give the specific cause.",
-      ],
+      title: "We couldn’t complete sign-in",
+      message: "Please try again. You can also sign in with your email and password.",
     };
   }
 
   if (errorCode === "access_denied") {
     return {
       title: "Sign-in was not completed",
-      message: "The sign-in provider denied or canceled the request. You can try again or use email and password.",
-      steps: [],
+      message: "You can try again or sign in with your email and password.",
     };
   }
 
   return {
-    title: "Social sign-in failed",
-    message: "The identity provider or Supabase Auth could not complete the sign-in. Check the provider configuration and allowed redirect URLs, then try again.",
-    steps: [],
+    title: "We couldn’t complete sign-in",
+    message: "Please try again. You can also sign in with your email and password.",
   };
 }
 
