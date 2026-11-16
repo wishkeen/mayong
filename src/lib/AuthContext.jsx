@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { getSupabaseConfigurationError, isSupabaseConfigured, supabase } from "@/api/supabaseClient";
+import { supabaseEntities } from "@/api/supabaseData";
 
 const AuthContext = createContext(null);
 
@@ -145,6 +146,19 @@ export const AuthProvider = ({ children }) => {
     if (shouldRedirect) window.location.assign("/login");
   };
 
+  const updateProfile = useCallback(async (values) => {
+    if (!user?.id) throw new Error("Sign in to update your profile.");
+    const allowedFields = ["full_name", "preferred_language", "avatar_url"];
+    const updates = Object.fromEntries(
+      Object.entries(values).filter(([field]) => allowedFields.includes(field))
+    );
+    if (Object.keys(updates).length === 0) throw new Error("There are no profile changes to save.");
+
+    const savedProfile = await supabaseEntities.User.update(user.id, updates);
+    setUser((current) => current?.id === user.id ? { ...current, ...savedProfile } : current);
+    return savedProfile;
+  }, [user?.id]);
+
   const navigateToLogin = () => {
     const returnTo = window.location.pathname + window.location.search;
     window.location.assign(`/login?returnTo=${encodeURIComponent(returnTo)}`);
@@ -161,6 +175,7 @@ export const AuthProvider = ({ children }) => {
       appPublicSettings,
       authChecked,
       logout,
+      updateProfile,
       navigateToLogin,
       checkUserAuth,
       checkAppState,

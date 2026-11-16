@@ -1,12 +1,14 @@
+import React, { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import { BrandingProvider } from '@/lib/BrandingContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { getAuthCallbackError, getUrlWithoutAuthError } from '@/lib/authCallbackError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here
 import Home from '@/pages/Home';
@@ -30,6 +32,39 @@ import { Navigate } from 'react-router-dom';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [callbackError, setCallbackError] = useState(null);
+
+  useEffect(() => {
+    const error = getAuthCallbackError(window.location.href);
+    if (!error) return;
+
+    setCallbackError(error);
+    navigate(getUrlWithoutAuthError(window.location.href), { replace: true });
+  }, [location.key, navigate]);
+
+  if (callbackError) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-background px-4 py-10">
+        <section className="w-full max-w-xl rounded-2xl border border-border bg-card p-8 shadow-sm" role="alert">
+          <h1 className="text-2xl font-semibold text-foreground">{callbackError.title}</h1>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{callbackError.message}</p>
+          {callbackError.steps.length > 0 && (
+            <ol className="mt-5 list-decimal space-y-2 pl-5 text-sm leading-6 text-foreground">
+              {callbackError.steps.map((step) => <li key={step}>{step}</li>)}
+            </ol>
+          )}
+          <Link
+            to="/login"
+            className="mt-6 inline-flex h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground hover:opacity-90"
+          >
+            Back to login
+          </Link>
+        </section>
+      </main>
+    );
+  }
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {

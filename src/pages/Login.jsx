@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
-import GoogleIcon from "@/components/GoogleIcon";
+import AuthSocialButtons from "@/components/AuthSocialButtons";
 import { safeReturnTo } from "@/lib/authReturnTo";
 
 export default function Login() {
@@ -14,7 +14,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
   // Post-login destination (e.g. the MCP OAuth consent page sends users here
   // with returnTo so the grant flow can resume). Same-origin paths only.
   const returnTo = safeReturnTo();
@@ -31,21 +30,6 @@ export default function Login() {
       setError(err.message || "Invalid email or password");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogle = async () => {
-    setError("");
-    setGoogleLoading(true);
-    try {
-      const { error } = await requireSupabase().auth.signInWithOAuth({
-        provider: "google",
-        options: { redirectTo: `${window.location.origin}${returnTo}` },
-      });
-      if (error) throw error;
-    } catch (err) {
-      setError(err.message || "Google sign-in could not start. Please try again.");
-      setGoogleLoading(false);
     }
   };
 
@@ -69,25 +53,7 @@ export default function Login() {
       <p className="mb-4 text-sm text-muted-foreground">
         Use an account registered with this Supabase project. Local demo credentials are not production accounts.
       </p>
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full h-12 text-sm font-medium mb-6"
-        onClick={handleGoogle}
-        disabled={loading || googleLoading}
-      >
-        {googleLoading ? (
-          <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Connecting...
-          </>
-        ) : (
-          <>
-            <GoogleIcon className="w-5 h-5 mr-2" />
-            Continue with Google
-          </>
-        )}
-      </Button>
+      <AuthSocialButtons returnTo={returnTo} />
 
       <div className="relative mb-6">
         <div className="absolute inset-0 flex items-center">

@@ -5,11 +5,10 @@ import { useAuth } from "@/lib/AuthContext";
 import AdminGuard from "@/components/admin/AdminGuard";
 import RitualForm from "@/components/admin/RitualForm";
 import StepEditor from "@/components/admin/StepEditor";
-import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette } from "lucide-react";
+import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette, KeyRound } from "lucide-react";
 import DatabaseSettings from "@/components/admin/DatabaseSettings";
 import BrandingSettings from "@/components/admin/BrandingSettings";
-import GoogleAuthSettings from "@/components/admin/GoogleAuthSettings";
-import GoogleIcon from "@/components/GoogleIcon";
+import SocialAuthSettings from "@/components/admin/SocialAuthSettings";
 import BrandLogo from "@/components/BrandLogo";
 import { useBranding } from "@/lib/BrandingContext";
 import { formatPrice, difficultyColor, PRACTICE_LABELS } from "@/lib/rituals";
@@ -25,7 +24,7 @@ const TABS = [
   { key: "orders", label: "Purchases", icon: ShoppingBag },
   { key: "sessions", label: "Completions", icon: CheckCircle },
   { key: "reminders", label: "Reminders", icon: Bell },
-  { key: "google", label: "Google Sign-in", icon: GoogleIcon },
+  { key: "social-auth", label: "Social sign-in", icon: KeyRound },
   { key: "branding", label: "Branding", icon: Palette },
   { key: "database", label: "Database", icon: Database },
 ];
@@ -129,7 +128,14 @@ function AdminInner() {
     <div className="min-h-screen bg-mystic text-[#F5F1E8] max-w-3xl mx-auto px-5 py-6">
       <header className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
-          <BrandLogo logoUrl={branding.logo_url} alt={branding.app_name} className="w-8 h-8" iconClassName="w-4 h-4" />
+          <BrandLogo
+            logoUrl={branding.logo_url}
+            mark={branding.app_name?.charAt(0)}
+            accentColor={branding.accent_color}
+            alt={`${branding.app_name} logo`}
+            className="w-8 h-8"
+            iconClassName="w-4 h-4"
+          />
           <div>
             <h1 className="font-display text-2xl leading-none">{branding.app_name} Admin</h1>
             <p className="text-[11px] text-[#AAA5B5]">Signed in as {user?.email}</p>
@@ -287,8 +293,8 @@ function AdminInner() {
             </div>
           ))}
         </div>
-      ) : tab === "google" ? (
-        <GoogleAuthSettings />
+      ) : tab === "social-auth" ? (
+        <SocialAuthSettings />
       ) : tab === "branding" ? (
         <BrandingSettings />
       ) : tab === "database" ? (

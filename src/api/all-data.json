@@ -1,0 +1,3381 @@
+{
+  "format": "ritualos-backup",
+  "version": 1,
+  "created_at": "2026-11-16T10:12:21.407Z",
+  "created_by": "arnab.piri@gmail.com",
+  "content_collections": [
+    "AppBranding",
+    "Category",
+    "Ritual",
+    "RitualStep"
+  ],
+  "activity_collections": [
+    "RitualSession",
+    "JournalEntry",
+    "Favorite",
+    "Order",
+    "Entitlement"
+  ],
+  "counts": {
+    "AppBranding": 1,
+    "Category": 6,
+    "Ritual": 17,
+    "RitualStep": 71,
+    "RitualSession": 31,
+    "JournalEntry": 63,
+    "Favorite": 1,
+    "Order": 25,
+    "Entitlement": 25
+  },
+  "total": 240,
+  "truncated": [],
+  "data": {
+    "AppBranding": [
+      {
+        "app_name": "MAYONG",
+        "description": "Guided traditional & spiritual rituals, performed step by step.",
+        "logo_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/953e1d9c8_Om.jpg",
+        "icon_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/875418259_Om.jpg",
+        "id": "6ae2c851f54c4f7d537a253e"
+      }
+    ],
+    "Category": [
+      {
+        "name": "Health",
+        "slug": "health-rituals",
+        "icon": "💊",
+        "description": "Health Rituals",
+        "sort_order": 999,
+        "id": "6abcac56191bb3d5cbcf0444"
+      },
+      {
+        "name": "Protection & Spiritual",
+        "slug": "protection-spiritual",
+        "icon": "🛡️",
+        "description": "Cleansing, shielding and spiritual fortification.",
+        "sort_order": 4,
+        "id": "6aa79d62fabf9a846fe94c7b"
+      },
+      {
+        "name": "Other Rituals",
+        "slug": "other-rituals",
+        "icon": "✨",
+        "description": "Moon cycles, intentions and symbolic rites.",
+        "sort_order": 5,
+        "id": "6aa79d62fabf9a846fe94c7c"
+      },
+      {
+        "name": "Love & Relationship",
+        "slug": "love-relationship",
+        "icon": "❤️",
+        "description": "Connection, harmony and heart-centered practices.",
+        "sort_order": 3,
+        "id": "6aa79d62fabf9a846fe94c7a"
+      },
+      {
+        "name": "Money & Prosperity",
+        "slug": "money-prosperity",
+        "icon": "💰",
+        "description": "Abundance, wealth and intention rituals.",
+        "sort_order": 2,
+        "id": "6aa79d62fabf9a846fe94c79"
+      },
+      {
+        "name": "Mantra & Chanting",
+        "slug": "mantra-chanting",
+        "icon": "🔮",
+        "description": "Sacred sound and vibrational practices.",
+        "sort_order": 1,
+        "id": "6aa79d3f1851176f18c03264"
+      }
+    ],
+    "Ritual": [
+      {
+        "name": "Area Protection for 47 Days",
+        "category_id": "6aa79d62fabf9a846fe94c7b",
+        "category_slug": "protection-spiritual",
+        "category_name": "Protection & Spiritual",
+        "description": "By chanting this mantra you can protect any area around you within 2 minutes. No negative energy, wild animals and danger situations will been entered within that area for 47 days.",
+        "duration_minutes": 2,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/25d27a43d_Area-Protect.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6af670e7c59602949fc2557d"
+      },
+      {
+        "name": "REMOVE NEGATIVE ENERGY",
+        "category_id": "6aa79d62fabf9a846fe94c7b",
+        "category_slug": "protection-spiritual",
+        "category_name": "Protection & Spiritual",
+        "description": "Cut any Tantra kriya like Mohini, Vashikaran, Maran, Ucchatan, Bideshan anything like this.",
+        "duration_minutes": 5,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/695ae7f18_remove-obstucles.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "intention",
+        "sort_order": 0,
+        "id": "6af2f30b9e540785d7d0ae89"
+      },
+      {
+        "name": "Ultimate Health, Wealth & Success",
+        "category_id": "6aa79d3f1851176f18c03264",
+        "category_slug": "mantra-chanting",
+        "category_name": "Mantra & Chanting",
+        "description": "Transform your life with this powerful Siddha Bengali Mantra. Chant it daily to attract supreme physical energy, sharp intellect, divine blessings of Goddess Lakshmi and Saraswati, and ultimate health, wealth, and prosperity.",
+        "duration_minutes": 15,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/b9e4932ac_Health-welath-prospirity.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "spiritual",
+        "sort_order": 0,
+        "id": "6ae4474bad92e967a46e3415"
+      },
+      {
+        "name": "BIND ANYONE's HOUSE",
+        "category_id": "6aa79d62fabf9a846fe94c7b",
+        "category_slug": "protection-spiritual",
+        "category_name": "Protection & Spiritual",
+        "description": "Mantra to bind someone's house while sitting far away.",
+        "duration_minutes": 1,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/0d854cc57_bind-anyones-home.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "spiritual",
+        "sort_order": 0,
+        "id": "6ae2cc5e76b1fa998ccaf66b"
+      },
+      {
+        "name": "BODY PROTECTION 7.5 DAYS",
+        "category_id": "6aa79d62fabf9a846fe94c7b",
+        "category_slug": "protection-spiritual",
+        "category_name": "Protection & Spiritual",
+        "description": "This ritualistic chant functions as a sacred spiritual shield designed to bind and protect an individual's physical body from negative energies, malevolent spirits, and occult harms for exactly seven and a half days.",
+        "duration_minutes": 5,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/73eaf06c9_body-protection-75-days.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "spiritual",
+        "sort_order": 0,
+        "id": "6ae1b25103dc95ff4ca15689"
+      },
+      {
+        "name": "Half-Headache Relief",
+        "category_id": "6abcac56191bb3d5cbcf0444",
+        "category_slug": "health-rituals",
+        "category_name": "Health",
+        "description": "The mantra is a plea to various deities like Dhanvantari (the god of medicine), Mahadev (Shiva), Baidyanath, and Narayan, as well as Goddess Kamakhya, to remove physical and half-headaches, free the 'head's vein currents', and eliminate any negative 'tantra' or 'mantra' effects in the body. The text uses a mixture of Hindi-script spellings for Bengali words.",
+        "duration_minutes": 5,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/d17080129_Headache-sardard.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "intention",
+        "sort_order": 0,
+        "id": "6adf64a5c29116db21fa8eae"
+      },
+      {
+        "name": "INCREASE MILK PRODUCTION",
+        "category_id": "6abcac56191bb3d5cbcf0444",
+        "category_slug": "health-rituals",
+        "category_name": "Health",
+        "description": "Increase the milk production of any animal like - cow, goat, buffalo etc.",
+        "duration_minutes": 15,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/ceb849aa7_Increase-Animal-Milk.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "intention",
+        "sort_order": 0,
+        "id": "6adf5e95e5dc742be079b14b"
+      },
+      {
+        "name": "PITRA DOSH REMOVAL",
+        "category_id": "6aa79d3f1851176f18c03264",
+        "category_slug": "mantra-chanting",
+        "category_name": "Mantra & Chanting",
+        "description": "By known or dont you may have Pitra Dosh so that you are not getting the exact cost of your effort by chanting this mantra can remove the PITRA DOSH from your life so that you can achieve your dreamy destination.",
+        "duration_minutes": 15,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/6d53c31b6_pitra-dosh-removal.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "spiritual",
+        "sort_order": 0,
+        "id": "6ade0bf2a4821e3fdbf08ece"
+      },
+      {
+        "name": "PAIN KILLER RITUAL",
+        "category_id": "6abcac56191bb3d5cbcf0444",
+        "category_slug": "health-rituals",
+        "category_name": "Health",
+        "description": "THIS RITUAL WILL REMOVE ANY TYPE OF PAIN FROM YOUR BODY IMMEDIATELY.",
+        "duration_minutes": 2,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/fe97e6681_image_92470de4.jpg",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6abcbd6faac7de89b061aa9e"
+      },
+      {
+        "name": "GAS ACIDITY RITUAL",
+        "category_id": "6abcac56191bb3d5cbcf0444",
+        "category_slug": "health-rituals",
+        "category_name": "Health",
+        "description": "Gas Acidity Removal in 5 Minutes",
+        "duration_minutes": 1,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/64be9569b_gas-acidity-ritual.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6abcb675c010fa459611216e"
+      },
+      {
+        "name": "Feel Energetic The Whole Day",
+        "category_id": "6abcac56191bb3d5cbcf0444",
+        "category_slug": "health-rituals",
+        "category_name": "Health",
+        "description": "Feel Energetic The Whole Day, Its a Ritual designed to change your lifestyle completely in 365 Days 100% GURENTEED.",
+        "duration_minutes": 1,
+        "difficulty": "Beginner",
+        "source": "Aghor Marg",
+        "price": 0,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/43c32d24e_Vaidehi-Lipi-Mantra-Aghor-Marg.png",
+        "is_published": true,
+        "is_featured": true,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6abcb0aff288747b7b6aba7d"
+      },
+      {
+        "name": "Rekindling Connection Meditation",
+        "category_id": "6aa79d62fabf9a846fe94c7a",
+        "category_slug": "love-relationship",
+        "category_name": "Love & Relationship",
+        "description": "A meditative practice to reconnect with yourself or a loved one through gentle reflection.",
+        "duration_minutes": 20,
+        "difficulty": "Beginner",
+        "source": "Guided meditative practice. No historical provenance; reflective and intention-based.",
+        "price": 99,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/6c3bcac41_healing-img-1.png",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "meditative",
+        "sort_order": 0,
+        "id": "6aa79d6255375454f2a820ae"
+      },
+      {
+        "name": "Mahamrityunjaya Healing Mantra",
+        "category_id": "6aa79d3f1851176f18c03264",
+        "category_slug": "mantra-chanting",
+        "category_name": "Mantra & Chanting",
+        "description": "A meditative chant traditionally associated with healing, protection and inner strength.",
+        "duration_minutes": 30,
+        "difficulty": "Intermediate",
+        "source": "From the Rigveda (Tryambakam Yajamahe). Recited as a meditative practice. Sample presentation.",
+        "price": 149,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/a78cc68a8_maha-mrityunjaya.png",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6aa79d6255375454f2a820aa"
+      },
+      {
+        "name": "Full Moon Release Ritual",
+        "category_id": "6aa79d62fabf9a846fe94c7c",
+        "category_slug": "other-rituals",
+        "category_name": "Other Rituals",
+        "description": "A symbolic rite to release what no longer serves you at the full moon.",
+        "duration_minutes": 16,
+        "difficulty": "Beginner",
+        "source": "Modern moon-cycle practice. Symbolic and reflective.",
+        "price": 79,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/a8e642b9e_image_dfcd6ba4.jpg",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "symbolic",
+        "sort_order": 0,
+        "id": "6aa79d6255375454f2a820b1"
+      },
+      {
+        "name": "Ganesh Mantra for Removing Obstacles",
+        "category_id": "6aa79d62fabf9a846fe94c79",
+        "category_slug": "money-prosperity",
+        "category_name": "Money & Prosperity",
+        "description": "A traditional invocation of Ganesha to clear the path before new beginnings.",
+        "duration_minutes": 15,
+        "difficulty": "Beginner",
+        "source": "Traditional Hindu devotional practice invoking Ganesha (Vakratunda Mahakaya). Sample wording for demonstration.",
+        "price": 99,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/6c8485b29_image_19d7d892jpg.png",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6aa79d6255375454f2a820a9"
+      },
+      {
+        "name": "Abundance Coin Bowl Ritual",
+        "category_id": "6aa79d62fabf9a846fe94c79",
+        "category_slug": "money-prosperity",
+        "category_name": "Money & Prosperity",
+        "description": "A simple symbolic rite to align intention with prosperity using everyday objects.",
+        "duration_minutes": 12,
+        "difficulty": "Beginner",
+        "source": "Modern symbolic practice. No historical provenance; for intention-setting only.",
+        "price": 79,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/8df7f9511_image_bc2298f.jpg",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "symbolic",
+        "sort_order": 0,
+        "id": "6aa79d6255375454f2a820ac"
+      },
+      {
+        "name": "Lakshmi Abundance Puja",
+        "category_id": "6aa79d62fabf9a846fe94c79",
+        "category_slug": "money-prosperity",
+        "category_name": "Money & Prosperity",
+        "description": "A symbolic prosperity practice inviting abundance through gratitude and intention.",
+        "duration_minutes": 25,
+        "difficulty": "Intermediate",
+        "source": "Inspired by traditional Lakshmi puja. Simplified for guided practice. Symbolic, not a guarantee of wealth.",
+        "price": 199,
+        "image_url": "https://base44.app/api/apps/6aa79bcff650d4746fcf0152/files/mp/public/6aa79bcff650d4746fcf0152/ce7e4138c_image_19d7d786.jpg",
+        "is_published": true,
+        "is_featured": false,
+        "practice_type": "traditional",
+        "sort_order": 0,
+        "id": "6aa79d4212ead10c9573e8d9"
+      }
+    ],
+    "RitualStep": [
+      {
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "order": 2,
+        "type": "completion",
+        "title": "Consume the Water",
+        "content": "Consume the water and take 1 long then after 4 hrs another 2nd one and after 4 hrs take last one.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eac"
+      },
+      {
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "order": 1,
+        "type": "mantra",
+        "title": "Half-Headache Relief",
+        "content": "The mantra is a plea to various deities like Dhanvantari (the god of medicine), Mahadev (Shiva), Baidyanath, and Narayan, as well as Goddess Kamakhya, to remove physical and half-headaches, free the 'head's vein currents', and eliminate any negative 'tantra' or 'mantra' effects in the body. The text uses a mixture of Hindi-script spellings for Bengali words.",
+        "duration_seconds": 60,
+        "repetitions": 21,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Namo Dhanvantari Debota, Mathay Byatha Katun Ardho \nMathar Byatha Katun, Mathar Sirodhara Mukto Koren\nKar, Agyay Agyay Ishwar Mahadeber Agyay Baidyanath\nDebota, Shorire Laga Tantron Jharo Mantron Jharo, Jharo Somosto\nMantron-Bidya Kar Agyay Narayan Debotar Agyay, Dohai\nKamru Kamakhya Mayer, Dohai Harir Jhi Agya Chandirpa !",
+            "title": "Siddha Mantra for Half-Headache Relief",
+            "content": "21 times on water with 3 long / cloves."
+          },
+          {
+            "language": "bn",
+            "mantra": "ওম নমো ধন্বন্তরি দেবতা, মাথায় ব্যথা কাটুন অর্ধো\nমাথার ব্যথা কাটুন, মাথার শিরোধারা মুক্ত করেন\nকার, আজ্ঞায় আজ্ঞায় ঈশ্বর মহাদেবের আজ্ঞায় বৈদ্যনাথ\nদেবতা, শরীরে লাগা তন্ত্র ঝাড়ো মন্ত্র ঝাড়ো, ঝাড়ো সমস্ত\nমন্ত্র-বিদ্যা কার আজ্ঞায় নারায়ণ দেবতার আজ্ঞায়, দোহাই\nকামরূ কামাখ্যা মায়ের, দোহাই হরির ঝি আজ্ঞা চণ্ডীরপা !",
+            "title": "আধকপালী মাথাব্যথা-নিবারণ সিদ্ধ মন্ত্র",
+            "content": "৩টি লবঙ্গ দিয়ে জলের ওপর ২১ বার পড়ুন (Recite 21 times on water with 3 cloves)"
+          },
+          {
+            "language": "hi",
+            "mantra": "ओम नमो धनवंतरी देबोता, माथाय ब्यथा काटून अर्धो\nमाथार ब्यथा काटून, माथार सिरोधारा मुक्तो कोरेन\nकार, आग्न्याय आग्न्याय ईश्वर महादेबेर आग्न्याय बैद्यनाथ\nदेबोता, शोरीरे लागा तंत्रों झारो मंत्रों झारो, झारो सोमोस्तो\nमंत्रों-बीद्या कार आग्न्याय नारायण देबोतार आग्न्याय, दोहाई\nकामरु कामाख्या मायेर, दोहाई हरीर झी आज्ञा चंडीरपा !",
+            "title": "अर्ध सिरदर्द-निवारण सिद्ध मन्त्र",
+            "content": "पानी पर 21 बार 3 लौंग के साथ"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ead"
+      },
+      {
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "order": 0,
+        "type": "instruction",
+        "title": "Half-Headache Relief",
+        "content": "Take a glass of water and put 3 long and chant the mantra 21 times and bow 21 times on water.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eae"
+      },
+      {
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "order": 2,
+        "type": "completion",
+        "title": "Take the feed to the animal.",
+        "content": "Take the feed to the animal.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eaf"
+      },
+      {
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "order": 1,
+        "type": "mantra",
+        "title": "",
+        "content": "Chant the mantra 5 times and blow after every chant on the animal feed.",
+        "duration_seconds": 60,
+        "repetitions": 5,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "bn",
+            "mantra": "ওম হুকারিণী প্রসার শীতত!",
+            "title": "পশুদের দুধ বৃদ্ধির মন্ত্র",
+            "content": ""
+          },
+          {
+            "language": "en",
+            "mantra": "Om Hukarinee Prasar Shitat!",
+            "title": "Mantra to Increase Milk Production in Animals",
+            "content": ""
+          },
+          {
+            "language": "hi",
+            "mantra": "ॐ हुँकारिनी प्रसार शितात। ",
+            "title": "जानवरो का दूध बढ़ानेका मंत्र। गई, भैस, बकरी का दूध बढ़ानेका सयंसिद्ध मंत्र। ",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184eb0"
+      },
+      {
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "order": 0,
+        "type": "instruction",
+        "title": "Increase Animal Milk Production",
+        "content": "Chant the mantra 5 times and blow after every chant on the animal feed.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb1"
+      },
+      {
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "order": 2,
+        "type": "completion",
+        "title": "",
+        "content": "Feel the energy.",
+        "duration_seconds": 60,
+        "repetitions": 111,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb2"
+      },
+      {
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "order": 1,
+        "type": "mantra",
+        "title": "Mantra to Give Power to Your Ancestors",
+        "content": "Chant Daily 31 times by Siting Facing East.",
+        "duration_seconds": 60,
+        "repetitions": 31,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "bn",
+            "mantra": "ওঁ তৃণ ভ্যাশ্ব ভ্রাং ক্লীং ঐং ত্রেং স্রং হূং স্বশ্বঃ শান্তি মুখে নমঃ পিতৃ দেবতা আমার জীবনের পরিশ্রম দুখ গৃহের অশান্তি রোগ জোগ ধন ব্যথা তেকে মুক্তি দেন কার আজ্ঞায় বিষ্ণু দেবতার আজ্ঞায় দোহাই হরির ঝি আজ্ঞা চন্ডীর দোহাই কামরূ কামাখ্যা মায়ের ছু",
+            "title": "পিতৃ দেবতাকে বলবান করার মন্ত্র",
+            "content": ""
+          },
+          {
+            "language": "hi",
+            "mantra": "ॐ तृण भ्याश्व भ्रां क्लीं ऐं त्रेंग स्रंग हूं स्वश्वः शांति मुखे नमः पितृ देवता आमार जीबोनर पोरिश्रोम दुख गृहेर ओशांति रोग जोग धन व्यथा तेखे मुक्ति देन कार आग्याय विष्णु देबोतार आग्याय दुहाई हरीर झी आज्ञा चंडीर दुहाई कामरु कामाख्या मायेर छू",
+            "title": "पितृ देवता को बलवान बनाने का मंत्र",
+            "content": ""
+          },
+          {
+            "language": "en",
+            "mantra": "Om tring bhyashwa bhrang kleeng aing treng srang hung swashwa: shanti mukhe namah: pitru devta aamar jiboner porishrom dukh griher oshanti rog jog dhon byatha tekhe mukti den kar aagyay vishnu debotar aagyay duhai horir jhi aagya chandeer duhai kamaru kamakhya mayer chhoo",
+            "title": "Mantra to Give Power to Your Ancestors",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184eb3"
+      },
+      {
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "order": 0,
+        "type": "instruction",
+        "title": "Mantra to Give Power to Your Ancestors",
+        "content": "To remove pitraa dosh and get benifit from this mantra chant it everyday 31 times. Result can be visible from day 31 days.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb4"
+      },
+      {
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "order": 2,
+        "type": "completion",
+        "title": "Consume The Water",
+        "content": "Consume The water and Feel the Energy within few minutes.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb5"
+      },
+      {
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "order": 1,
+        "type": "mantra",
+        "title": "Remove Body Pain Immediately",
+        "content": "Chant the mantra 11 times and blow into the water after every chant.",
+        "duration_seconds": 60,
+        "repetitions": 11,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Baat re baat jaan lom tor jaati\nAmabaashya Mongolbare tor utpotti\nUiya baat, puiya baat, juiya baat, pathuri baat, sajasthiya baat\nRaame bolen horutu, Lokkhone bolen chol chol\n(Omuker) ongge thakibar poil laga por\nSiddhi guru Shriramer aagga\nGongga Jomuna Tribeni (Omukar) kahini\n(Omukar) khondo koto thona moni",
+            "title": "Remove Pain From Body",
+            "content": "Use person name at the area or \"Omukar\""
+          },
+          {
+            "language": "hi",
+            "mantra": "वात् रे वात् जान लोम तोर जाति अमावस्या मगलवारे तोर उत्पत्ति उइया वात् पुइया वात् जुझ्या बात् पाथुरिवात् सजष्ठिया बात् रामे बोलेन हरुतू लक्ष्मणे बोले न चल चल (अमुकेर) अंगे थाकिवार पैल लगा पड़ सिद्धि गुरु श्रीरामेर आज्ञा गंगा यमुना त्रिवेणी (अमुकार) काहिनी (अमुकार) खण्ड कत ठना मानि",
+            "title": "बदन दर्द दूर करने का",
+            "content": "\"अमुकार\" स्थान पे अपना नाम का उच्चारण करे।"
+          },
+          {
+            "language": "bn",
+            "mantra": "বাত রে বাত জান লম তোর জাতি\nঅমাবস্যা মঙ্গলবারে তোর উৎপত্তি\nউইযা বাত, পুইযা বাত, জুইযা বাত, পাথুরি বাত, সাজস্থিয়া বাত\nরামে বলেন হরুতু, লক্ষ্মণে বলেন চল চল\n(অমুকার) অঙ্গে থাকিবার পৈল লাগা পর\nসিদ্ধি গুরু শ্রীরামের আজ্ঞা\nগঙ্গা যমুনা ত্রিবেনী (অমুকার) কাহিনী\n(অমুকার) খণ্ড কত থোনা মনি",
+            "title": "শরীরের ব্যাথা দূর করার মন্ত্র",
+            "content": "অমুকের জায়গায় নিজের নাম উচারণ করুন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184eb6"
+      },
+      {
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "order": 0,
+        "type": "instruction",
+        "title": "Energize the Water",
+        "content": "Take a glass of water in front of you or by holding on right hand.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb7"
+      },
+      {
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order": 2,
+        "type": "completion",
+        "title": "Feel The Energy",
+        "content": "Feel The Energy",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eb8"
+      },
+      {
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order": 1,
+        "type": "mantra",
+        "title": "Jarva Bhashiya Mantra",
+        "content": "Chant the Mantra according to the instructions and blow on water directly.",
+        "duration_seconds": 60,
+        "repetitions": 11,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Osorongra Hemra Jyojyant Sheshraprayinga Gramate Tulamikhi Drabhra Tush-Annd Yoyatvyami Bairam Trantagi Brangati Hooro Hooro",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184eb9"
+      },
+      {
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order": 0,
+        "type": "instruction",
+        "title": "Energize the Water",
+        "content": "If the person is above 50 years old, repeat the mantra 7 times and blow on 1/2 glass of water and take it 3 times in a day. Repeat for 7 days.\nIf the person is between 20-50 years old, repeat the mantra 11 times and blow on 1 glass of water and take it 2 times in a day. Repeat for 7 days.\nIf the person is under 20 years old, repeat the mantra 11 times and blow on a cup of water and take it 1 time in a day. Repeat for 7 days.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eba"
+      },
+      {
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order": 3,
+        "type": "completion",
+        "title": "Take the water for the day.",
+        "content": "Take the water for the whole day.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ebb"
+      },
+      {
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order": 2,
+        "type": "timer",
+        "title": "Visualize",
+        "content": "Close the cap and wish watever you want in your live and visualise for 1 minute.",
+        "duration_seconds": 5,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ebc"
+      },
+      {
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order": 1,
+        "type": "mantra",
+        "title": "Vaidehi Lipi Swayam Siddha Mantra",
+        "content": "Read the mantra only 1 time and blow on water like your blow air must hit the water directly.\n\nNote: Chanting mantra more than 1 time can harm.",
+        "duration_seconds": 60,
+        "repetitions": 1,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Gramahavya Traakvaasva Angatra Angraa Jongra Braankra Roojasvakssar Makebharasvaanee Ritu Roktaa Hema Heroonee Parvat Shrinshvatneela Vvaavyaa Svatakti Debaa: Rishi: Mantra Yoktragrahonsvaaktilaa Meghaashya Garjanahavyahaasvee Trayoktaaham Jrahoo",
+            "title": "Vaidehi Lipi Mantra",
+            "content": "Chant 1 time and blow into the water."
+          },
+          {
+            "language": "bn",
+            "mantra": "গ্রমাহব্য ত্রাক্বাস্ব অঙ্গ অঙ্গ্রা জোং বাঁকা রূজস্বক্সর মকেভরস্বানী ঋতু রোক্তা হেমা হেরূনী পর্বত শৃংশ্বত্নীলা ৱ্বাৱ্যা স্বতক্তি 'দেবা ঋষিঃ মন্ত্র যোক্ত্রগ্রহোঁস্বাক্তিলা মেঘাস্ব্য গ্রর্জনহব্যহাস্বী প্রয়োক্তাহম ঝহূ",
+            "title": "বৈদেহী লিপি স্বয়ং সিদ্ধ মন্ত্র",
+            "content": "মন্ত্রটি ১ বার পাঠ করে ১ টি ফুঁক দিন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ebd"
+      },
+      {
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order": 0,
+        "type": "instruction",
+        "title": "Energize The Water",
+        "content": "Take a glass of water or a bottle of water.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ebe"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Have paper, a pen, and a safe vessel for burning (or simply a bowl to 'release' the paper). Sit by a window if possible.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ebf"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Release the image. Place a hand on the heart and offer a silent wish for their wellbeing, and yours.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec0"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec1"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Silently repeat with the breath — 'So' on the inhale, 'Hum' on the exhale — for 108 breaths.",
+        "duration_seconds": null,
+        "repetitions": 108,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "So Hum",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ec2"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Watch the smoke or fold the paper away. Offer gratitude for the release. Rest.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec3"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Bring to mind the person or part of yourself you wish to reconnect with. Hold them with kindness.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec4"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Sit or lie comfortably. Close your eyes. Let the breath find its own rhythm.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec5"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec6"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec7"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Write what you release on the paper. Chant 108 times, then safely burn or place the paper in the bowl.",
+        "duration_seconds": null,
+        "repetitions": 108,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Namah Shivaya",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ec8"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Look toward the moon or hold it in mind. Breathe and name what you are ready to release.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ec9"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ae",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eca"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Find a clean, quiet space. Light a small lamp or candle if you wish. Sit comfortably with your spine upright.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e84"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e85"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Breathe slowly and visualize a soft light at the heart center. Invite a sense of safety and healing.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e86"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e87"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Chant 108 repetitions, one per bead, at an unhurried pace.",
+        "duration_seconds": null,
+        "repetitions": 108,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Tryambakam Yajamahe Sugandhim Pushtivardhanam\nUrvarukamiva Bandhanan Mrityor Mukshiya Mamritat",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184e88"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e89"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Leave the bowl in a visible place. Each day add a coin while recalling your intention.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e8a"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Hold the coins in both hands. Breathe and name one financial intention clearly.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e8b"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e8c"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Gather a bowl and a handful of coins. Sit where you won't be disturbed.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e8d"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820ac",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Drop one coin into the bowl per repetition, 54 times, listening to each sound.",
+        "duration_seconds": null,
+        "repetitions": 54,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Shrim Shriyei Namaha",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184e8e"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e8f"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Settle into a steady seat. You may use a mala with 108 beads. Keep water nearby.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e90"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Chant 108 times, softly or internally, letting the sound settle into stillness.",
+        "duration_seconds": null,
+        "repetitions": 108,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Vakratunda Mahakaya Surya Koti Samaprabha\nNirvighnam Kurume Deva Sarva Karyeshu Sarvada",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184e91"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Place your hands in prayer at the heart. Offer thanks. Release the intention and return gently.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e92"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Rest the hands on the knees. Sit in silence for a few breaths. Offer the merit of the practice to all beings.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e93"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Take three slow breaths. Bring to mind the obstacle you wish to soften. Set a simple, sincere intention to begin.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e94"
+      },
+      {
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e95"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 5,
+        "type": "completion",
+        "title": "Complete Ritual",
+        "content": "Offer gratitude for this practice. Carry its intention gently into your day.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e96"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 4,
+        "type": "instruction",
+        "title": "Closing",
+        "content": "Gently extinguish the candle. Keep one coin from the bowl in your wallet as a reminder of abundance.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e97"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 3,
+        "type": "silence",
+        "title": "Silent Reflection",
+        "content": "Sit quietly and absorb the vibration of your practice.",
+        "duration_seconds": 120,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e98"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 2,
+        "type": "mantra",
+        "title": "Chant",
+        "content": "Chant 108 times, visualizing abundance flowing toward and through you.",
+        "duration_seconds": null,
+        "repetitions": 108,
+        "audio_url": null,
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Shrim Mahalakshmiyei Namaha",
+            "title": "",
+            "content": ""
+          }
+        ],
+        "id": "6afac9e14e3f97b467184e99"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 1,
+        "type": "instruction",
+        "title": "Invocation",
+        "content": "Light the candle. Offer the flower. Speak aloud three things you are already grateful for.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e9a"
+      },
+      {
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order": 0,
+        "type": "instruction",
+        "title": "Prepare",
+        "content": "Place a small bowl of coins or rice, a candle, and a flower on a clean surface. Wash your hands.",
+        "duration_seconds": null,
+        "repetitions": null,
+        "audio_url": null,
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e9b"
+      },
+      {
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "order": 2,
+        "type": "completion",
+        "title": "Feel The Energy",
+        "content": "The area where your clap sound reached is now protected for 47 days.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e9c"
+      },
+      {
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "order": 1,
+        "type": "mantra",
+        "title": "",
+        "content": "5 times chant and 1 Clap after every chant.",
+        "duration_seconds": 60,
+        "repetitions": 5,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "hi",
+            "mantra": "देवीशक्ति महाशक्ति नडक्किराळ त्रिशूलं वेलुम पाम्बुड़न सहె इरुलान रात्रियिल तंत्रत्तिन अड़ै मिडिच्चु सक्तियाल वरूगीराळ पीइगलुम प्रेतंगलुम पिशाचंगलुम इवर अनैवरुम पट्टु इनमहा वळैयिल सैयरार कारुप्पु बिल्लोना इरुवतेळु किलो भारम इरुवतेत्तु कावलाल मुट्टै कट्टुवाथुम कडत्तुवाथुम कुड़ी हांडी अडैత్తుवाथुम एरिंद मसानम् निन्नुकिरदु विलैयाडुम मसानम् ओडिकिरदु वीट्टिन कावल ओर आंडु इरुवतेळु मलाईकळ पारक्किरान ॐ कालियம்மா कि दुहाई ॐ दुर्गैयै कूपिट्टु वरूगीरेन ॐ नागம்மா उन पाम्बिन ओड़ु नड ॐ बिल्लियம்மா उन कैयिल थी उण्डु",
+            "title": "घर की रक्षा का पावरफुल सुरक्षा तमिल मंत्र",
+            "content": "5 बार जाप करें और हर जाप के बाद 1 ताली बजाएं।"
+          },
+          {
+            "language": "en",
+            "mantra": "Devishakti Mahashakti Nadakkiral Trishulam Velum Pambudan Sahe Irulan Ratriyal Tantratin Adai Midicchu Saktial Varugiiral Peigalum Pretangalum Pishachangalum Ivar Anaivarum Pattu Inmaha Valaiyil Saiyarar Karuppu Billona Iruvattelu Kilo Bharam Iruvettu Kavalal Muttai Kattuvathum Kadattuvathum Kudi Handi Adaittuvathum Erind Masanam Ninnukirdu Vilaiyadum Masanam Odikirdu Veettin Kaval Or Andu Iruvattelu Malaikal Parkkiran Om Kaliyamma Ki Duhai Om Durgeyai Kupittu Varugiren Om Nagamma Un Pambin Odu Nad Om Billiyamma Un Kaiyil Thi Undu",
+            "title": "Ghar Ki Raksha Ka Powerful Suraksha Tamil Mantra",
+            "content": "5 times chant and 1 Clap after every chant."
+          },
+          {
+            "language": "bn",
+            "mantra": "দেবীশক্তি মহাশক্তি নডক্কিরাড় ত্রিশূলং ভেলুম পাম্বুড়ন সহে ইৰুলান ৰাত্ৰিয়িল তন্ত্ৰত্তিন অড়াই মিডিচ্চু সক্তিয়াল বৰুগীৰাল পীইগলুম প্ৰেতঙ্গলুম পিশাচঙ্গলুম ইবৰ অনৈবৰুম পট্টু ইনমহা বঢ়ৈয়িল সৈয়ৰাৰ কাৰুপ্পু বিল্লোনা ইৰুভতেলু কিলো ভাৰম ইৰুভতেত্তু কাवलाল মুট্টৈ কট্টুবাথুম কডত্তুবাথুম কুড়ী হাঁডি অডৈত্তুবাথুম এৰিন্দ মসানম্ নিন্থুকিৰদু বিলাইয়াডুম মসানম্ ওডি কিৰদু বীট্টিন কাবল ওৰ আণ্ডু ইৰুভতেলু মালাইকল পাৰক্কিৰান ওঁ কালিয়ম্মা কি দোহাই ওঁ দুর্গৈযৈ কূপিট্টু বৰুগীৰেণ ওঁ নাগম্মা উন পাম্বিন ওড়ু নড ওঁ বিল্লিয়ম্মা উন কৈয়িল থী উণ্ডু",
+            "title": "ঘরের রক্ষা কা পাওয়ারফুল সুরক্ষা তামিল মন্ত্র।",
+            "content": "৫ বার জপ করুন এবং প্রতিবার জপের পর ১ টি তালি দিন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184e9d"
+      },
+      {
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "order": 0,
+        "type": "instruction",
+        "title": "Area Protection for 47 days",
+        "content": "Chant the mantra 5 times and clap 5 times.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e9e"
+      },
+      {
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order": 2,
+        "type": "completion",
+        "title": "You are done",
+        "content": "Now you can feel the the magic of \"SANATAN\" immidiately after completing the ritual properly.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184e9f"
+      },
+      {
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order": 1,
+        "type": "mantra",
+        "title": "General Protection / Cutting Black Magic",
+        "content": "3 times Chant and 3 Blow on any food/water, tea then take / give the person.",
+        "duration_seconds": 60,
+        "repetitions": 3,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Chol Re Chol Farsi Chol\nOm Bidhya Dhari Bramho Debota Apna Ke Aashirvad Neee Farso Cholabe Porshuram Kake Kake Katun Aghori Ker Katun Ban Katun Bosikoron Katun Mohini Katun Maron Bidhya Katun Uchchatan Katun Katun Noy Vidya Katun Jwal Katun Ogni Katun\nMaya Katun Mayajal Katun Bhanomati Katun Nath Vidya Katun Pant Vidya Katun Asur Vidya Katun Nag Moti Vidya Katun Dhanatri Vidya Katun Dekh Bidya Katun Peter Khida Mukhi Anno Katun Dushter Drishti Katun Bhoot Ker Katun Pishach Ker Katun Daityon Ker Katun Gorbho Boti Ker Katun Kumari Maya Ker Katun Jwal Duba Sele Ker Katun Brahma Rakshas Ker Katun Mahishasur Ker Katun Jin Ker Katun Ke Katun Porshuram Katun Kar Aggiay Debi Aadishakti Maha Janani Ker Aggiay Dohai Kamrup Kamakhya Mayer Handir Jhi Agya Chandirpa",
+            "title": "General Protection / Cutting Black Magic",
+            "content": "3 times Chant and 3 Blow on any food/water, tea then take / give the person."
+          },
+          {
+            "language": "hi",
+            "mantra": "चोल रे चोल फार्सी चोल\nओम बिध्या धारी ब्रम्हो देबोता अपना के आशीर्वाद नीए फार्सो चोलाबे पोरशुराम काके काके काटून अघोरी केर काटून बान काटून बोसिकोरोन काटून मोहिनी काटून मारोन बिद्या काटून उच्चाटन काटून काटून नोय विद्या काटून ज्वाल काटून ओग्नि काटून\nमाया काटून मायाजाल काटून भानोमती काटून नाथ विद्या काटून पंत विद्या काटून असुर विद्या काटून नाग मोती विद्या काटून धनात्री विद्या काटून देख बिद्या काटून पेटेर खिदा मुखी अन्नो काटून दुष्टेर दृष्टि काटून भूत केर काटून पिशाच केर काटून दैत्यों केर काटून गोर्भो बोती केर काटून कुमारी माया केर काटून ज्वाल डूबा सेले केर काटून ब्रह्मा राक्षस केर काटून महिषासुर केर काटून जिन केर काटून के काटून पोरशुराम काटून कार आग्याय देबी आदिशक्ति माहा जननी केर आग्याय दोहाई कामरूप कामाख्या मायेर हांडीर झी आज्ञा चंडीरपा",
+            "title": "सामान्य सुरक्षा / तंत्र काटना",
+            "content": "किसी भी भोजन/पानी या चाय पर 3 बार अभिमंत्रित करके फिर ग्रहण करें।"
+          },
+          {
+            "language": "bn",
+            "mantra": "চোল রে চোল ফার্সি চোল\nওম বিদ্যা ধারী ব্রহ্মো দেবতা আপনা কে আশীর্বাদ নিয়ে ফারসো চোলাবে পোরশুরাম কাকে কাকে কাটুন অঘোরী কের কাটুন বান কাটুন বসিকোরোন কাটুন মোহিনী কাটুন মারোন বিদ্যা কাটুন উচ্চাটন কাটুন কাটুন নোয় বিদ্যা কাটুন জ্বাল কাটুন অগ্নি কাটুন\nমায়া কাটুন মায়াজাল কাটুন ভানোমতী কাটুন নাথ বিদ্যা কাটুন পন্ত বিদ্যা কাটুন অসুর বিদ্যা কাটুন নাগ মোতী বিদ্যা কাটুন ধনাত্রী বিদ্যা কাটুন দেখ বিদ্যা কাটুন পেটের খিদা মুখী অন্নো কাটুন দুষ্টের দৃষ্টি কাটুন ভূত কের কাটুন পিশাচ কের কাটুন দৈত্যোঁ কের কাটুন গোর্ভো বোতী কের কাটুন কুমারী মায়া কের কাটুন জ্বাল ডুবা সেলে কের কাটুন ব্রহ্মা রাক্ষস কের কাটুন মহিষাসুর কের কাটুন জিন কের কাটুন কে কাটুন পোরশুরাম কাটুন কার আজ্ঞায় দেবী আদিশক্তি মাহা জননী কের আজ্ঞায় দোহাই কামরূপ কামাখ্যা মায়ের হাঁদীর ঝী আজ্ঞা চণ্ডীরপা",
+            "title": "সাধারণ সুরক্ষা / তন্ত্র কাটানো",
+            "content": "যেকোনো খাবার/জল বা চায়ের উপর ৩ বার অভিমন্ত্রিত করে তারপর গ্রহণ করুন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ea0"
+      },
+      {
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order": 0,
+        "type": "instruction",
+        "title": "General Protection / Cutting Black Magic",
+        "content": "3 times Chant And 3 Blow on any food/water, tea then take / give the person.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea1"
+      },
+      {
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "order": 3,
+        "type": "completion",
+        "title": "Feel The Energy",
+        "content": "Feel The Energy",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea2"
+      },
+      {
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "order": 2,
+        "type": "silence",
+        "title": "Visualize Your Perception",
+        "content": "View your desire life by closing your eyes.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea3"
+      },
+      {
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "order": 1,
+        "type": "mantra",
+        "title": "Powerful Mantra for Ultimate Health, Wealth & Success",
+        "content": "Transform your life with this powerful Siddha Bengali Mantra. Chant it daily to attract supreme physical energy, sharp intellect, divine blessings of Goddess Lakshmi and Saraswati, and ultimate health, wealth, and prosperity.",
+        "duration_seconds": 60,
+        "repetitions": 31,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Om Ghram Swang Hanun Vajraghranti Surya Debatay Namah Pawan Debatay Namah Mamah Shareere Oja Megh Urja Pradayanam Bhagwati Brahmsaraswati Roop Bidya Bal Buddhi Dehi Dehi Sukh Samriddhi Safalyam Pradayanam Kuru Kuru Ma Katyayani Dhan Vaibhav Aishwarya Dehi Dehi Ma Lakshmi Duhai Lagilo Bramandker Somosto Yogini Kore Pusher Borsha Duhai Mundirnather Dohai Somlota Sati",
+            "title": "Ultimate Health, Wealth & Success",
+            "content": "Take your hands in front of your eyes, chant the mantra 31 times on your both hands and blow after every chant, stand up and take your hands head to bottom 31 times then hit the floor 5 times."
+          },
+          {
+            "language": "hi",
+            "mantra": "ॐ घ्रं स्वांग हनूँ वज्रघ्रान्ति सूर्य देबताय नमः पवन देबताय नमः ममः शरीरे ओज मेघ ऊर्जा प्रदायनम भगवती ब्रम्हसरस्वती रूप बिद्या बल बुद्धि देहि देहि सुख समृद्धि साफल्यम प्रदायनम कुरु कुरु मा कात्यायनी धन वैभव ऐश्वर्या देहि देहि मा लक्ष्मी दुहाई लागिलो ब्रामण्डकेर सोमोस्तो योगिनि कोरे पुष्पेर बोरषा दुहाई मुंडीरनाथेर दोहाई सोमलोता सतीर",
+            "title": "असीम ऊर्जा और समृद्धि पाने का अचूक सिद्ध मंत्र",
+            "content": "अपने हाथों को अपनी आँखों के सामने लाएँ, दोनों हाथों पर 31 बार मंत्र का जाप करें और हर जाप के बाद फूँक मारें, खड़े हो जाएं और अपने हाथों को सिर से पैर तक 31 बार फेरें, फिर फर्श पर 5 बार हाथ मारें।"
+          },
+          {
+            "language": "bn",
+            "mantra": "ওঁ ঘ্ৰং স্বাং হনূঁ বজ্ৰঘ্ৰান্তি সূৰ্য দেবতায় নমঃ পবন দেবতায় নমঃ মমঃ শরীরে ওজ মেঘ ঊর্জা প্রদায়নম ভগবতী ব্রদ্মসরস্বতী রূপ বিদ্যা বল বুদ্ধি দেহি দেহি সুখ সমৃদ্ধি সাফল্যম প্রদায়নম কুরু কুরু মা কাত্যায়নী ধন বৈভব ঐশ্বর্য্য দেহি দেহি মা লক্ষ্মী দোহাই লাগিলো ব্রামণ্ডকের সোমোস্ত যোগিনি কোরে পুষ্পের বোরষা দোহাই মুণ্ডীরনাথের দোহাই সোমলোতা সতীর",
+            "title": "অপার শক্তি, বুদ্ধি ও সমৃদ্ধি অর্জনের শক্তিশালী মন্ত্র",
+            "content": "আপনার হাত দুটো চোখের সামনে আনুন, উভয় হাতে ৩১ বার মন্ত্র জপ করুন এবং প্রতিবার জপের পর ফুঁ দিন, দাঁড়িয়ে যান এবং মাথা থেকে পা পর্যন্ত ৩১ বার হাত বুলিয়ে নিন, তারপর মেঝেতে ৫ বার আঘাত করুন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ea4"
+      },
+      {
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "order": 0,
+        "type": "instruction",
+        "title": "SIT EAST/NORTH FACEING",
+        "content": "Take your hands in front of your eyes, chant the mantra 31 times on your both hands and blow after every chant, stand up and take your hands head to buttom 31 times then hit the floor 5 times.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea5"
+      },
+      {
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "order": 2,
+        "type": "completion",
+        "title": "Feel The Energy",
+        "content": "The disred person house is now protected for 24Hrs. There will be no negative energy will entertain within that house.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea6"
+      },
+      {
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "order": 1,
+        "type": "mantra",
+        "title": "Mantra to bind someone's house while sitting far away.",
+        "content": "You have to chant the mantra 3 times and blow towards the house after every chant. At last blow 2 extra.\n\n\n\n",
+        "duration_seconds": 60,
+        "repetitions": 3,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "aamuker aali bondhon baali bondhon swargo mortor patal bondhon aamar ei bondhon jodi chhalbi tetrish koti debotar mathay dibi pa kar dohai baba mohadeber dohai kamarkha mayer dohai aamar sikhkha guru ostader duhai dohai harir jhi",
+            "title": "Mantra to bind someone's house while sitting far away.",
+            "content": "Use your name at the area or \"amuker\"."
+          },
+          {
+            "language": "hi",
+            "mantra": "आमुकेर आली बोंधोन बाळी बोंधोन स्वर्गो मोर्तो पाताल बोंधोन आमार एई बोंधोन जोदी छाळबी तेत्रिंश कोटी देबोतार माथाय दिबी पा कार दोहाई बाबा मोहादेबेर दोहाई कमाख्खा मायेर दोहाई आमार सिखख्खा गुरू ओस्तादेर दुहाई दोहाई हरीर झी",
+            "title": "हजारों किलोमीटर दूर बैठे किसी भी व्यक्ति के घर बंधन करने का मंत्र",
+            "content": "\"अमुकेर\" स्थान पे अपना नाम का उच्चारण करे।"
+          },
+          {
+            "language": "bn",
+            "mantra": "(অমুকের) গলি বন্ধ হোক, সীমানা বন্ধ হোক, স্বর্গ ও মর্ত্য বন্ধ হোক। পাতাল বন্ধ হোক, আর যদি আমার এই বন্ধন কেউ কাটে, তবে তেত্রিশ কোটি দেবতার মাথায় পা দিবি, কার দোহাই? বাবা মহাদেবের দোহাই, কামাখ্যা মায়ের দোহাই, আমার   শিক্ষা গুরু ও ওস্তাদদের দোহাই, হরির ঝি-এর দোহাই!",
+            "title": "হাজার হাজার কিলোমিটার দূরে বসে থাকা যে কোনো ব্যক্তির বাড়ি বন্ধন বা আবদ্ধ করার মন্ত্র।",
+            "content": "অমুকের জায়গায় নিজের নাম উচারণ করুন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184ea7"
+      },
+      {
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "order": 0,
+        "type": "instruction",
+        "title": "SIT FACED TOWARDS THE HOUSE",
+        "content": "You have to chant the mantra 3 times and blow towards the house after every chant. At last blow 2 extra.\n\nआपको इस मंत्र का 3 बार जाप करना है और हर जाप के बाद घर की तरफ फूंक मारनी है। अंत में 2 बार अतिरिक्त फूंक मारें।\n\nআপনাকে মন্ত্রটি ৩ বার জপ করতে হবে এবং প্রতিবার জপের পর বাড়ির দিকে ফুঁ দিতে হবে। সবশেষে অতিরিক্ত আরও ২ বার ফুঁ দিতে হবে। ",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea8"
+      },
+      {
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "order": 2,
+        "type": "completion",
+        "title": "Feel the Energy",
+        "content": "Feel the Energy",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184ea9"
+      },
+      {
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "order": 1,
+        "type": "mantra",
+        "title": "Body Protection for 7.5 Days",
+        "content": "Recite this mantra 5 times and blow onto your body 5 times; then, blow onto your body two additional times. This will place a protective seal (bandhan) around your body for seven and a half days.",
+        "duration_seconds": 60,
+        "repetitions": 5,
+        "audio_url": "",
+        "translations": [
+          {
+            "language": "en",
+            "mantra": "Kothay jai shoshane moshane jai bondho kore hath\nbondho pa bondho bondho boshu mata ghor bondho duar\nbondho shyawla gacher pretni bondho bondho lata pata\nkar agyay bromha bishnur agyay sade sat din\nbondho hoy thakbe (amuker) ange dohai hari jhi agya\nchandirpa",
+            "title": "Body Protection for 7.5 Days",
+            "content": "Use your name at the area or \"amuker\""
+          },
+          {
+            "language": "hi",
+            "mantra": "कोथाय जाई शोषाने मोषाने जाई बोंधो कोरे हाथ\nबोंधो पा बोंधो बोंधो बोशू माता घोर बोंधो दुआर\nबोंधो श्यावळा गाछेर प्रेतनी बोंधो बोंधो लता पाता\nकार आग्याय ब्रोम्हा बिष्णुर आग्याय साडे सात दिन\nबोंधो होय थाकबे (अमुकेर) अंगे दोहाई हरी झी आज्ञा\nचंडीरपा",
+            "title": "7.5 दिन के लिये शरीर बंधन करने का मंत्र",
+            "content": "\"अमुकेर\" स्थान पे अपना नाम का उच्चारण करे। "
+          },
+          {
+            "language": "bn",
+            "mantra": "কোথায় যাই, শ্মশানে মোষানে যাই, বাঁধন করে হাত।\nবাঁধন করে পা, বাঁধন করে বসুমাতা, ঘর বাঁধন, দুয়ার\nবাঁধন করে শ্যাওলা গাছের প্রেতিনী বাঁধন করে লতাপাতা।\nকার আজ্ঞায়, ব্রহ্মা-বিষ্ণুর আজ্ঞায়, সাড়ে সাত দিন\nবাঁধা হয়ে থাকবে অমুকের অঙ্গে। দোহাই, হরি ঝি আজ্ঞা\nচণ্ডীর পা।",
+            "title": "সাড়ে সাত দিনের জন্য শরীর বন্ধন করার মন্ত্র",
+            "content": "অমুকের জায়গায় নিজের নাম উচারণ করুন।"
+          }
+        ],
+        "id": "6afac9e14e3f97b467184eaa"
+      },
+      {
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "order": 0,
+        "type": "instruction",
+        "title": "Protect Body for 7.5 Days",
+        "content": "Recite this mantra 5 times and blow onto your body 5 times; then, blow onto your body two additional times. This will place a protective seal (bandhan) around your body for seven and a half days.",
+        "duration_seconds": 60,
+        "repetitions": 108,
+        "audio_url": "",
+        "translations": [],
+        "id": "6afac9e14e3f97b467184eab"
+      }
+    ],
+    "RitualSession": [
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [],
+        "id": "6afab22e96b5f04c10a9d929"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "ritual_name": "Area Protection for 47 Days",
+        "current_step": 2,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Area Protection for 47 days",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 5,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af9f6d2280699d890a5012a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "current_step": 2,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": true,
+            "repetitions": 3,
+            "target_repetitions": 3,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af98992b766144d0ed3542c"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Mantra to Give Power to Your Ancestors",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Mantra to Give Power to Your Ancestors",
+            "completed": true,
+            "repetitions": 31,
+            "target_repetitions": 31,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af5a9f5bf553026393921b4"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "current_step": 0,
+        "total_steps": 4,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "SIT EAST/NORTH FACEING",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Powerful Mantra for Ultimate Health, Wealth & Success",
+            "completed": true,
+            "repetitions": 31,
+            "target_repetitions": 31,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af5a7682291d33f070edd79"
+      },
+      {
+        "user_id": "6af5a5d250c8e3dc8ee89ba5",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Protect Body for 7.5 Days",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Body Protection for 7.5 Days",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 5,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af5a69179426087760fcc21"
+      },
+      {
+        "user_id": "6af5925556dd26f176ad73ef",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 3,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af5a40ef24326c5e2e21b60"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "current_step": 3,
+        "total_steps": 4,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize The Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Vaidehi Lipi Swayam Siddha Mantra",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 1,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "timer",
+            "title": "Visualize",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 5
+          }
+        ],
+        "id": "6af5a15c16d01fe4dc48954e"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "General Protection / Cutting Black Magic",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 3,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af5a0d86ae0eb5c51e7d2ca"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Protect Body for 7.5 Days",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Body Protection for 7.5 Days",
+            "completed": true,
+            "repetitions": 5,
+            "target_repetitions": 5,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6af30b8976dc92216da570f4"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "current_step": 0,
+        "total_steps": 4,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize The Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Vaidehi Lipi Swayam Siddha Mantra",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 1,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ae400c7b976e6e972710634"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "ritual_name": "INCREASE MILK PRODUCTION",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Increase Animal Milk Production",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 5,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ae2d5174d0752f3c4b1032b"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Remove Body Pain Immediately",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 11,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ae2c5ec546e92b1ed25373e"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Remove Body Pain Immediately",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 11,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "completion",
+            "title": "Consume The Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ae20e628434ea99d35176f7"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "ritual_name": "Half-Headache Relief",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [],
+        "id": "6ae19e4e7c468e59dea842a7"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "current_step": 1,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ae08b02a064413e3856c080"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "ritual_name": "Full Moon Release Ritual",
+        "current_step": 2,
+        "total_steps": 6,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Prepare",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 0,
+            "elapsed_seconds": 0,
+            "target_seconds": 0
+          },
+          {
+            "type": "instruction",
+            "title": "Invocation",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 0,
+            "elapsed_seconds": 0,
+            "target_seconds": 0
+          }
+        ],
+        "id": "6adf87947c9a3814bfb3cbb3"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "current_step": 2,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Jarva Bhashiya Mantra",
+            "completed": true,
+            "repetitions": 11,
+            "target_repetitions": 11,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6adb78dbea60f202bc4f2262"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "current_step": 2,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Remove Pain from Body Magically",
+            "completed": true,
+            "repetitions": 11,
+            "target_repetitions": 11,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6adb0305a57a915dcbfea398"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "current_step": 3,
+        "total_steps": 4,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize The Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Vaidehi Lipi Swayam Siddha Mantra",
+            "completed": true,
+            "repetitions": 1,
+            "target_repetitions": 1,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "timer",
+            "title": "Visualize",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6adadec0fcc15fb55831c163"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "current_step": 1,
+        "total_steps": 4,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize The Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Vaidehi Lipi Swayam Siddha Mantra",
+            "completed": false,
+            "repetitions": 0,
+            "target_repetitions": 1,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "timer",
+            "title": "Visualize",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ada48026ffc956d806bff55"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "ritual_name": "Mahamrityunjaya Healing Mantra",
+        "current_step": 5,
+        "total_steps": 6,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Prepare",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Invocation",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 108,
+            "completed": false,
+            "type": "mantra",
+            "title": "Chant",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": false,
+            "type": "silence",
+            "title": "Silent Reflection",
+            "target_seconds": 120,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Closing",
+            "target_seconds": 0,
+            "repetitions": 0
+          }
+        ],
+        "id": "6ad10e82e35d102b9cffe5a9"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "current_step": 0,
+        "total_steps": 6,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Prepare",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Invocation",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 108,
+            "completed": false,
+            "type": "mantra",
+            "title": "Chant",
+            "target_seconds": 0,
+            "repetitions": 0
+          }
+        ],
+        "id": "6ad08e130921249bf40a7217"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "current_step": 0,
+        "total_steps": 3,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "type": "instruction",
+            "title": "Energize the Water",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "mantra",
+            "title": "Jarva Bhashiya Mantra",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 11,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          },
+          {
+            "type": "completion",
+            "title": "Feel The Energy",
+            "completed": true,
+            "repetitions": 0,
+            "target_repetitions": 108,
+            "elapsed_seconds": 0,
+            "target_seconds": 60
+          }
+        ],
+        "id": "6ad076df46816440b77297bd"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "ritual_name": "Rose Harmony Ritual",
+        "current_step": 0,
+        "total_steps": 6,
+        "status": "in_progress",
+        "completed_at": null,
+        "progress_log": [
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Prepare",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Invocation",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 108,
+            "completed": false,
+            "type": "mantra",
+            "title": "Chant",
+            "target_seconds": 0,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": false,
+            "type": "silence",
+            "title": "Silent Reflection",
+            "target_seconds": 120,
+            "repetitions": 0
+          },
+          {
+            "elapsed_seconds": 0,
+            "target_repetitions": 0,
+            "completed": true,
+            "type": "instruction",
+            "title": "Closing",
+            "target_seconds": 0,
+            "repetitions": 0
+          }
+        ],
+        "id": "6aafd04cec9696710ed76b0f"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "ritual_name": "Rose Harmony Ritual",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-18T18:27:43.760Z",
+        "id": "6aad7f385247da992b23811a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "ritual_name": "Rose Harmony Ritual",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-18T17:51:45.366Z",
+        "id": "6aad79a6754749a20773667b"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-18T17:48:20.540Z",
+        "id": "6aad78b9e7180df79fac2552"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-14T20:13:35.965Z",
+        "id": "6aa85552a0b25322453efdfb"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "ritual_name": "Ganesh Mantra for Removing Obstacles",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-14T07:39:49.576Z",
+        "id": "6aa79ea051c4c3858950cbe0"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "ritual_name": "Ganesh Mantra for Removing Obstacles",
+        "current_step": 5,
+        "status": "completed",
+        "completed_at": "2026-09-14T07:13:04.491Z",
+        "id": "6aa79e439fa8982334d34844"
+      }
+    ],
+    "JournalEntry": [
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6af9f6d2280699d890a5012a",
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "ritual_name": "Area Protection for 47 Days",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af9f6ecec35f775add21eea"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6af2f7458b25de0106cb1550",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "notes": "",
+        "rating": 5,
+        "mood": "",
+        "id": "6af844af5084a70f58c6222e"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6af6cac76e100b0863e7fdae",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af6cb78baae93cdcfc4634d"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6af66b70813045d05a906b72",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af66bdb8f2b408f55c9a824"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "session_id": "6af5a138547f6adbe514cfce",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af5a1486839b843575c1dea"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6af40803f4a55cbd9fec5bbd",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af40867d9e8690f3cfb53a6"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae360c524aeb030bde0210a",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6af407cdd73e04da35688ad8"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae5e5661be02803f6183a46",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6aee8498e5e2cb28122e2149"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aea7b39964e75de07ab20b3",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6aee7fdc2b2dc975fb557009"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aebe0741f60e1ab14818fc7",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6aebe12b5d5d76ebee1e94b9"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae7f5d83ef134fd1e997547",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae7f81e919af8e34ee59cfd"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae6d142795d5f14ec7a1540",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6ae6d359741a3b9953020180"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae5e36170f16d8cac0ae309",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae5e54c405a8548f476441d"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae5e2ea700cda03ef319ffe",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae5e33d6698e758cf95354e"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae44af6916ef146a9ef928e",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae5e2d524155dbf3a7e2b8b"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae3e732f62cdf0b70119def",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae5563a7e01d1b0a9875f4a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ade3f71605362937730550b",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae3fee57a8bdaf14ec693ca"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae14de0e74c5415521c8d6f",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 4,
+        "mood": "neutral",
+        "id": "6ae3e1576e93a4bcb320cae1"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae1bd47ee0eb2e2589bece9",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6ae2e012bcdac0c789b5bccf"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae2d35a7dc7f82d3b187211",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 5,
+        "mood": "inspired",
+        "id": "6ae2dd2cf4580e4283d9b185"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ae2d143ab0e14cc5b8a75b9",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "notes": "",
+        "rating": 0,
+        "mood": "neutral",
+        "id": "6ae2d3508601e344d622a0dd"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf886ad453d302b5445d08",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "ritual_name": "Half-Headache Relief",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6ae19e3bdb93da64dcd0cd66"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf8c86ded3274565208bd8",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6ae085d5d909de011491e53c"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6adf53418c90f9282d53065d",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ae02ed8503aac24e19a306a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6adf61c2ccabb6ae2011f569",
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "ritual_name": "INCREASE MILK PRODUCTION",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6adf92b1806104d207e65ce8"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf8b8e2396712927f04c27",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6adf8c79dbdae53be37a2509"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf858a964c1792ba469dec",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6adf861964df6701fc8b972d"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf8567de32122b3300e2e9",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6adf8575c236c1ffad8cb6b1"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf850c61eab6862ac6e2b6",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "ritual_name": "Half-Headache Relief",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6adf85222b0ea9ff5a8c5342"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "session_id": "6adf84e0c8cfb65295076e94",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "ritual_name": "Half-Headache Relief",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6adf84ffa54b9a2c390ecd79"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ade3eec002dfc254ec24fc6",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "neutral",
+        "id": "6ade457dea587a48728aa080"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ad10f8d0fb97cbb2f577a8c",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ade3f5bf37d7cf9eeb64f90"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ade0faeff2062effc53e224",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6ade16f6350c677c93b10695"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "session_id": "6adb78dbea60f202bc4f2262",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6adb79ac1d26f169ec9fb845"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "session_id": "6adb0305a57a915dcbfea398",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6adb0353987292fec3ac96ef"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "session_id": "6adadec0fcc15fb55831c163",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6adadf275ab83c01b07920ec"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "session_id": "6ada46f800cc3fd112fb5c4f",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6ada477d682f0d1175050b28"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "session_id": "6ada4629721f05cd87dd5ea5",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6ada469a0f7dc60ee79986e4"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ad10e82e35d102b9cffe5a9",
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "ritual_name": "Mahamrityunjaya Healing Mantra",
+        "notes": "",
+        "rating": 5,
+        "mood": "peaceful",
+        "id": "6ad10ef32fed494bff69fa6b"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 0,
+        "mood": "peaceful",
+        "id": "6ad10e43a2b0d49f2188bbd7"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ad10d7ce4a8c19d9e45bed1",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "peaceful",
+        "id": "6ad10da3ccf8e29bc6beb3fb"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6ad08e2f03a96b5cbd35611c",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "peaceful",
+        "id": "6ad10d6c6549602c8a9bc58c"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb9ae70c4848b5c94e0df",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6ad0751725f706954035eafa"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcbf6947fe7f0aa4b6fad4",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "emotional",
+        "id": "6ad07509df524526b5606fa9"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcbf6947fe7f0aa4b6fad4",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "emotional",
+        "id": "6acf5b944f7e738673b259b2"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb9ae70c4848b5c94e0df",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6ac8cd8bd5e382629e1eb6b8"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb9ae70c4848b5c94e0df",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "notes": "",
+        "rating": 0,
+        "mood": "energized",
+        "id": "6ac8cd01a257b5c07862636f"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6ac89e3eb7dbca27b9c85d2b"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 0,
+        "mood": "energized",
+        "id": "6abfa63a9ff55750912c38e9"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6abfa6070b3b1e59d3fb7937"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcbf6947fe7f0aa4b6fad4",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 0,
+        "mood": "energized",
+        "id": "6abfa41e69220c8033bbb189"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcbf6947fe7f0aa4b6fad4",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6abcbf98465a4762efca6828"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb9ae70c4848b5c94e0df",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6abcbb6153d59c8c3d6c442a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6abcb43c2cb9bb47bab4c49a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6abcb0dff341eb2021423d47",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6abcb3dd1d6bc95db6066cf2"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aad7f4230ae40a04dcf9a69",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6ab750722278b3bc75afa699"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aad7f4230ae40a04dcf9a69",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "notes": "",
+        "rating": 0,
+        "mood": "",
+        "id": "6ab74fcc8ab1e866e869cf5a"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aad7f4230ae40a04dcf9a69",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "notes": "",
+        "rating": 5,
+        "mood": "",
+        "id": "6aae2ce98a47552e0ef80b3f"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aad79a6754749a20773667b",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "ritual_name": "Rose Harmony Ritual",
+        "notes": "",
+        "rating": 5,
+        "mood": "neutral",
+        "id": "6aad7a3c545df5c0e02697d9"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aad78b9e7180df79fac2552",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "notes": "",
+        "rating": 0,
+        "mood": "energized",
+        "id": "6aad7972f47e68c4c0e0194f"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aa85552a0b25322453efdfb",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6aa855b48a9b02c4b9bf9310"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aa79ea051c4c3858950cbe0",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "ritual_name": "Ganesh Mantra for Removing Obstacles",
+        "notes": "",
+        "rating": 5,
+        "mood": "energized",
+        "id": "6aa7a4cf61ec10182faea2a3"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "session_id": "6aa79e439fa8982334d34844",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "ritual_name": "Ganesh Mantra for Removing Obstacles",
+        "notes": "Nice",
+        "rating": 5,
+        "mood": "peaceful",
+        "id": "6aa79e98846493500b6d4287"
+      }
+    ],
+    "Favorite": [
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "id": "6adf621d9385bf6081200ea3"
+      }
+    ],
+    "Order": [
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "ritual_name": "Area Protection for 47 Days",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_kb787akxz2",
+        "id": "6af9f6d0fcdf33a039f3fc27"
+      },
+      {
+        "user_id": "6af5a5d250c8e3dc8ee89ba5",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_s8whvmfsse",
+        "id": "6af5a68e2f52053450d1d619"
+      },
+      {
+        "user_id": "6af5925556dd26f176ad73ef",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_ej1byjpnog",
+        "id": "6af5a40b6c2f89a0209ac641"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_545ms6nlai",
+        "id": "6af5a1344afbb939d95aa654"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_djfc8me6in",
+        "id": "6af5a0d5f10e383475148952"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "ritual_name": "REMOVE NEGATIVE ENERGY",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_cz6slvrloy",
+        "id": "6af2f74318f4a5e6da3bc93f"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "ritual_name": "Ultimate Health, Wealth & Success",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_qnt4dlad1o",
+        "id": "6ae44af42f019e24199849b4"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "ritual_name": "BIND ANYONE's HOUSE",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_kyvo31c73u",
+        "id": "6ae2d1413da73665cb7333b5"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "ritual_name": "BODY PROTECTION 7.5 DAYS",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_p2h5dh4kpe",
+        "id": "6ae1bd457bd80d6420928d2f"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "ritual_name": "Full Moon Release Ritual",
+        "amount": 79,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_u9zmbrf8gk",
+        "id": "6adf8790076fcec870d195e9"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_083h7imkbh",
+        "id": "6adf8564cf7358f567a86013"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "ritual_name": "Half-Headache Relief",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_vqht1we0qz",
+        "id": "6adf84de15c2f8d211d3dec5"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "ritual_name": "INCREASE MILK PRODUCTION",
+        "amount": 0,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_8u8n68zuis",
+        "id": "6adf61c0629c45ba1cddeec2"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "ritual_name": "PITRA DOSH REMOVAL",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_o9cgheb0ho",
+        "id": "6ade0fac831bbff114368e5f"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS ACIDITY RITUAL",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_iqeh1s7nw5",
+        "id": "6adb78d71fcb58fb28a09eb6"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_1fca4of5a6",
+        "id": "6adadebb5eb9d06045fede09"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_i0dhe1xt7i",
+        "id": "6ada46f66200e382f2aa337f"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_hnkpv3rxn7",
+        "id": "6ada4626beb04ae8d76970bf"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "ritual_name": "Mahamrityunjaya Healing Mantra",
+        "amount": 149,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_amqhs98nvq",
+        "id": "6ad10e7e724a65f7ce53f5ba"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "ritual_name": "PAIN KILLER RITUAL",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_qd6ej7sg15",
+        "id": "6abcbf674e807f6fbbbcef74"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "ritual_name": "GAS / ACIDITY",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_bqwqobidyx",
+        "id": "6abcb9acec22f5649a7559a4"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "ritual_name": "Feel Energetic The Whole Day",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_cp0w9ksu05",
+        "id": "6abcb0ddd796cd1b981dac19"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "ritual_name": "Rose Harmony Ritual",
+        "amount": 129,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_pnwnnz9eg9",
+        "id": "6aad79a3df520851a6ebd247"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "ritual_name": "Lakshmi Abundance Puja",
+        "amount": 199,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_xdmxcn7rnm",
+        "id": "6aa8554f0e90e9dcd7e5536e"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "ritual_name": "Ganesh Mantra for Removing Obstacles",
+        "amount": 99,
+        "status": "paid",
+        "payment_mode": "mock",
+        "payment_id": "mock_r109uu4wmo",
+        "id": "6aa79e40faa58e667f9ba511"
+      }
+    ],
+    "Entitlement": [
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af670e7c59602949fc2557d",
+        "order_id": "6af9f6d0fcdf33a039f3fc27",
+        "id": "6af9f6d086cbb8c16b5a2cf1"
+      },
+      {
+        "user_id": "6af5a5d250c8e3dc8ee89ba5",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "order_id": "6af5a68e2f52053450d1d619",
+        "id": "6af5a68fc36aa3c5cac6090e"
+      },
+      {
+        "user_id": "6af5925556dd26f176ad73ef",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order_id": "6af5a40b6c2f89a0209ac641",
+        "id": "6af5a40cca6638a3bbada5b5"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order_id": "6af5a1344afbb939d95aa654",
+        "id": "6af5a136bbf753b038afcfdb"
+      },
+      {
+        "user_id": "6ae2c5b4193088bdc8a05bd9",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order_id": "6af5a0d5f10e383475148952",
+        "id": "6af5a0d5ec64ad248647d764"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6af2f30b9e540785d7d0ae89",
+        "order_id": "6af2f74318f4a5e6da3bc93f",
+        "id": "6af2f7433b835c2a9098f2b6"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae4474bad92e967a46e3415",
+        "order_id": "6ae44af42f019e24199849b4",
+        "id": "6ae44af45c8ee2d9cd38d2d6"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae2cc5e76b1fa998ccaf66b",
+        "order_id": "6ae2d1413da73665cb7333b5",
+        "id": "6ae2d14159bbd0394d4073bc"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ae1b25103dc95ff4ca15689",
+        "order_id": "6ae1bd457bd80d6420928d2f",
+        "id": "6ae1bd45f89615f442fac64c"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6aa79d6255375454f2a820b1",
+        "order_id": "6adf8790076fcec870d195e9",
+        "id": "6adf8790d56a93eae0fc5915"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order_id": "6adf8564cf7358f567a86013",
+        "id": "6adf85650ddbd52cd16c2c1c"
+      },
+      {
+        "user_id": "6adf83b6c82fdfc06a5e378f",
+        "ritual_id": "6adf64a5c29116db21fa8eae",
+        "order_id": "6adf84de15c2f8d211d3dec5",
+        "id": "6adf84de0d0cbce088a51a37"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6adf5e95e5dc742be079b14b",
+        "order_id": "6adf61c0629c45ba1cddeec2",
+        "id": "6adf61c0551f1b0a946fa2e2"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6ade0bf2a4821e3fdbf08ece",
+        "order_id": "6ade0fac831bbff114368e5f",
+        "id": "6ade0fad8c9574e60a9c8cc2"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order_id": "6adb78d71fcb58fb28a09eb6",
+        "id": "6adb78d81890c7fd39240d06"
+      },
+      {
+        "user_id": "6adadea2d6138f337795b85d",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order_id": "6adadebb5eb9d06045fede09",
+        "id": "6adadebca2d7dc154230b026"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order_id": "6ada46f66200e382f2aa337f",
+        "id": "6ada46f76e98996a756458d4"
+      },
+      {
+        "user_id": "6ada4616490e7936aa134789",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "order_id": "6ada4626beb04ae8d76970bf",
+        "id": "6ada462672d2f25489084fd0"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820aa",
+        "order_id": "6ad10e7e724a65f7ce53f5ba",
+        "id": "6ad10e7e7d57a6a52ef43f53"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcbd6faac7de89b061aa9e",
+        "order_id": "6abcbf674e807f6fbbbcef74",
+        "id": "6abcbf67721928cbcd1f5867"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb675c010fa459611216e",
+        "order_id": "6abcb9acec22f5649a7559a4",
+        "id": "6abcb9ac991f7fb4bb8bc173"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6abcb0aff288747b7b6aba7d",
+        "order_id": "6abcb0ddd796cd1b981dac19",
+        "id": "6abcb0dddb6dc1c9667b56be"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d447d641fb4ba8a804e",
+        "order_id": "6aad79a3df520851a6ebd247",
+        "id": "6aad79a4fbe82f9226445b53"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d4212ead10c9573e8d9",
+        "order_id": "6aa8554f0e90e9dcd7e5536e",
+        "id": "6aa85550cdc32a44a17d4365"
+      },
+      {
+        "user_id": "6aa79bd4f650d4746fcf0154",
+        "ritual_id": "6aa79d6255375454f2a820a9",
+        "order_id": "6aa79e40faa58e667f9ba511",
+        "id": "6aa79e4187c912e16be9f85b"
+      }
+    ]
+  }
+}

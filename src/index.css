@@ -63,10 +63,12 @@
       radial-gradient(circle at 90% 10%, rgba(214, 181, 106, 0.10), transparent 40%),
       #08070D;
   }
-  .glow-gold { box-shadow: 0 0 40px rgba(214, 181, 106, 0.18); }
+  .glow-gold {
+    box-shadow: 0 0 40px color-mix(in srgb, var(--brand-accent, #D6B56A) 18%, transparent);
+  }
   .glow-violet { box-shadow: 0 0 40px rgba(139, 108, 207, 0.20); }
   .text-gradient-gold {
-    background: linear-gradient(120deg, #D6B56A 0%, #F5F1E8 50%, #8B6CCF 100%);
+    background: linear-gradient(120deg, var(--brand-accent, #D6B56A) 0%, #F5F1E8 50%, #8B6CCF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

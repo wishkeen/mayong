@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
+import { useBranding } from "@/lib/BrandingContext";
 import CategoryCard from "@/components/CategoryCard";
 import RitualCard from "@/components/RitualCard";
 
@@ -17,6 +18,7 @@ function greeting() {
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
+  const { branding } = useBranding();
   const [categories, setCategories] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -55,14 +57,14 @@ export default function Home() {
       <section>
         <p className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]">{greeting()}</p>
         <h1 className="font-display text-3xl leading-tight text-[#F5F1E8] mt-1">
-          {isAuthenticated && user?.email ? (
+          {branding.hero_title ? branding.hero_title : isAuthenticated && user?.email ? (
             <>Welcome back<span className="text-gradient-gold">.</span></>
           ) : (
             <>What are you seeking<span className="text-gradient-gold">?</span></>
           )}
         </h1>
         <p className="text-sm text-[#AAA5B5] mt-2 max-w-xs">
-          Guided traditional & spiritual rituals, performed step by step.
+          {branding.hero_subtitle || "Guided traditional & spiritual rituals, performed step by step."}
         </p>
       </section>
 

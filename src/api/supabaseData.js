@@ -154,3 +154,45 @@ export async function getSupabaseAppUser() {
     full_name: profile.full_name || user.user_metadata?.full_name || "",
   };
 }
+
+export async function getUserProfileSummary(userId) {
+  if (!userId) throw new Error("A signed-in user is required.");
+  const client = requireSupabase();
+  const countFor = async (table) => {
+    const { count, error } = await client
+      .from(table)
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId);
+    if (error) throw error;
+    return count || 0;
+  };
+
+  const [ritualsCompleted, ritualsInProgress, favorites, journalEntries, purchases, recentResult] =
+    await Promise.all([
+      client.from("ritual_sessions").select("id", { count: "exact", head: true })
+        .eq("user_id", userId).eq("status", "completed"),
+      client.from("ritual_sessions").select("id", { count: "exact", head: true })
+        .eq("user_id", userId).eq("status", "in_progress"),
+      countFor("favorites"),
+      countFor("journal_entries"),
+      countFor("entitlements"),
+      client.from("ritual_sessions")
+        .select("id, ritual_name, status, completed_at, created_date")
+        .eq("user_id", userId)
+        .order("created_date", { ascending: false })
+        .limit(5),
+    ]);
+
+  if (ritualsCompleted.error) throw ritualsCompleted.error;
+  if (ritualsInProgress.error) throw ritualsInProgress.error;
+  if (recentResult.error) throw recentResult.error;
+
+  return {
+    ritualsCompleted: ritualsCompleted.count || 0,
+    ritualsInProgress: ritualsInProgress.count || 0,
+    favorites,
+    journalEntries,
+    purchases,
+    recentActivity: recentResult.data || [],
+  };
+}
