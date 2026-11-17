@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
@@ -15,6 +15,8 @@ import { formatPrice, difficultyColor, PRACTICE_LABELS } from "@/lib/rituals";
 import ReorderableList from "@/components/admin/ReorderableList";
 import CategoryForm from "@/components/admin/CategoryForm";
 import RitualCover from "@/components/RitualCover";
+import TranslatedText from "@/components/TranslatedText";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 const TABS = [
   { key: "overview", label: "Overview", icon: Moon },
@@ -32,6 +34,7 @@ const TABS = [
 function AdminInner() {
   const { user } = useAuth();
   const { branding } = useBranding();
+  const refreshKey = useRefreshOnFocus();
   const [tab, setTab] = useState("overview");
   const [rituals, setRituals] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -40,14 +43,17 @@ function AdminInner() {
   const [sessions, setSessions] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [actionError, setActionError] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [managing, setManaging] = useState(null);
   const [catFormOpen, setCatFormOpen] = useState(false);
   const [editingCat, setEditingCat] = useState(null);
 
-  const loadAll = async () => {
+  const loadAll = useCallback(async () => {
     setLoading(true);
+    setLoadError("");
     try {
       const [r, c, u, o, s, ip] = await Promise.all([
         supabaseEntities.Ritual.list("sort_order", 100),
@@ -63,12 +69,25 @@ function AdminInner() {
       setOrders(o);
       setSessions(s);
       setInProgress(ip);
+    } catch (error) {
+      console.error("Could not load admin data:", error);
+      setLoadError(error?.message || "Admin data could not be loaded. Check your access and database setup, then retry.");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { loadAll(); }, []);
+  useEffect(() => { loadAll(); }, [loadAll, tab, refreshKey]);
+
+  const runAdminAction = async (action) => {
+    setActionError("");
+    try {
+      await action();
+    } catch (error) {
+      console.error("Admin action failed:", error);
+      setActionError(error?.message || "The admin action could not be completed.");
+    }
+  };
 
   const catMap = {};
   categories.forEach((c) => (catMap[c.id] = c));
@@ -92,16 +111,26 @@ function AdminInner() {
 
   const reorderRituals = async (nextList) => {
     setRituals(nextList);
-    await supabaseEntities.Ritual.bulkUpdate(
-      nextList.map((r, i) => ({ id: r.id, sort_order: i }))
-    );
+    try {
+      await supabaseEntities.Ritual.bulkUpdate(
+        nextList.map((r, i) => ({ id: r.id, sort_order: i }))
+      );
+    } catch (error) {
+      setActionError(error?.message || "Ritual order could not be saved.");
+      await loadAll();
+    }
   };
 
   const reorderCategories = async (nextList) => {
     setCategories(nextList);
-    await supabaseEntities.Category.bulkUpdate(
-      nextList.map((c, i) => ({ id: c.id, sort_order: i }))
-    );
+    try {
+      await supabaseEntities.Category.bulkUpdate(
+        nextList.map((c, i) => ({ id: c.id, sort_order: i }))
+      );
+    } catch (error) {
+      setActionError(error?.message || "Category order could not be saved.");
+      await loadAll();
+    }
   };
 
   const openNewCat = () => { setEditingCat(null); setCatFormOpen(true); };
@@ -137,11 +166,11 @@ function AdminInner() {
             iconClassName="w-4 h-4"
           />
           <div>
-            <h1 className="font-display text-2xl leading-none">{branding.app_name} Admin</h1>
-            <p className="text-[11px] text-[#AAA5B5]">Signed in as {user?.email}</p>
+            <h1 className="font-display text-2xl leading-none">{branding.app_name} <TranslatedText> Admin</TranslatedText></h1>
+            <p className="text-[11px] text-[#AAA5B5]"><TranslatedText>Signed in as </TranslatedText>{user?.email}</p>
           </div>
         </div>
-        <Link to="/" className="text-xs text-[#AAA5B5] hover:text-[#D6B56A]">View app →</Link>
+        <Link to="/" className="text-xs text-[#AAA5B5] hover:text-[#D6B56A]"><TranslatedText>View app →</TranslatedText></Link>
       </header>
 
       <nav className="flex gap-2 overflow-x-auto no-scrollbar mb-6 -mx-5 px-5">
@@ -157,6 +186,17 @@ function AdminInner() {
           );
         })}
       </nav>
+
+      {(loadError || actionError) && (
+        <div role="alert" className="mb-4 rounded-xl border border-[#c97a7a]/30 bg-[#c97a7a]/10 p-3 text-xs text-[#e2a0a0]">
+          <p>{loadError || actionError}</p>
+          {loadError && (
+            <button type="button" onClick={loadAll} className="mt-2 underline underline-offset-2">
+              <TranslatedText>Retry loading admin data</TranslatedText>
+            </button>
+          )}
+        </div>
+      )}
 
       {loading ? (
         <div className="h-48 rounded-2xl bg-[#171522] animate-pulse" />
@@ -225,9 +265,9 @@ function AdminInner() {
               <div className="mt-3 flex flex-wrap gap-2">
                 <button onClick={() => openEdit(r)} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs inline-flex items-center gap-1.5"><Pencil className="w-3 h-3" /> Edit</button>
                 <button onClick={() => setManaging(r)} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs inline-flex items-center gap-1.5"><ListTree className="w-3 h-3" /> Steps</button>
-                <button onClick={() => togglePublish(r)} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs">{r.is_published ? "Unpublish" : "Publish"}</button>
+                <button onClick={() => runAdminAction(() => togglePublish(r))} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs">{r.is_published ? "Unpublish" : "Publish"}</button>
                 <Link to={`/ritual/${r.id}`} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs inline-flex items-center gap-1.5"><ExternalLink className="w-3 h-3" /> View</Link>
-                <button onClick={() => removeRitual(r)} className="px-3 py-1.5 rounded-lg border border-[#c97a7a]/30 text-[#c97a7a] text-xs inline-flex items-center gap-1.5 ml-auto"><Trash2 className="w-3 h-3" /> Delete</button>
+                <button onClick={() => runAdminAction(() => removeRitual(r))} className="px-3 py-1.5 rounded-lg border border-[#c97a7a]/30 text-[#c97a7a] text-xs inline-flex items-center gap-1.5 ml-auto"><Trash2 className="w-3 h-3" /> Delete</button>
               </div>
             </div>
           )} />
@@ -249,7 +289,7 @@ function AdminInner() {
               </div>
               <div className="flex gap-2">
                 <button onClick={() => openEditCat(c)} className="px-3 py-1.5 rounded-lg border border-white/10 text-[#AAA5B5] text-xs inline-flex items-center gap-1.5"><Pencil className="w-3 h-3" /> Edit</button>
-                <button onClick={() => removeCategory(c)} className="px-3 py-1.5 rounded-lg border border-[#c97a7a]/30 text-[#c97a7a] text-xs inline-flex items-center gap-1.5"><Trash2 className="w-3 h-3" /></button>
+                <button onClick={() => runAdminAction(() => removeCategory(c))} className="px-3 py-1.5 rounded-lg border border-[#c97a7a]/30 text-[#c97a7a] text-xs inline-flex items-center gap-1.5"><Trash2 className="w-3 h-3" /></button>
               </div>
             </div>
           )} />

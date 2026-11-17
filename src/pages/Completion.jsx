@@ -4,6 +4,8 @@ import { Check, BookOpen } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StarRating from "@/components/StarRating";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const MOODS = [
   { key: "peaceful", emoji: "🌙", label: "Peaceful" },
@@ -16,6 +18,8 @@ const MOODS = [
 export default function Completion() {
   const { sessionId } = useParams();
   const { user } = useAuth();
+  const { language } = useLanguage();
+  const notesPlaceholder = useTranslatedValue("Reflect on your experience, intentions, or anything that arose…");
   const [session, setSession] = useState(null);
   const [ritual, setRitual] = useState(null);
   const [notes, setNotes] = useState("");
@@ -77,40 +81,40 @@ export default function Completion() {
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#D6B56A] to-[#8B6CCF] flex items-center justify-center glow-gold mb-5">
           <Check className="w-10 h-10 text-[#08070D]" />
         </div>
-        <h1 className="font-display text-4xl text-[#F5F1E8]">Ritual Completed</h1>
+        <h1 className="font-display text-4xl text-[#F5F1E8]"><TranslatedText>Ritual Completed</TranslatedText></h1>
         <p className="text-sm text-[#AAA5B5] mt-2">
-          {session.ritual_name || ritual?.name}
+          <TranslatedText>{session.ritual_name || ritual?.name}</TranslatedText>
         </p>
         <p className="text-xs text-[#AAA5B5] mt-1">
-          {completedDate.toLocaleString(undefined, {
+          <TranslatedText>{completedDate.toLocaleString(language, {
             dateStyle: "long",
             timeStyle: "short",
-          })}
+          })}</TranslatedText>
         </p>
       </div>
 
       <div className="mt-8 rounded-2xl border border-white/5 bg-[#171522] p-5">
         <div className="flex items-center gap-2 mb-4">
           <BookOpen className="w-4 h-4 text-[#D6B56A]" />
-          <h2 className="text-sm tracking-wide text-[#F5F1E8]">Journal Entry</h2>
+          <h2 className="text-sm tracking-wide text-[#F5F1E8]"><TranslatedText>Journal Entry</TranslatedText></h2>
         </div>
 
         {saved ? (
           <div className="text-center py-6">
-            <p className="text-[#D6B56A] text-sm">✦ Saved to your journal</p>
+            <p className="text-[#D6B56A] text-sm">✦ <TranslatedText>Saved to your journal</TranslatedText></p>
             <div className="mt-5 flex flex-col gap-2">
               <Link to="/my-rituals" className="py-3 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold text-sm">
-                Go to My Rituals
+                <TranslatedText>Go to My Rituals</TranslatedText>
               </Link>
               <Link to="/journal" className="py-3 rounded-xl border border-white/10 text-[#AAA5B5] text-sm">
-                View Journal
+                <TranslatedText>View Journal</TranslatedText>
               </Link>
             </div>
           </div>
         ) : (
           <div className="space-y-5">
             <div>
-              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">How do you feel?</label>
+              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>How do you feel?</TranslatedText></label>
               <div className="mt-2 flex justify-between">
                 {MOODS.map((m) => (
                   <button
@@ -123,26 +127,26 @@ export default function Completion() {
                     }`}
                   >
                     <span className="text-xl">{m.emoji}</span>
-                    <span className="text-[9px] text-[#AAA5B5]">{m.label}</span>
+                    <span className="text-[9px] text-[#AAA5B5]"><TranslatedText>{m.label}</TranslatedText></span>
                   </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Rating</label>
+              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Rating</TranslatedText></label>
               <div className="mt-2">
                 <StarRating value={rating} onChange={setRating} size="lg" />
               </div>
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Notes</label>
+              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Notes</TranslatedText></label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={4}
-                placeholder="Reflect on your experience, intentions, or anything that arose…"
+                placeholder={notesPlaceholder}
                 className="mt-2 w-full rounded-xl bg-[#08070D] border border-white/10 p-3 text-sm text-[#F5F1E8] placeholder:text-[#AAA5B5]/50 resize-none focus:outline-none focus:border-[#D6B56A]/40"
               />
             </div>
@@ -152,10 +156,10 @@ export default function Completion() {
               disabled={saving}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide disabled:opacity-60"
             >
-              {saving ? "Saving…" : "Save Journal Entry"}
+              {saving ? <TranslatedText>Saving…</TranslatedText> : <TranslatedText>Save Journal Entry</TranslatedText>}
             </button>
             <Link to="/my-rituals" className="block text-center text-xs text-[#AAA5B5]">
-              Skip for now
+              <TranslatedText>Skip for now</TranslatedText>
             </Link>
           </div>
         )}

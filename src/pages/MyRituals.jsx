@@ -5,6 +5,10 @@ import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import RitualCover from "@/components/RitualCover";
 import { formatPrice } from "@/lib/rituals";
+import TranslatedText from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translateRitualField } from "@/lib/languages";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 const TABS = [
   { key: "purchased", label: "Purchased" },
@@ -15,6 +19,8 @@ const TABS = [
 
 export default function MyRituals() {
   const { user } = useAuth();
+  const { language } = useLanguage();
+  const refreshKey = useRefreshOnFocus();
   const [tab, setTab] = useState("purchased");
   const [rituals, setRituals] = useState({});
   const [entitlements, setEntitlements] = useState([]);
@@ -41,7 +47,7 @@ export default function MyRituals() {
         setLoading(false);
       }
     })();
-  }, [user?.id]);
+  }, [user?.id, refreshKey]);
 
   const ritualOf = (id) => rituals[id];
   const completedSessions = sessions.filter((s) => s.status === "completed");
@@ -56,8 +62,10 @@ export default function MyRituals() {
       <div key={ritual.id} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-[#171522] p-2.5">
         <RitualCover ritual={ritual} className="h-16 w-16 rounded-xl flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="font-display text-lg text-[#F5F1E8] leading-tight truncate">{ritual.name}</p>
-          <p className="text-xs text-[#AAA5B5]">{ritual.duration_minutes}m · {formatPrice(ritual.price)}</p>
+          <p className="font-display text-lg text-[#F5F1E8] leading-tight truncate">
+            {translateRitualField(ritual, "name", language)}
+          </p>
+          <p className="text-xs text-[#AAA5B5]">{ritual.duration_minutes}<TranslatedText>m · </TranslatedText>{formatPrice(ritual.price)}</p>
         </div>
         {action}
       </div>
@@ -68,28 +76,28 @@ export default function MyRituals() {
     purchased: purchasedIds.map((rid) =>
       renderRitualRow(ritualOf(rid), (
         <Link key={rid} to={`/player/${rid}`} className="px-3 py-2 rounded-lg bg-[#D6B56A]/10 text-[#D6B56A] text-xs flex items-center gap-1">
-          <Play className="w-3 h-3" /> Perform
+          <Play className="w-3 h-3" /> <TranslatedText>Perform</TranslatedText>
         </Link>
       ))
     ),
     progress: progressSessions.map((s) =>
       renderRitualRow(ritualOf(s.ritual_id), (
         <Link key={s.id} to={`/player/${s.ritual_id}`} className="px-3 py-2 rounded-lg bg-[#8B6CCF]/10 text-[#8B6CCF] text-xs flex items-center gap-1">
-          <Play className="w-3 h-3" /> Continue
+          <Play className="w-3 h-3" /> <TranslatedText>Continue</TranslatedText>
         </Link>
       ))
     ),
     completed: completedSessions.map((s) =>
       renderRitualRow(ritualOf(s.ritual_id), (
         <span key={s.id} className="px-3 py-2 rounded-lg bg-white/5 text-[#AAA5B5] text-xs flex items-center gap-1">
-          <Check className="w-3 h-3" /> Done
+          <Check className="w-3 h-3" /> <TranslatedText>Done</TranslatedText>
         </span>
       ))
     ),
     favorites: favIds.map((rid) =>
       renderRitualRow(ritualOf(rid), (
         <Link key={rid} to={`/ritual/${rid}`} className="px-3 py-2 rounded-lg bg-white/5 text-[#AAA5B5] text-xs">
-          View
+          <TranslatedText>View</TranslatedText>
         </Link>
       ))
     ),
@@ -104,10 +112,10 @@ export default function MyRituals() {
 
   return (
     <div className="pt-1 space-y-5">
-      <h1 className="font-display text-3xl text-[#F5F1E8]">My Rituals</h1>
+      <h1 className="font-display text-3xl text-[#F5F1E8]"><TranslatedText>My Rituals</TranslatedText></h1>
 
       <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5">
-        {TABS.map((t) => (
+        <TranslatedText>{TABS.map((t) => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
@@ -117,21 +125,21 @@ export default function MyRituals() {
                 : "border-white/10 text-[#AAA5B5] bg-[#171522]"
             }`}
           >
-            {t.label}
+            <TranslatedText>{t.label}</TranslatedText>
           </button>
-        ))}
+        ))}</TranslatedText>
       </div>
 
-      {loading ? (
+      <TranslatedText>{loading ? (
         <div className="h-40 rounded-2xl bg-[#171522] animate-pulse" />
       ) : lists[tab].length === 0 ? (
         <div className="rounded-2xl border border-white/5 bg-[#171522] p-8 text-center">
-          <p className="text-sm text-[#AAA5B5]">{emptyMsg[tab]}</p>
-          <Link to="/browse" className="inline-block mt-4 text-xs text-[#D6B56A]">Browse rituals →</Link>
+          <p className="text-sm text-[#AAA5B5]"><TranslatedText>{emptyMsg[tab]}</TranslatedText></p>
+          <Link to="/browse" className="inline-block mt-4 text-xs text-[#D6B56A]"><TranslatedText>Browse rituals</TranslatedText> →</Link>
         </div>
       ) : (
         <div className="space-y-2.5">{lists[tab]}</div>
-      )}
+      )}</TranslatedText>
     </div>
   );
 }

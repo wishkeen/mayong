@@ -14,8 +14,8 @@ const COLLECTIONS = [
     table: "rituals",
     fields: [
       "id", "name", "category_id", "category_slug", "category_name", "description",
-      "duration_minutes", "difficulty", "source", "price", "image_url", "is_published",
-      "is_featured", "practice_type", "sort_order",
+      "translations", "duration_minutes", "difficulty", "source", "price", "image_url", "is_published",
+      "is_featured", "practice_type", "practice_disclaimer", "sort_order",
     ],
   },
   {

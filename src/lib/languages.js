@@ -1,4 +1,14 @@
-export const LANGUAGES = [
+import { translatePublicText } from "@/lib/translation";
+import bengaliRitualMetadata from "@/locales/ritualMetadata.bn.json";
+import hindiRitualMetadata from "@/locales/ritualMetadata.hi.json";
+
+export const APP_LANGUAGES = [
+  { code: "en", label: "English", native: "English" },
+  { code: "bn", label: "Bengali", native: "বাংলা" },
+  { code: "hi", label: "Hindi", native: "हिन्दी" },
+];
+
+export const CONTENT_LANGUAGES = [
   { code: "en", label: "English", native: "English" },
   { code: "hi", label: "Hindi", native: "हिन्दी" },
   { code: "sa", label: "Sanskrit", native: "संस्कृतम्" },
@@ -17,10 +27,24 @@ export const LANGUAGES = [
   { code: "de", label: "German", native: "Deutsch" },
 ];
 
+export const LANGUAGES = CONTENT_LANGUAGES;
 export const DEFAULT_LANGUAGE = "en";
-export const RTL_LANGUAGES = ["ar", "ur"];
+export const RTL_LANGUAGES = ["ur", "ar"];
 
-const SUPPORTED = new Set(LANGUAGES.map((l) => l.code));
+const SUPPORTED_APP_LANGUAGES = new Set(APP_LANGUAGES.map((l) => l.code));
+const SUPPORTED_CONTENT_LANGUAGES = new Set(CONTENT_LANGUAGES.map((l) => l.code));
+const BUNDLED_RITUAL_METADATA = {
+  bn: bengaliRitualMetadata,
+  hi: hindiRitualMetadata,
+};
+
+export function isSupportedLanguage(code) {
+  return SUPPORTED_APP_LANGUAGES.has(code);
+}
+
+export function isSupportedContentLanguage(code) {
+  return SUPPORTED_CONTENT_LANGUAGES.has(code);
+}
 
 export function languageLabel(code) {
   const lang = LANGUAGES.find((l) => l.code === code);
@@ -31,6 +55,23 @@ export function isRtl(code) {
   return RTL_LANGUAGES.includes(code);
 }
 
+export function translateRitualField(ritual, field, language) {
+  const rawTranslations = ritual?.translations;
+  const translations = Array.isArray(rawTranslations)
+    ? rawTranslations
+    : rawTranslations && typeof rawTranslations === "object"
+      ? Object.entries(rawTranslations).map(([code, value]) => ({ language: code, ...value }))
+      : [];
+  const translation = translations.find((item) => item?.language === language);
+  const translatedValue = typeof translation?.[field] === "string"
+    ? translation[field].trim()
+    : "";
+  if (translatedValue) return translatedValue;
+  const bundledValue = BUNDLED_RITUAL_METADATA[language]?.[ritual?.id]?.[field];
+  if (typeof bundledValue === "string" && bundledValue.trim()) return bundledValue;
+  return translatePublicText(ritual?.[field] || "", language);
+}
+
 export function detectPreferredLanguage() {
   const candidates =
     typeof navigator !== "undefined"
@@ -39,7 +80,7 @@ export function detectPreferredLanguage() {
   for (const tag of candidates) {
     if (!tag) continue;
     const base = String(tag).toLowerCase().split("-")[0];
-    if (SUPPORTED.has(base)) return base;
+    if (SUPPORTED_APP_LANGUAGES.has(base)) return base;
   }
   return DEFAULT_LANGUAGE;
 }
@@ -65,5 +106,5 @@ export function availableLanguagesForSteps(steps = []) {
       if (t?.language && (t.mantra?.trim() || t.title?.trim() || t.content?.trim())) codes.add(t.language);
     });
   });
-  return LANGUAGES.filter((l) => codes.has(l.code)).map((l) => l.code);
+  return CONTENT_LANGUAGES.filter((l) => codes.has(l.code)).map((l) => l.code);
 }

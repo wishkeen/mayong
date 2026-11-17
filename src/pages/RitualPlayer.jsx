@@ -5,13 +5,18 @@ import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StepView from "@/components/player/StepView";
 import ContentLanguageSwitcher from "@/components/player/ContentLanguageSwitcher";
-import { availableLanguagesForSteps } from "@/lib/languages";
+import { availableLanguagesForSteps, translateRitualField } from "@/lib/languages";
 import { motion, AnimatePresence } from "framer-motion";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function RitualPlayer() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { language } = useLanguage();
+  const audioLabel = useTranslatedValue("Toggle audio");
+  const backLabel = useTranslatedValue("Go back");
   const [ritual, setRitual] = useState(null);
   const [steps, setSteps] = useState([]);
   const [session, setSession] = useState(null);
@@ -187,8 +192,8 @@ export default function RitualPlayer() {
   if (!ritual || steps.length === 0) {
     return (
       <div className="min-h-screen bg-mystic flex flex-col items-center justify-center text-[#AAA5B5] px-6 text-center">
-        <p>This ritual has no steps yet.</p>
-        <button onClick={() => navigate(-1)} className="mt-4 text-[#D6B56A] text-sm">Go back</button>
+        <p><TranslatedText>This ritual has no steps yet.</TranslatedText></p>
+        <button onClick={() => navigate(-1)} className="mt-4 text-[#D6B56A] text-sm"><TranslatedText>Go back</TranslatedText></button>
       </div>
     );
   }
@@ -200,11 +205,11 @@ export default function RitualPlayer() {
   return (
     <div className="min-h-screen bg-mystic text-[#F5F1E8] flex flex-col max-w-md mx-auto">
       <div className="px-5 pt-5 flex items-center justify-between">
-        <button onClick={goBack} className="w-9 h-9 rounded-full border border-white/10 bg-[#171522] flex items-center justify-center text-[#AAA5B5]">
+        <button onClick={goBack} aria-label={backLabel} className="w-9 h-9 rounded-full border border-white/10 bg-[#171522] flex items-center justify-center text-[#AAA5B5]">
           <ArrowLeft className="w-4 h-4" />
         </button>
         <div className="text-[10px] tracking-[0.2em] uppercase text-[#AAA5B5] text-center max-w-[45%] truncate">
-          {ritual.name}
+          {translateRitualField(ritual, "name", language)}
         </div>
         <div className="flex items-center gap-2">
           <ContentLanguageSwitcher languages={contentLanguages} />
@@ -212,7 +217,7 @@ export default function RitualPlayer() {
             <button
               onClick={toggleAudio}
               className="w-9 h-9 rounded-full border border-white/10 bg-[#171522] flex items-center justify-center text-[#D6B56A]"
-              aria-label="Toggle audio"
+              aria-label={audioLabel}
             >
               {audioPlaying ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </button>
@@ -250,21 +255,21 @@ export default function RitualPlayer() {
           onClick={goBack}
           className="px-4 py-3.5 rounded-xl border border-white/10 text-[#AAA5B5] text-sm"
         >
-          Back
+          <TranslatedText>Back</TranslatedText>
         </button>
         {isCompletion ? (
           <button
             onClick={finish}
             className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide glow-gold"
           >
-            Complete Ritual
+            <TranslatedText>Complete Ritual</TranslatedText>
           </button>
         ) : (
           <button
             onClick={goNext}
             className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide flex items-center justify-center gap-2 glow-gold"
           >
-            Next <ArrowRight className="w-4 h-4" />
+            <TranslatedText>Next</TranslatedText> <ArrowRight className="w-4 h-4" />
           </button>
         )}
       </div>

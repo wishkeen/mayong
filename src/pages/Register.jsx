@@ -10,6 +10,7 @@ import AuthLayout from "@/components/AuthLayout";
 import AuthSocialButtons from "@/components/AuthSocialButtons";
 import { toast } from "@/components/ui/use-toast";
 import { safeReturnTo } from "@/lib/authReturnTo";
+import TranslatedText from "@/components/TranslatedText";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -84,7 +85,7 @@ export default function Register() {
       <AuthLayout
         icon={Mail}
         title="Verify your email"
-        subtitle={`Check ${email} for a confirmation link or one-time code.`}
+        subtitle={<><TranslatedText>Check</TranslatedText>{" "}{email}{" "}<TranslatedText>for a confirmation link or one-time code.</TranslatedText></>}
       >
         {error && (
           <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
@@ -124,9 +125,9 @@ export default function Register() {
           )}
         </Button>
         <p className="text-center text-sm text-muted-foreground mt-4">
-          Didn't receive the code?{" "}
+          <TranslatedText>Didn't receive the code?</TranslatedText>{" "}
           <button onClick={handleResend} className="text-primary font-medium hover:underline">
-            Resend
+            <TranslatedText>Resend</TranslatedText>
           </button>
         </p>
       </AuthLayout>
@@ -140,12 +141,12 @@ export default function Register() {
       subtitle="Sign up to get started"
       footer={
         <>
-          Already have an account?{" "}
+          <TranslatedText>Already have an account?</TranslatedText>{" "}
           <Link
             to={"/login" + (safeReturnTo() !== "/" ? "?returnTo=" + encodeURIComponent(safeReturnTo()) : "")}
             className="text-primary font-medium hover:underline"
           >
-            Log in
+            <TranslatedText>Log in</TranslatedText>
           </Link>
         </>
       }
@@ -157,7 +158,7 @@ export default function Register() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-3 text-muted-foreground">or</span>
+          <span className="bg-card px-3 text-muted-foreground"><TranslatedText>or</TranslatedText></span>
         </div>
       </div>
 
@@ -169,7 +170,7 @@ export default function Register() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email"><TranslatedText>Email</TranslatedText></Label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -186,7 +187,7 @@ export default function Register() {
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password"><TranslatedText>Password</TranslatedText></Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -202,7 +203,7 @@ export default function Register() {
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="confirm">Confirm Password</Label>
+          <Label htmlFor="confirm"><TranslatedText>Confirm Password</TranslatedText></Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -221,10 +222,10 @@ export default function Register() {
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Creating account...
+              <TranslatedText>Creating account...</TranslatedText>
             </>
           ) : (
-            "Create account"
+            <TranslatedText>Create account</TranslatedText>
           )}
         </Button>
       </form>

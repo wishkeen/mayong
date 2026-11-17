@@ -8,6 +8,7 @@ import { Mail, Lock, Loader2, Eye, EyeOff } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 import AuthSocialButtons from "@/components/AuthSocialButtons";
 import { safeReturnTo } from "@/lib/authReturnTo";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,8 @@ export default function Login() {
   // Post-login destination (e.g. the MCP OAuth consent page sends users here
   // with returnTo so the grant flow can resume). Same-origin paths only.
   const returnTo = safeReturnTo();
+  const passwordPlaceholder = useTranslatedValue("Enter your password");
+  const visibilityLabel = useTranslatedValue(showPassword ? "Hide password" : "Show password");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,29 +41,30 @@ export default function Login() {
     <AuthLayout
       title="Welcome back"
       subtitle="Sign in to continue your practice."
+      variant="focused"
       footer={
         <>
-          New here?{" "}
+          <TranslatedText>New here?</TranslatedText>{" "}
           <Link
             to={"/register" + (returnTo !== "/" ? "?returnTo=" + encodeURIComponent(returnTo) : "")}
             className="font-medium text-primary underline-offset-4 hover:underline"
           >
-            Create an account
+            <TranslatedText>Create an account</TranslatedText>
           </Link>
         </>
       }
     >
       <AuthSocialButtons returnTo={returnTo} />
 
-      {error && (
+      <TranslatedText>{error && (
         <div className="mb-4 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive" role="alert" aria-live="polite">
           {error}
         </div>
-      )}
+      )}</TranslatedText>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-sm font-medium">Email address</Label>
+          <Label htmlFor="email" className="text-sm font-medium"><TranslatedText>Email address</TranslatedText></Label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -77,10 +81,11 @@ export default function Login() {
         </div>
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+            <Label htmlFor="password" className="text-sm font-medium"><TranslatedText>Password</TranslatedText></Label>
             <Link to="/forgot-password" className="text-xs font-medium text-primary underline-offset-4 hover:underline">
+              <TranslatedText>
               Forgot password?
-            </Link>
+            </TranslatedText></Link>
           </div>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
@@ -88,7 +93,7 @@ export default function Login() {
               id="password"
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
-              placeholder="Enter your password"
+              placeholder={passwordPlaceholder}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="h-12 border-white/10 bg-background/70 pl-10 pr-12 focus-visible:ring-primary"
@@ -98,22 +103,22 @@ export default function Login() {
               type="button"
               onClick={() => setShowPassword((visible) => !visible)}
               className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={visibilityLabel}
               aria-pressed={showPassword}
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              <TranslatedText>{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</TranslatedText>
             </button>
           </div>
         </div>
         <Button type="submit" className="h-12 w-full font-medium shadow-lg shadow-primary/10 transition hover:-translate-y-0.5" disabled={loading || !email.trim() || !password}>
-          {loading ? (
+          <TranslatedText>{loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Signing in...
+              <TranslatedText>Signing in...</TranslatedText>
             </>
           ) : (
-            "Sign in"
-          )}
+            <TranslatedText>Sign in</TranslatedText>
+          )}</TranslatedText>
         </Button>
       </form>
     </AuthLayout>

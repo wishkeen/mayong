@@ -4,9 +4,12 @@ import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import JourneyRitualCard from "@/components/journey/JourneyRitualCard";
 import AchievedRitualCard from "@/components/journey/AchievedRitualCard";
+import TranslatedText from "@/components/TranslatedText";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 export default function Journey() {
   const { user } = useAuth();
+  const refreshKey = useRefreshOnFocus();
   const [sessions, setSessions] = useState([]);
   const [rituals, setRituals] = useState({});
   const [loading, setLoading] = useState(true);
@@ -35,7 +38,7 @@ export default function Journey() {
         setLoading(false);
       }
     })();
-  }, [user?.id]);
+  }, [user?.id, refreshKey]);
 
   const groups = {};
   sessions.forEach((s) => {
@@ -75,9 +78,11 @@ export default function Journey() {
   return (
     <div className="pt-1 space-y-6">
       <div>
-        <h1 className="font-display text-3xl text-[#F5F1E8]">Your Journey</h1>
+        <h1 className="font-display text-3xl text-[#F5F1E8]"><TranslatedText>Your Journey</TranslatedText></h1>
         <p className="text-sm text-[#AAA5B5] mt-1">
+          <TranslatedText>
           Every attempt is part of the practice. See how your persistence turned into completion.
+          </TranslatedText>
         </p>
       </div>
 
@@ -86,7 +91,7 @@ export default function Journey() {
       ) : ritualIds.length === 0 ? (
         <div className="rounded-2xl border border-white/5 bg-[#171522] p-8 text-center">
           <Sparkles className="w-6 h-6 text-[#8B6CCF] mx-auto mb-2" />
-          <p className="text-sm text-[#AAA5B5]">Your journey begins with your first ritual.</p>
+          <p className="text-sm text-[#AAA5B5]"><TranslatedText>Your journey begins with your first ritual.</TranslatedText></p>
         </div>
       ) : (
         <>
@@ -97,7 +102,7 @@ export default function Journey() {
                 <div key={s.label} className="rounded-2xl border border-white/5 bg-[#171522] p-4">
                   <Icon className="w-4 h-4 text-[#D6B56A] mb-2" />
                   <div className="font-display text-3xl text-[#F5F1E8] leading-none">{s.value}</div>
-                  <div className="text-[11px] text-[#AAA5B5] uppercase tracking-widest mt-1">{s.label}</div>
+                  <div className="text-[11px] text-[#AAA5B5] uppercase tracking-widest mt-1"><TranslatedText>{s.label}</TranslatedText></div>
                 </div>
               );
             })}
@@ -105,7 +110,7 @@ export default function Journey() {
 
           {achievedIds.length > 0 && (
             <section>
-              <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5] mb-3">Goals Achieved</h2>
+              <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5] mb-3"><TranslatedText>Goals Achieved</TranslatedText></h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {achievedIds.map((id) => (
                   <AchievedRitualCard key={id} ritual={rituals[id]} sessions={groups[id]} />
@@ -116,7 +121,7 @@ export default function Journey() {
 
           {inProgressIds.length > 0 && (
             <section>
-              <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5] mb-3">Still In Progress</h2>
+              <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5] mb-3"><TranslatedText>Still In Progress</TranslatedText></h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {inProgressIds.map((id) => (
                   <JourneyRitualCard key={id} ritual={rituals[id]} sessions={groups[id]} achieved={false} />

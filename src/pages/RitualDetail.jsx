@@ -6,11 +6,18 @@ import { useAuth } from "@/lib/AuthContext";
 import RitualCover from "@/components/RitualCover";
 import MockPaymentDialog from "@/components/MockPaymentDialog";
 import { formatPrice, difficultyColor, PRACTICE_LABELS, PRACTICE_NOTE } from "@/lib/rituals";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
+import { translateRitualField } from "@/lib/languages";
+import { useLanguage } from "@/lib/LanguageContext";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 export default function RitualDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
+  const { language } = useLanguage();
+  const refreshKey = useRefreshOnFocus();
+  const backLabel = useTranslatedValue("Back");
   const [ritual, setRitual] = useState(null);
   const [category, setCategory] = useState(null);
   const [steps, setSteps] = useState([]);
@@ -18,6 +25,14 @@ export default function RitualDetail() {
   const [fav, setFav] = useState(null);
   const [loading, setLoading] = useState(true);
   const [payOpen, setPayOpen] = useState(false);
+  const favoriteLabel = useTranslatedValue(fav ? "Remove from favorites" : "Add to favorites");
+  const practiceDisclaimer = ritual
+    ? translateRitualField(
+        { ...ritual, practice_disclaimer: ritual.practice_disclaimer ?? PRACTICE_NOTE },
+        "practice_disclaimer",
+        language
+      )
+    : "";
 
   useEffect(() => {
     (async () => {
@@ -43,7 +58,7 @@ export default function RitualDetail() {
         setLoading(false);
       }
     })();
-  }, [id, isAuthenticated, user?.id]);
+  }, [id, isAuthenticated, user?.id, refreshKey]);
 
   const toggleFav = async () => {
     if (!isAuthenticated) {
@@ -81,17 +96,19 @@ export default function RitualDetail() {
     );
   }
   if (!ritual) {
-    return <div className="pt-10 text-center text-[#AAA5B5]">Ritual not found.</div>;
+    return <div className="pt-10 text-center text-[#AAA5B5]"><TranslatedText>Ritual not found.</TranslatedText></div>;
   }
 
   return (
     <div className="pt-1 pb-4">
       <div className="flex items-center justify-between mb-3">
-        <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full border border-white/10 bg-[#171522] flex items-center justify-center text-[#AAA5B5]">
+        <button onClick={() => navigate(-1)} aria-label={backLabel} className="w-9 h-9 rounded-full border border-white/10 bg-[#171522] flex items-center justify-center text-[#AAA5B5]">
           <ArrowLeft className="w-4 h-4" />
         </button>
         <button
           onClick={toggleFav}
+          aria-label={favoriteLabel}
+          aria-pressed={Boolean(fav)}
           className={`w-9 h-9 rounded-full border flex items-center justify-center ${
             fav ? "border-[#D6B56A] bg-[#D6B56A]/10 text-[#D6B56A]" : "border-white/10 bg-[#171522] text-[#AAA5B5]"
           }`}
@@ -104,55 +121,67 @@ export default function RitualDetail() {
 
       <div className="mt-4">
         <span className="text-[10px] uppercase tracking-[0.2em] text-[#AAA5B5]">
-          {category?.name || ritual.category_name}
+          <TranslatedText>{category?.name || ritual.category_name}</TranslatedText>
         </span>
-        <h1 className="font-display text-3xl text-[#F5F1E8] leading-tight mt-1">{ritual.name}</h1>
-        <p className="text-sm text-[#AAA5B5] leading-relaxed mt-3">{ritual.description}</p>
+        <h1 className="font-display text-3xl text-[#F5F1E8] leading-tight mt-1">
+          {translateRitualField(ritual, "name", language)}
+        </h1>
+        <p className="text-sm text-[#AAA5B5] leading-relaxed mt-3">
+          {translateRitualField(ritual, "description", language)}
+        </p>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
         <div className="rounded-xl border border-white/5 bg-[#171522] p-3 text-center">
           <Clock className="w-4 h-4 text-[#D6B56A] mx-auto mb-1" />
-          <div className="text-xs text-[#AAA5B5]">Duration</div>
-          <div className="text-sm text-[#F5F1E8] font-medium">{ritual.duration_minutes}m</div>
+          <div className="text-xs text-[#AAA5B5]"><TranslatedText>Duration</TranslatedText></div>
+          <div className="text-sm text-[#F5F1E8] font-medium">{ritual.duration_minutes}<TranslatedText>m</TranslatedText></div>
         </div>
         <div className="rounded-xl border border-white/5 bg-[#171522] p-3 text-center">
           <Gem className="w-4 h-4 text-[#D6B56A] mx-auto mb-1" />
-          <div className="text-xs text-[#AAA5B5]">Price</div>
+          <div className="text-xs text-[#AAA5B5]"><TranslatedText>Price</TranslatedText></div>
           <div className="text-sm text-[#F5F1E8] font-medium">{formatPrice(ritual.price)}</div>
         </div>
         <div className="rounded-xl border border-white/5 bg-[#171522] p-3 text-center">
-          <div className="text-[10px] text-[#AAA5B5] mt-0.5">Difficulty</div>
+          <div className="text-[10px] text-[#AAA5B5] mt-0.5"><TranslatedText>Difficulty</TranslatedText></div>
           <span className={`inline-block mt-1 text-[11px] px-2 py-0.5 rounded-full border ${difficultyColor(ritual.difficulty)}`}>
-            {ritual.difficulty}
+            <TranslatedText>{ritual.difficulty}</TranslatedText>
           </span>
         </div>
       </div>
 
       <div className="mt-4 space-y-3">
-        {ritual.practice_type && (
+        {(ritual.practice_type || practiceDisclaimer.trim()) && (
           <div className="rounded-xl border border-[#8B6CCF]/20 bg-[#8B6CCF]/5 p-3 flex gap-2.5">
             <Info className="w-4 h-4 text-[#8B6CCF] mt-0.5 flex-shrink-0" />
             <p className="text-xs text-[#AAA5B5] leading-relaxed">
-              <span className="text-[#8B6CCF]">{PRACTICE_LABELS[ritual.practice_type]}.</span>{" "}
-              {PRACTICE_NOTE}
+              {ritual.practice_type && (
+                <>
+                  <span className="text-[#8B6CCF]">
+                    <TranslatedText>{PRACTICE_LABELS[ritual.practice_type] || ritual.practice_type}</TranslatedText>.
+                  </span>{" "}
+                </>
+              )}
+              {practiceDisclaimer.trim() && practiceDisclaimer}
             </p>
           </div>
         )}
-        {ritual.source && (
+        <TranslatedText>{ritual.source && (
           <div className="rounded-xl border border-white/5 bg-[#171522] p-3 flex gap-2.5">
             <ShieldQuestion className="w-4 h-4 text-[#D6B56A] mt-0.5 flex-shrink-0" />
             <div>
-              <div className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Source / Provenance</div>
-              <p className="text-xs text-[#F5F1E8] mt-0.5 leading-relaxed">{ritual.source}</p>
+              <div className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Source / Provenance</TranslatedText></div>
+              <p className="text-xs text-[#F5F1E8] mt-0.5 leading-relaxed">
+                {translateRitualField(ritual, "source", language)}
+              </p>
             </div>
           </div>
-        )}
+        )}</TranslatedText>
         <div className="rounded-xl border border-white/5 bg-[#171522] p-3 flex gap-2.5">
           <BookOpen className="w-4 h-4 text-[#D6B56A] mt-0.5 flex-shrink-0" />
           <div>
-            <div className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Structure</div>
-            <p className="text-xs text-[#F5F1E8] mt-0.5">{steps.length} guided steps</p>
+            <div className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Structure</TranslatedText></div>
+            <p className="text-xs text-[#F5F1E8] mt-0.5"><TranslatedText>{`${steps.length} guided steps`}</TranslatedText></p>
           </div>
         </div>
       </div>
@@ -162,11 +191,11 @@ export default function RitualDetail() {
           onClick={onPrimary}
           className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide glow-gold"
         >
-          {entitled ? "Perform This Ritual" : `Unlock for ${formatPrice(ritual.price)}`}
+          {entitled ? <TranslatedText>Perform This Ritual</TranslatedText> : <TranslatedText>{`Unlock for ${formatPrice(ritual.price)}`}</TranslatedText>}
         </button>
-        {!isAuthenticated && (
-          <p className="text-center text-xs text-[#AAA5B5] mt-2">Sign in to purchase & perform.</p>
-        )}
+        <TranslatedText>{!isAuthenticated && (
+          <p className="text-center text-xs text-[#AAA5B5] mt-2"><TranslatedText>Sign in to purchase & perform.</TranslatedText></p>
+        )}</TranslatedText>
       </div>
 
       <MockPaymentDialog

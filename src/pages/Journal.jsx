@@ -4,6 +4,9 @@ import { BookOpen } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import StarRating from "@/components/StarRating";
+import TranslatedText from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 const MOOD_EMOJI = {
   peaceful: "🌙",
@@ -15,6 +18,8 @@ const MOOD_EMOJI = {
 
 export default function Journal() {
   const { user } = useAuth();
+  const { language } = useLanguage();
+  const refreshKey = useRefreshOnFocus();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,13 +32,13 @@ export default function Journal() {
         setLoading(false);
       }
     })();
-  }, [user?.id]);
+  }, [user?.id, refreshKey]);
 
   return (
     <div className="pt-1 space-y-5">
       <div>
-        <h1 className="font-display text-3xl text-[#F5F1E8]">Journal</h1>
-        <p className="text-sm text-[#AAA5B5] mt-1">Your reflections after each ritual.</p>
+        <h1 className="font-display text-3xl text-[#F5F1E8]"><TranslatedText>Journal</TranslatedText></h1>
+        <p className="text-sm text-[#AAA5B5] mt-1"><TranslatedText>Your reflections after each ritual.</TranslatedText></p>
       </div>
 
       {loading ? (
@@ -41,8 +46,8 @@ export default function Journal() {
       ) : entries.length === 0 ? (
         <div className="rounded-2xl border border-white/5 bg-[#171522] p-8 text-center">
           <BookOpen className="w-6 h-6 text-[#8B6CCF] mx-auto mb-2" />
-          <p className="text-sm text-[#AAA5B5]">No journal entries yet.</p>
-          <p className="text-xs text-[#AAA5B5] mt-1">Complete a ritual to write your first reflection.</p>
+          <p className="text-sm text-[#AAA5B5]"><TranslatedText>No journal entries yet.</TranslatedText></p>
+          <p className="text-xs text-[#AAA5B5] mt-1"><TranslatedText>Complete a ritual to write your first reflection.</TranslatedText></p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -51,10 +56,10 @@ export default function Journal() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <Link to={`/ritual/${e.ritual_id}`} className="font-display text-lg text-[#F5F1E8] leading-tight">
-                    {e.ritual_name}
+                    <TranslatedText>{e.ritual_name}</TranslatedText>
                   </Link>
                   <p className="text-xs text-[#AAA5B5] mt-0.5">
-                    {new Date(e.created_date).toLocaleDateString(undefined, {
+                    {new Date(e.created_date).toLocaleDateString(language, {
                       dateStyle: "long",
                     })}
                   </p>

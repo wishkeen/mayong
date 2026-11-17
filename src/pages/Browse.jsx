@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabaseEntities } from "@/api/supabaseData";
 import RitualCard from "@/components/RitualCard";
+import TranslatedText from "@/components/TranslatedText";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 export default function Browse() {
   const { category: activeSlug } = useParams();
+  const refreshKey = useRefreshOnFocus();
   const [categories, setCategories] = useState([]);
   const [rituals, setRituals] = useState([]);
   const [catMap, setCatMap] = useState({});
@@ -25,7 +28,7 @@ export default function Browse() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [refreshKey]);
 
   const filtered = activeSlug ? rituals.filter((r) => r.category_slug === activeSlug) : rituals;
   const activeCat = categories.find((c) => c.slug === activeSlug);
@@ -33,36 +36,56 @@ export default function Browse() {
   return (
     <div className="pt-1 space-y-5">
       <div>
-        <h1 className="font-display text-3xl text-[#F5F1E8]">Explore Rituals</h1>
+        <h1 className="font-display text-3xl text-[#F5F1E8]"><TranslatedText>Explore Rituals</TranslatedText></h1>
         <p className="text-sm text-[#AAA5B5] mt-1">
-          {activeCat ? activeCat.description : "Browse all guided rituals across every tradition."}
+          <TranslatedText>{activeCat ? activeCat.description : "Browse all guided rituals across every tradition."}</TranslatedText>
         </p>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5">
+      <section aria-label="Ritual categories" className="space-y-2">
+        <h2 className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#AAA5B5]">
+          <TranslatedText>Browse by category</TranslatedText>
+        </h2>
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto px-0.5 pb-2 no-scrollbar">
         <Link
           to="/browse"
-          className={`px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border transition-colors ${
+          aria-current={!activeSlug ? "page" : undefined}
+          className={`inline-flex min-h-10 shrink-0 snap-start items-center gap-2 rounded-xl border px-3 text-xs font-medium whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B56A] ${
             !activeSlug
-              ? "border-[#D6B56A] bg-[#D6B56A]/10 text-[#D6B56A]"
-              : "border-white/10 text-[#AAA5B5] bg-[#171522]"
+              ? "border-[#D6B56A]/60 bg-[#D6B56A]/10 text-[#F5F1E8]"
+              : "border-white/10 bg-[#171522] text-[#AAA5B5] hover:border-white/20 hover:text-[#F5F1E8]"
           }`}
         >
-          All
+          <span aria-hidden="true">✦</span>
+          <TranslatedText>All</TranslatedText>
         </Link>
         {categories.map((c) => (
           <Link
             key={c.id}
             to={`/browse/${c.slug}`}
-            className={`px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border transition-colors ${
+            aria-current={activeSlug === c.slug ? "page" : undefined}
+            className={`inline-flex min-h-10 shrink-0 snap-start items-center gap-2 rounded-xl border px-3 text-xs font-medium whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B56A] ${
               activeSlug === c.slug
-                ? "border-[#D6B56A] bg-[#D6B56A]/10 text-[#D6B56A]"
-                : "border-white/10 text-[#AAA5B5] bg-[#171522]"
+                ? "border-[#D6B56A]/60 bg-[#D6B56A]/10 text-[#F5F1E8]"
+                : "border-white/10 bg-[#171522] text-[#AAA5B5] hover:border-white/20 hover:text-[#F5F1E8]"
             }`}
           >
-            {c.icon} {c.name}
+            <span aria-hidden="true">{c.icon || "✦"}</span>
+            <TranslatedText>{c.name}</TranslatedText>
           </Link>
         ))}
+        </div>
+      </section>
+
+      <div className="flex items-center justify-between border-b border-white/5 pb-2">
+        <h2 className="text-sm font-medium text-[#F5F1E8]">
+          {activeCat ? <TranslatedText>{activeCat.name}</TranslatedText> : <TranslatedText>All rituals</TranslatedText>}
+        </h2>
+        {!loading && (
+          <span className="text-xs text-[#AAA5B5]">
+            {filtered.length} <TranslatedText>{filtered.length === 1 ? "ritual" : "rituals"}</TranslatedText>
+          </span>
+        )}
       </div>
 
       {loading ? (
@@ -73,7 +96,7 @@ export default function Browse() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="rounded-2xl border border-white/5 bg-[#171522] p-8 text-center text-sm text-[#AAA5B5]">
-          No rituals in this category yet.
+          <TranslatedText>No rituals in this category yet.</TranslatedText>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-3">

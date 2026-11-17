@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
+import TranslatedText from "@/components/TranslatedText";
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
@@ -40,14 +41,14 @@ export default function ResetPassword() {
       title="New password"
       subtitle="Enter your new password below"
     >
-      {error && (
+      <TranslatedText>{error && (
         <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
           {error}
         </div>
-      )}
+      )}</TranslatedText>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="password">New Password</Label>
+          <Label htmlFor="password"><TranslatedText>New Password</TranslatedText></Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -64,7 +65,7 @@ export default function ResetPassword() {
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="confirm">Confirm Password</Label>
+          <Label htmlFor="confirm"><TranslatedText>Confirm Password</TranslatedText></Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
@@ -80,14 +81,14 @@ export default function ResetPassword() {
           </div>
         </div>
         <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
-          {loading ? (
+          <TranslatedText>{loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Resetting...
+              <TranslatedText>Resetting...</TranslatedText>
             </>
           ) : (
-            "Reset password"
-          )}
+            <TranslatedText>Reset password</TranslatedText>
+          )}</TranslatedText>
         </Button>
       </form>
     </AuthLayout>

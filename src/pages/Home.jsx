@@ -6,6 +6,9 @@ import { useAuth } from "@/lib/AuthContext";
 import { useBranding } from "@/lib/BrandingContext";
 import CategoryCard from "@/components/CategoryCard";
 import RitualCard from "@/components/RitualCard";
+import TranslatedText from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
+import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
 
 function greeting() {
   const h = new Date().getHours();
@@ -18,7 +21,9 @@ function greeting() {
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
+  const { language } = useLanguage();
   const { branding } = useBranding();
+  const refreshKey = useRefreshOnFocus();
   const [categories, setCategories] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -50,27 +55,27 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, [isAuthenticated, user?.id]);
+  }, [isAuthenticated, user?.id, refreshKey]);
 
   return (
     <div className="space-y-8 pt-1">
       <section>
-        <p className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]">{greeting()}</p>
+        <p className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]"><TranslatedText>{greeting()}</TranslatedText></p>
         <h1 className="font-display text-3xl leading-tight text-[#F5F1E8] mt-1">
-          {branding.hero_title ? branding.hero_title : isAuthenticated && user?.email ? (
-            <>Welcome back<span className="text-gradient-gold">.</span></>
+          <TranslatedText>{branding.hero_title ? <TranslatedText>{branding.hero_title}</TranslatedText> : isAuthenticated && user?.email ? (
+            <><TranslatedText>Welcome back</TranslatedText><span className="text-gradient-gold">.</span></>
           ) : (
-            <>What are you seeking<span className="text-gradient-gold">?</span></>
-          )}
+            <><TranslatedText>What are you seeking</TranslatedText><span className="text-gradient-gold">?</span></>
+          )}</TranslatedText>
         </h1>
         <p className="text-sm text-[#AAA5B5] mt-2 max-w-xs">
-          {branding.hero_subtitle || "Guided traditional & spiritual rituals, performed step by step."}
+          <TranslatedText>{branding.hero_subtitle || "Guided traditional & spiritual rituals, performed step by step."}</TranslatedText>
         </p>
       </section>
 
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]">Categories</h2>
+          <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]"><TranslatedText>Categories</TranslatedText></h2>
         </div>
         <div className="grid grid-cols-3 gap-3">
           {categories.map((c) => (
@@ -81,9 +86,9 @@ export default function Home() {
 
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]">Featured rituals</h2>
+          <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]"><TranslatedText>Featured rituals</TranslatedText></h2>
           <Link to="/browse" className="text-xs text-[#D6B56A] inline-flex items-center gap-1">
-            All <ArrowRight className="w-3 h-3" />
+            <TranslatedText>All</TranslatedText> <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
         {loading ? (
@@ -102,12 +107,12 @@ export default function Home() {
       {isAuthenticated && (
         <section>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]">Recently performed</h2>
+            <h2 className="text-xs tracking-[0.2em] uppercase text-[#AAA5B5]"><TranslatedText>Recently performed</TranslatedText></h2>
           </div>
           {recent.length === 0 ? (
             <div className="rounded-2xl border border-white/5 bg-[#171522] p-5 text-center">
               <Sparkles className="w-6 h-6 text-[#8B6CCF] mx-auto mb-2" />
-              <p className="text-sm text-[#AAA5B5]">Your completed rituals will appear here.</p>
+              <p className="text-sm text-[#AAA5B5]"><TranslatedText>Your completed rituals will appear here.</TranslatedText></p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -118,12 +123,12 @@ export default function Home() {
                   className="flex items-center justify-between rounded-xl border border-white/5 bg-[#171522] px-4 py-3"
                 >
                   <div>
-                    <p className="font-display text-lg text-[#F5F1E8] leading-tight">{s.ritual_name}</p>
+                    <p className="font-display text-lg text-[#F5F1E8] leading-tight"><TranslatedText>{s.ritual_name}</TranslatedText></p>
                     <p className="text-xs text-[#AAA5B5]">
-                      {s.completed_at ? new Date(s.completed_at).toLocaleDateString() : ""}
+                      {s.completed_at ? new Date(s.completed_at).toLocaleDateString(language) : ""}
                     </p>
                   </div>
-                  <span className="text-[#D6B56A] text-xs">Completed ✦</span>
+                  <span className="text-[#D6B56A] text-xs"><TranslatedText>Completed</TranslatedText> ✦</span>
                 </Link>
               ))}
             </div>
