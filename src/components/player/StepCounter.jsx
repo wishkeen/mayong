@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
 
 export default function StepCounter({ target = 108, onDone, onMetrics }) {
   const [count, setCount] = useState(0);
   const pct = Math.min(100, Math.round((count / target) * 100));
   const done = count >= target;
+  const countLabel = useTranslatedValue("Count one repetition");
 
   useEffect(() => {
     onMetrics?.({ repetitions: count, completed: count >= target });
@@ -23,6 +25,7 @@ export default function StepCounter({ target = 108, onDone, onMetrics }) {
     <div className="flex flex-col items-center">
       <button
         onClick={inc}
+        aria-label={countLabel}
         className="relative w-44 h-44 rounded-full border-2 border-[#D6B56A]/40 bg-[#08070D] flex items-center justify-center active:scale-95 transition-transform glow-gold"
       >
         <svg className="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
@@ -45,8 +48,8 @@ export default function StepCounter({ target = 108, onDone, onMetrics }) {
           <div className="text-xs text-[#AAA5B5] tracking-widest mt-1">/ {target}</div>
         </div>
       </button>
-      <p className="mt-4 text-xs text-[#AAA5B5]">Tap the circle for each repetition</p>
-      {done && <p className="mt-2 text-[#D6B56A] text-sm tracking-wide">✦ Count complete</p>}
+      <p className="mt-4 text-xs text-[#AAA5B5]"><TranslatedText>Tap the circle for each repetition</TranslatedText></p>
+      <TranslatedText>{done && <p className="mt-2 text-[#D6B56A] text-sm tracking-wide">✦ <TranslatedText>Count complete</TranslatedText></p>}</TranslatedText>
     </div>
   );
 }

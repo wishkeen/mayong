@@ -10,6 +10,7 @@ import {
   saveLocalDemoCatalog,
 } from "@/lib/localDemoStore";
 import { formatPrice } from "@/lib/rituals";
+import TranslatedText from "@/components/TranslatedText";
 
 function Metric({ label, value }) {
   return (
@@ -124,16 +125,17 @@ export default function LocalDemoAdmin() {
             <span className="text-sm text-[#08070D]">✦</span>
           </span>
           <div>
-            <h1 className="font-display text-2xl leading-none">RitualOS Admin</h1>
-            <p className="text-[11px] text-[#AAA5B5]">Signed in as {localDemoAccount.email} · Local demo admin</p>
+            <h1 className="font-display text-2xl leading-none"><TranslatedText>RitualOS Admin</TranslatedText></h1>
+            <p className="text-[11px] text-[#AAA5B5]"><TranslatedText>Signed in as </TranslatedText>{localDemoAccount.email} <TranslatedText> · Local demo admin</TranslatedText></p>
           </div>
         </div>
-        <Link to="/" className="text-xs text-[#AAA5B5] hover:text-[#D6B56A]">View app →</Link>
+        <Link to="/" className="text-xs text-[#AAA5B5] hover:text-[#D6B56A]"><TranslatedText>View app →</TranslatedText></Link>
       </header>
 
       <div className="mb-5 rounded-xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-3 text-xs leading-relaxed text-[#AAA5B5]">
+        <TranslatedText>
         Demo mode: changes are saved in this browser only. They do not update a live Base44 app.
-      </div>
+      </TranslatedText></div>
 
       <nav aria-label="Admin sections" className="flex gap-2 overflow-x-auto no-scrollbar mb-6 -mx-5 px-5">
         {ADMIN_TABS.map(({ key, label, icon: Icon }) => (

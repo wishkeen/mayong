@@ -4,9 +4,13 @@ import { Lock, ShieldCheck } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import { formatPrice } from "@/lib/rituals";
+import TranslatedText from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translateRitualField } from "@/lib/languages";
 
 export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) {
   const { user } = useAuth();
+  const { language } = useLanguage();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
   if (!ritual) return null;
@@ -36,20 +40,22 @@ export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) 
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 rounded text-[10px] tracking-widest uppercase bg-[#8B6CCF]/20 text-[#8B6CCF] border border-[#8B6CCF]/40">
-              {isFree ? "Free access" : "Checkout unavailable"}
+              <TranslatedText>{isFree ? "Free access" : "Checkout unavailable"}</TranslatedText>
             </span>
-            <DialogTitle className="font-display text-xl text-[#F5F1E8]">{isFree ? "Unlock ritual" : "Paid checkout"}</DialogTitle>
+            <DialogTitle className="font-display text-xl text-[#F5F1E8]"><TranslatedText>{isFree ? "Unlock ritual" : "Paid checkout"}</TranslatedText></DialogTitle>
           </div>
           <DialogDescription className="text-[#AAA5B5]">
-            {isFree
+            <TranslatedText>{isFree
               ? "This ritual is free. Unlock it for your account."
-              : "Paid checkout is not configured. No charge or access will be created until a secure payment provider is connected."}
+              : "Paid checkout is not configured. No charge or access will be created until a secure payment provider is connected."}</TranslatedText>
           </DialogDescription>
         </DialogHeader>
 
-        {isFree && <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
+        <TranslatedText>{isFree && <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-[#AAA5B5]">{ritual.name}</span>
+            <span className="text-sm text-[#AAA5B5]">
+              {translateRitualField(ritual, "name", language)}
+            </span>
             <span className="font-display text-2xl text-[#D6B56A]">{formatPrice(ritual.price)}</span>
           </div>
           <div className="mt-4 space-y-3">
@@ -70,27 +76,27 @@ export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) 
               </div>
             </div>
           </div>
-        </div>}
+        </div>}</TranslatedText>
 
         <button
           onClick={pay}
           disabled={processing || !isFree}
           className="mt-4 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide flex items-center justify-center gap-2 disabled:opacity-60 glow-gold"
         >
-          {processing ? (
+          <TranslatedText>{processing ? (
             "Processing…"
           ) : (
             <>
               <Lock className="w-4 h-4" /> {isFree ? "Unlock free ritual" : "Paid checkout unavailable"}
             </>
-          )}
+          )}</TranslatedText>
         </button>
-        {error && <p className="mt-3 text-center text-xs text-[#e0a0a0]" role="alert">{error}</p>}
-        {isFree && (
+        <TranslatedText>{error && <p className="mt-3 text-center text-xs text-[#e0a0a0]" role="alert">{error}</p>}</TranslatedText>
+        <TranslatedText>{isFree && (
           <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-[#AAA5B5]">
             <ShieldCheck className="w-3.5 h-3.5 text-[#D6B56A]" /> No payment required
           </p>
-        )}
+        )}</TranslatedText>
       </DialogContent>
     </Dialog>
   );

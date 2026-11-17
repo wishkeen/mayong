@@ -16,6 +16,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import TranslatedText from "@/components/TranslatedText";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -232,12 +233,14 @@ const SidebarTrigger = React.forwardRef(({ className, onClick, asChild = false, 
       }}
       asChild={asChild}
       {...props}>
-      {asChild ? (
+      <TranslatedText>{asChild ? (
         <PanelLeft />
       ) : (
         <>
           <PanelLeft />
           <span className="sr-only">Toggle Sidebar</span>
+        </>
+      )}</TranslatedText>Text></span>
         </>
       )}
     </Button>)
@@ -542,9 +545,9 @@ const SidebarMenuSkeleton = React.forwardRef(({ className, showIcon = false, ...
       data-sidebar="menu-skeleton"
       className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
       {...props}>
-      {showIcon && (
+      <TranslatedText>{showIcon && (
         <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />
-      )}
+      )}</TranslatedText>
       <Skeleton
         className="h-4 max-w-[--skeleton-width] flex-1"
         data-sidebar="menu-skeleton-text"

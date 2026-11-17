@@ -4,6 +4,7 @@ import { requireSupabase } from "@/api/supabaseClient";
 import { getAuthProviderSettings } from "@/api/authProviders";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/components/GoogleIcon";
+import TranslatedText from "@/components/TranslatedText";
 
 const PROVIDERS = [
   { id: "google", label: "Google", icon: GoogleIcon },
@@ -74,7 +75,7 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
           {loadingProvider === id ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Connecting...
+              <TranslatedText>Connecting...</TranslatedText>
             </>
           ) : (
             <>
@@ -83,20 +84,20 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
               ) : (
                 <Icon className="mr-2 h-5 w-5 text-[#1877F2]" aria-hidden="true" />
               )}
-              Continue with {label}
+              <TranslatedText>{`Continue with ${label}`}</TranslatedText>
             </>
           )}
         </Button>
       ))}
       {authError && (
         <p className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive" role="alert" aria-live="polite">
-          {authError}
+          <TranslatedText>{authError}</TranslatedText>
         </p>
       )}
       <div className="relative pt-2">
         <div className="absolute inset-x-0 top-1/2 border-t border-border" />
         <div className="relative flex justify-center text-xs uppercase tracking-wider">
-          <span className="bg-card px-3 text-muted-foreground">or continue with email</span>
+          <span className="bg-card px-3 text-muted-foreground"><TranslatedText>or continue with email</TranslatedText></span>
         </div>
       </div>
     </div>

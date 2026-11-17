@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { CheckCircle2, ChevronDown, ChevronUp, Hash, Sparkles, Clock } from "lucide-react";
 import RitualCover from "@/components/RitualCover";
 import AttemptRow from "./AttemptRow";
+import TranslatedText from "@/components/TranslatedText";
+import { useLanguage } from "@/lib/LanguageContext";
 
-function fmtDate(d) {
+function fmtDate(d, language) {
   if (!d) return "";
-  return new Date(d).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  return new Date(d).toLocaleDateString(language, { month: "short", day: "numeric", year: "numeric" });
 }
 
 function Stat({ icon: Icon, label, value }) {
@@ -19,6 +21,7 @@ function Stat({ icon: Icon, label, value }) {
 }
 
 export default function AchievedRitualCard({ ritual, sessions }) {
+  const { language } = useLanguage();
   const [open, setOpen] = useState(false);
   const name = ritual?.name || sessions[0]?.ritual_name || "Ritual";
   const sorted = [...sessions].sort(
@@ -57,10 +60,10 @@ export default function AchievedRitualCard({ ritual, sessions }) {
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 mb-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B56A]" />
-              <span className="text-[10px] uppercase tracking-widest text-[#D6B56A]">Achieved</span>
+              <span className="text-[10px] uppercase tracking-widest text-[#D6B56A]"><TranslatedText>Achieved</TranslatedText></span>
             </div>
-            <h3 className="font-display text-lg text-[#F5F1E8] leading-tight">{name}</h3>
-            <p className="text-[11px] text-[#AAA5B5] mt-0.5">{fmtDate(achievedDate)}</p>
+            <h3 className="font-display text-lg text-[#F5F1E8] leading-tight"><TranslatedText>{name}</TranslatedText></h3>
+            <p className="text-[11px] text-[#AAA5B5] mt-0.5">{fmtDate(achievedDate, language)}</p>
           </div>
           <div className="relative w-20 h-20 flex-shrink-0">
             <svg className="absolute inset-0 -rotate-90" viewBox="0 0 80 80">
@@ -81,36 +84,36 @@ export default function AchievedRitualCard({ ritual, sessions }) {
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="font-display text-2xl text-[#D6B56A] leading-none">{attempts}</span>
               <span className="text-[9px] text-[#AAA5B5] uppercase tracking-widest mt-0.5">
-                {attempts === 1 ? "try" : "tries"}
+                <TranslatedText>{attempts === 1 ? "try" : "tries"}</TranslatedText>
               </span>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-2">
-          <Stat icon={Hash} label="Attempts" value={attempts} />
-          <Stat icon={Sparkles} label="Chants" value={totalChants} />
-          <Stat icon={Clock} label="Held" value={totalTimed ? `${totalHeld}/${totalTimed}` : "—"} />
+          <Stat icon={Hash} label={<TranslatedText>Attempts</TranslatedText>} value={attempts} />
+          <Stat icon={Sparkles} label={<TranslatedText>Chants</TranslatedText>} value={totalChants} />
+          <Stat icon={Clock} label={<TranslatedText>Held</TranslatedText>} value={totalTimed ? `${totalHeld}/${totalTimed}` : "—"} />
         </div>
 
         <button
           onClick={() => setOpen((o) => !o)}
           className="w-full flex items-center justify-center gap-1.5 text-xs text-[#D6B56A] py-2 rounded-lg border border-[#D6B56A]/20 bg-[#D6B56A]/5"
         >
-          {open ? (
-            <>Hide attempt details <ChevronUp className="w-3.5 h-3.5" /></>
+          <TranslatedText>{open ? (
+            <><TranslatedText>Hide attempt details</TranslatedText> <ChevronUp className="w-3.5 h-3.5" /></>
           ) : (
-            <>View attempt details <ChevronDown className="w-3.5 h-3.5" /></>
-          )}
+            <><TranslatedText>View attempt details</TranslatedText> <ChevronDown className="w-3.5 h-3.5" /></>
+          )}</TranslatedText>
         </button>
 
-        {open && (
+        <TranslatedText>{open && (
           <div className="space-y-2">
             {sorted.map((s, i) => (
               <AttemptRow key={s.id} session={s} index={i} />
             ))}
           </div>
-        )}
+        )}</TranslatedText>
       </div>
     </div>
   );

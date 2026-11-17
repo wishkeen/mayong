@@ -3,6 +3,7 @@ import { OTPInput, OTPInputContext } from "input-otp"
 import { Minus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import TranslatedText from "@/components/TranslatedText";
 
 const InputOTP = React.forwardRef(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
@@ -32,12 +33,12 @@ const InputOTPSlot = React.forwardRef(({ index, className, ...props }, ref) => {
       )}
       {...props}>
       {char}
-      {hasFakeCaret && (
+      <TranslatedText>{hasFakeCaret && (
         <div
           className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
         </div>
-      )}
+      )}</TranslatedText>
     </div>)
   );
 })

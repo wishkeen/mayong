@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import TranslatedText from "@/components/TranslatedText";
 
 export function MfaHeader({ title, description }) {
   return (
     <div className="space-y-2 pb-2">
-      <h1 className="text-2xl font-semibold tracking-tight">{title || "Security check"}</h1>
-      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+      <h1 className="text-2xl font-semibold tracking-tight"><TranslatedText>{title || "Security check"}</TranslatedText></h1>
+      <TranslatedText>{description && <p className="text-sm text-muted-foreground">{description}</p>}</TranslatedText>
     </div>
   );
 }

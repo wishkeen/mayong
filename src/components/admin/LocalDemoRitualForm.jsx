@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import TranslatedText from "@/components/TranslatedText";
 
 function stepsToText(steps = []) {
   return steps.map((step) => `${step.title || ""}${step.content ? `: ${step.content}` : ""}`.trim()).join("\n");
@@ -59,39 +60,40 @@ export default function LocalDemoRitualForm({ ritual, categories, onSave, onCanc
 
   return (
     <form onSubmit={submit} className="space-y-3 rounded-2xl border border-white/10 bg-[#171522] p-4">
-      <h3 className="font-display text-xl">{ritual ? "Edit ritual" : "New ritual"}</h3>
-      <label className="block text-xs text-[#AAA5B5]">Name
-        <input value={name} onChange={(event) => setName(event.target.value)} required className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
+      <h3 className="font-display text-xl"><TranslatedText>{ritual ? "Edit ritual" : "New ritual"}</TranslatedText></h3>
+      <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Name
+        </TranslatedText><input value={name} onChange={(event) => setName(event.target.value)} required className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
       </label>
-      <label className="block text-xs text-[#AAA5B5]">Description
-        <textarea value={description} onChange={(event) => setDescription(event.target.value)} rows={3} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
+      <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Description
+        </TranslatedText><textarea value={description} onChange={(event) => setDescription(event.target.value)} rows={3} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
       </label>
       <div className="grid grid-cols-2 gap-3">
-        <label className="block text-xs text-[#AAA5B5]">Category
-          <select value={categoryId} onChange={(event) => setCategoryId(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]">
-            <option value="">Uncategorized</option>
+        <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Category
+          </TranslatedText><select value={categoryId} onChange={(event) => setCategoryId(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]">
+            <option value=""><TranslatedText>Uncategorized</TranslatedText></option>
             {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
           </select>
         </label>
-        <label className="block text-xs text-[#AAA5B5]">Duration (minutes)
-          <input type="number" min="1" value={duration} onChange={(event) => setDuration(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
+        <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Duration (minutes)
+          </TranslatedText><input type="number" min="1" value={duration} onChange={(event) => setDuration(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
         </label>
       </div>
-      <label className="block text-xs text-[#AAA5B5]">Difficulty
-        <select value={difficulty} onChange={(event) => setDifficulty(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]">
-          {["Beginner", "Intermediate", "Advanced"].map((item) => <option key={item}>{item}</option>)}
+      <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Difficulty
+        </TranslatedText><select value={difficulty} onChange={(event) => setDifficulty(event.target.value)} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]">
+          <TranslatedText>{["Beginner", "Intermediate", "Advanced"].map((item) => <option key={item}>{item}</option>)}</TranslatedText>
         </select>
       </label>
-      <label className="block text-xs text-[#AAA5B5]">Steps (one per line; use “Title: instructions”)
-        <textarea value={stepsText} onChange={(event) => setStepsText(event.target.value)} rows={5} placeholder={"Settle: Find a comfortable position\nBreathe: Take three easy breaths\nFinish: Continue when you are ready"} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
+      <label className="block text-xs text-[#AAA5B5]"><TranslatedText>Steps (one per line; use “Title: instructions”)
+        </TranslatedText><textarea value={stepsText} onChange={(event) => setStepsText(event.target.value)} rows={5} placeholder={"Settle: Find a comfortable position\nBreathe: Take three easy breaths\nFinish: Continue when you are ready"} className="mt-1 w-full rounded-lg border border-white/10 bg-[#0E0C16] p-3 text-sm text-[#F5F1E8]" />
       </label>
       <label className="flex items-center gap-2 text-sm text-[#AAA5B5]">
         <input type="checkbox" checked={published} onChange={(event) => setPublished(event.target.checked)} />
+        <TranslatedText>
         Publish this ritual in the local demo catalog
-      </label>
+      </TranslatedText></label>
       <div className="flex gap-2">
-        <button type="submit" className="rounded-lg bg-[#D6B56A] px-4 py-2 text-sm font-medium text-[#08070D]">Save ritual</button>
-        <button type="button" onClick={onCancel} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-[#AAA5B5]">Cancel</button>
+        <button type="submit" className="rounded-lg bg-[#D6B56A] px-4 py-2 text-sm font-medium text-[#08070D]"><TranslatedText>Save ritual</TranslatedText></button>
+        <button type="button" onClick={onCancel} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-[#AAA5B5]"><TranslatedText>Cancel</TranslatedText></button>
       </div>
     </form>
   );

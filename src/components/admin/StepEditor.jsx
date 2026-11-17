@@ -7,6 +7,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { supabaseEntities } from "@/api/supabaseData";
 import AudioUpload from "@/components/admin/AudioUpload";
 import StepTranslations from "@/components/admin/StepTranslations";
+import TranslatedText from "@/components/TranslatedText";
 
 const STEP_TYPES = [
   { value: "instruction", label: "Instruction" },
@@ -88,12 +89,12 @@ export default function StepEditor({ ritual, onBack }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <button onClick={onBack} className="inline-flex items-center gap-2 text-sm text-[#AAA5B5] hover:text-[#D6B56A]">
-          <ArrowLeft className="w-4 h-4" /> Back to rituals
-        </button>
+          <ArrowLeft className="w-4 h-4" /> <TranslatedText> Back to rituals
+        </TranslatedText></button>
         <h2 className="font-display text-xl text-[#F5F1E8] truncate max-w-[60%] text-right">{ritual.name}</h2>
       </div>
 
-      <p className="text-xs text-[#AAA5B5]">Steps run in order during the ritual player. Reorder with the arrows — changes save instantly.</p>
+      <p className="text-xs text-[#AAA5B5]"><TranslatedText>Steps run in order during the ritual player. Reorder with the arrows — changes save instantly.</TranslatedText></p>
 
       {loading ? (
         <div className="h-40 rounded-2xl bg-[#171522] animate-pulse" />

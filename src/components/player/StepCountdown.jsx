@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
+import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
 
 export default function StepCountdown({ seconds = 60, onDone, onMetrics, silent = false }) {
   const [remaining, setRemaining] = useState(seconds);
   const [running, setRunning] = useState(false);
   const ref = useRef(null);
+  const actionLabel = useTranslatedValue(running ? "Pause timer" : "Start timer");
+  const resetLabel = useTranslatedValue("Reset timer");
 
   useEffect(() => {
     onMetrics?.({ elapsed: seconds - remaining, completed: remaining === 0 });
@@ -52,7 +55,7 @@ export default function StepCountdown({ seconds = 60, onDone, onMetrics, silent 
         </svg>
         <div className="text-center">
           <div className="font-display text-5xl text-[#F5F1E8] leading-none font-mono">{mm}:{ss}</div>
-          <div className="text-xs text-[#AAA5B5] tracking-widest mt-1">{silent ? "silence" : "timer"}</div>
+          <div className="text-xs text-[#AAA5B5] tracking-widest mt-1"><TranslatedText>{silent ? "silence" : "timer"}</TranslatedText></div>
         </div>
       </div>
       <div className="mt-5 flex items-center gap-3">
@@ -60,11 +63,13 @@ export default function StepCountdown({ seconds = 60, onDone, onMetrics, silent 
           onClick={() => setRunning((r) => !r)}
           className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D6B56A] to-[#8B6CCF] text-[#08070D] flex items-center justify-center"
         >
-          {running ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+          <span className="sr-only">{actionLabel}</span>
+          <TranslatedText>{running ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}</TranslatedText>
         </button>
         <button
           onClick={() => { setRunning(false); setRemaining(seconds); }}
           className="w-11 h-11 rounded-full border border-white/10 text-[#AAA5B5] flex items-center justify-center"
+          aria-label={resetLabel}
         >
           <RotateCcw className="w-4 h-4" />
         </button>

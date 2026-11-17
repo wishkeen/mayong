@@ -3,6 +3,7 @@ import { Image as ImageIcon, Loader2, RotateCcw, Save, Upload } from "lucide-rea
 import { uploadBrandImage, removeBrandImage } from "@/api/supabaseStorage";
 import { DEFAULT_BRANDING, useBranding } from "@/lib/BrandingContext";
 import { Image } from "@/components/ui/image";
+import TranslatedText from "@/components/TranslatedText";
 
 const fieldClass = "mt-1 w-full rounded-lg border border-white/10 bg-[#08070D] px-3 py-2 text-sm text-[#F5F1E8] placeholder:text-[#777184] focus:outline-none focus:ring-1 focus:ring-[#D6B56A]";
 const colorPattern = /^#[\da-f]{6}$/i;
@@ -106,7 +107,7 @@ export default function BrandingSettings() {
 
   const imageField = (field, label, ref, accept) => (
     <div>
-      <label htmlFor={`${field}-url`} className="block text-xs text-[#AAA5B5]">{label} URL</label>
+      <label htmlFor={`${field}-url`} className="block text-xs text-[#AAA5B5]">{label} <TranslatedText> URL</TranslatedText></label>
       <input
         id={`${field}-url`}
         type="url"
@@ -132,14 +133,15 @@ export default function BrandingSettings() {
         disabled={Boolean(uploading) || saving}
         className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-2 text-xs text-[#AAA5B5] disabled:opacity-50"
       >
-        {uploading === field ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+        <TranslatedText>{uploading === field ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}</TranslatedText>
+        <TranslatedText>
         Upload image
-      </button>
+      </TranslatedText></button>
     </div>
   );
 
   if (loading) {
-    return <div className="h-48 rounded-2xl bg-[#171522] animate-pulse" role="status">Loading branding…</div>;
+    return <div className="h-48 rounded-2xl bg-[#171522] animate-pulse" role="status"><TranslatedText>Loading branding…</TranslatedText></div>;
   }
 
   return (
@@ -154,13 +156,14 @@ export default function BrandingSettings() {
       <form onSubmit={save} className="space-y-5">
         <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-4">
           <div>
-            <h2 className="text-sm font-medium text-[#F5F1E8]">Brand identity</h2>
-            <p className="mt-1 text-xs text-[#AAA5B5]">Update your app name and brand images. Changes are shared with all visitors.</p>
+            <h2 className="text-sm font-medium text-[#F5F1E8]"><TranslatedText>Brand identity</TranslatedText></h2>
+            <p className="mt-1 text-xs text-[#AAA5B5]"><TranslatedText>Update your app name and brand images. Changes are shared with all visitors.</TranslatedText></p>
           </div>
 
           <label className="block text-xs text-[#AAA5B5]">
+            <TranslatedText>
             App name
-            <input
+            </TranslatedText><input
               value={draft.app_name}
               onChange={(event) => setField("app_name", event.target.value)}
               required
@@ -170,19 +173,19 @@ export default function BrandingSettings() {
             />
           </label>
 
-          {imageField("logo_url", "Logo", logoInputRef, "image/jpeg,image/png,image/webp,image/gif")}
-          {imageField("icon_url", "Browser icon", iconInputRef, "image/png,image/webp,image/x-icon,image/vnd.microsoft.icon")}
-          <p className="text-[11px] text-[#777184]">Images must be HTTPS and no larger than 5 MB when uploaded.</p>
+          <TranslatedText>{imageField("logo_url", "Logo", logoInputRef, "image/jpeg,image/png,image/webp,image/gif")}</TranslatedText>
+          <TranslatedText>{imageField("icon_url", "Browser icon", iconInputRef, "image/png,image/webp,image/x-icon,image/vnd.microsoft.icon")}</TranslatedText>
+          <p className="text-[11px] text-[#777184]"><TranslatedText>Images must be HTTPS and no larger than 5 MB when uploaded.</TranslatedText></p>
         </section>
 
         <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-4">
           <div>
-            <h2 className="text-sm font-medium text-[#F5F1E8]">Colors</h2>
-            <p className="mt-1 text-xs text-[#AAA5B5]">Set the accent and surface colors used by the app shell and brand preview.</p>
+            <h2 className="text-sm font-medium text-[#F5F1E8]"><TranslatedText>Colors</TranslatedText></h2>
+            <p className="mt-1 text-xs text-[#AAA5B5]"><TranslatedText>Set the accent and surface colors used by the app shell and brand preview.</TranslatedText></p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {[
+            <TranslatedText>{[
               ["accent_color", "Accent color"],
               ["secondary_color", "Brand surface color"],
             ].map(([field, label]) => (
@@ -205,18 +208,19 @@ export default function BrandingSettings() {
                   />
                 </div>
               </label>
-            ))}
+            ))}</TranslatedText>
           </div>
         </section>
 
         <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-4">
           <div>
-            <h2 className="text-sm font-medium text-[#F5F1E8]">Home page introduction</h2>
-            <p className="mt-1 text-xs text-[#AAA5B5]">Optional text shown at the top of the home page.</p>
+            <h2 className="text-sm font-medium text-[#F5F1E8]"><TranslatedText>Home page introduction</TranslatedText></h2>
+            <p className="mt-1 text-xs text-[#AAA5B5]"><TranslatedText>Optional text shown at the top of the home page.</TranslatedText></p>
           </div>
           <label className="block text-xs text-[#AAA5B5]">
+            <TranslatedText>
             Heading
-            <input
+            </TranslatedText><input
               value={draft.hero_title}
               onChange={(event) => setField("hero_title", event.target.value)}
               maxLength={120}
@@ -225,8 +229,9 @@ export default function BrandingSettings() {
             />
           </label>
           <label className="block text-xs text-[#AAA5B5]">
+            <TranslatedText>
             Description
-            <textarea
+            </TranslatedText><textarea
               value={draft.hero_subtitle}
               onChange={(event) => setField("hero_subtitle", event.target.value)}
               maxLength={240}
@@ -238,7 +243,7 @@ export default function BrandingSettings() {
         </section>
 
         <section className="rounded-2xl border border-white/5 bg-[#171522] p-5">
-          <h2 className="text-xs uppercase tracking-widest text-[#AAA5B5]">Preview</h2>
+          <h2 className="text-xs uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Preview</TranslatedText></h2>
           <div className="mt-3 flex items-center gap-3 rounded-xl p-4" style={{ backgroundColor: draft.secondary_color }}>
             {draft.logo_url ? (
               <Image src={draft.logo_url} alt="" className="h-10 w-10 rounded-full object-cover" />
@@ -251,15 +256,15 @@ export default function BrandingSettings() {
               </span>
             )}
             <div className="min-w-0">
-              <p className="truncate font-display text-xl" style={{ color: draft.accent_color }}>{draft.app_name || "App name"}</p>
-              <p className="text-xs text-[#AAA5B5]">{draft.hero_title || "Home page introduction"}</p>
+              <p className="truncate font-display text-xl" style={{ color: draft.accent_color }}><TranslatedText>{draft.app_name || "App name"}</TranslatedText></p>
+              <p className="text-xs text-[#AAA5B5]"><TranslatedText>{draft.hero_title || "Home page introduction"}</TranslatedText></p>
             </div>
             <ImageIcon className="ml-auto h-4 w-4 shrink-0" style={{ color: draft.accent_color }} />
           </div>
         </section>
 
-        {error && <p role="alert" className="text-xs text-[#e0a0a0]">{error}</p>}
-        {notice && <p role="status" className="text-xs text-[#D6B56A]">{notice}</p>}
+        <TranslatedText>{error && <p role="alert" className="text-xs text-[#e0a0a0]">{error}</p>}</TranslatedText>
+        <TranslatedText>{notice && <p role="status" className="text-xs text-[#D6B56A]">{notice}</p>}</TranslatedText>
 
         <div className="flex flex-wrap justify-end gap-2">
           <button
@@ -268,15 +273,15 @@ export default function BrandingSettings() {
             disabled={saving || Boolean(uploading)}
             className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-4 py-2.5 text-xs text-[#AAA5B5] disabled:opacity-50"
           >
-            <RotateCcw className="h-3.5 w-3.5" /> Reset draft
-          </button>
+            <RotateCcw className="h-3.5 w-3.5" /> <TranslatedText> Reset draft
+          </TranslatedText></button>
           <button
             type="submit"
             disabled={saving || Boolean(uploading) || !draft.app_name.trim()}
             className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] px-4 py-2.5 text-xs font-semibold text-[#08070D] disabled:opacity-50"
           >
-            {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
-            {saving ? "Publishing…" : "Save & publish"}
+            <TranslatedText>{saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}</TranslatedText>
+            <TranslatedText>{saving ? "Publishing…" : "Save & publish"}</TranslatedText>
           </button>
         </div>
       </form>

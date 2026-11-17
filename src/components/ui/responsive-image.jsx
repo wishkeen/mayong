@@ -2,6 +2,7 @@ import * as React from "react"
 import { cn } from "../../lib/utils"
 import { buildSrcSet, buildTransformUrl, splitImageProps } from "./image-helpers"
 import { useResponsiveImage } from "./use-responsive-image"
+import TranslatedText from "@/components/TranslatedText";
 
 export const ResponsiveImage = React.forwardRef(
   ({ src, parsed, fittingType, focalPoint, quality, className, style, aspectRatio, onLoad, onSourceChange, ...props }, ref) => {
@@ -21,7 +22,7 @@ export const ResponsiveImage = React.forwardRef(
       >
         {/* Contain both image layers inside the padded content box without adding an edit target. */}
         <span data-source-location={undefined} className="block relative w-full h-full overflow-hidden">
-          {options && !loaded && (
+          <TranslatedText>{options && !loaded && (
             <img
               data-source-location={undefined}
               src={buildTransformUrl(parsed, {
@@ -41,8 +42,8 @@ export const ResponsiveImage = React.forwardRef(
                 transform: "scale(1.1)",
               }}
             />
-          )}
-          {options && (
+          )}</TranslatedText>
+          <TranslatedText>{options && (
             <img
               data-source-location={undefined}
               ref={imgRef}
@@ -56,7 +57,7 @@ export const ResponsiveImage = React.forwardRef(
               onLoad={handleLoad}
               {...imageProps}
             />
-          )}
+          )}</TranslatedText>
         </span>
       </span>
     )

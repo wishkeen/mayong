@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { ImageIcon, Loader2, Upload, X } from "lucide-react";
 import { uploadRitualAsset } from "@/api/supabaseStorage";
 import { Image } from "@/components/ui/image";
+import TranslatedText from "@/components/TranslatedText";
 
 /**
  * Admin image uploader. Stores the file publicly so it can be shown to every
@@ -79,7 +80,7 @@ export default function ImageUpload({ value, onChange }) {
           e.target.value = "";
         }}
       />
-      {error && <p className="text-[11px] text-[#c97a7a] mt-1.5">{error}</p>}
+      <TranslatedText>{error && <p className="text-[11px] text-[#c97a7a] mt-1.5">{error}</p>}</TranslatedText>
     </div>
   );
 }

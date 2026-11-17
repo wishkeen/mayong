@@ -1,5 +1,6 @@
 import React from "react";
 import { Image } from "@/components/ui/image";
+import TranslatedText from "@/components/TranslatedText";
 
 export default function BrandLogo({
   logoUrl,
@@ -29,6 +30,6 @@ export default function BrandLogo({
   }
 
   return <div className={`${baseClassName} ${className}`} style={style}>
-    <span className={`font-display ${iconClassName || "text-sm"}`}>{mark || "R"}</span>
+    <span className={`font-display ${iconClassName || "text-sm"}`}><TranslatedText>{mark || "R"}</TranslatedText></span>
   </div>;
 }

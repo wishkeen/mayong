@@ -10,6 +10,7 @@ import {
   saveAuthProviderSettings,
 } from "@/api/authProviders";
 import GoogleIcon from "@/components/GoogleIcon";
+import TranslatedText from "@/components/TranslatedText";
 
 const fieldClass = "mt-1 w-full rounded-lg border border-white/10 bg-[#100F18] px-3 py-2 font-mono text-xs text-[#F5F1E8]";
 
@@ -17,24 +18,24 @@ function ProviderCard({ title, description, configured, enabled, icon: Icon, onC
   return (
     <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-4">
       <div className="flex items-start gap-3">
-        {title === "Google" ? (
+        <TranslatedText>{title === "Google" ? (
           <Icon className="mt-0.5 h-5 w-5 shrink-0" />
         ) : (
           <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#1877F2]" aria-hidden="true" />
-        )}
+        )}</TranslatedText>
         <div className="min-w-0 flex-1">
           <h2 className="text-sm font-medium text-[#F5F1E8]">{title}</h2>
           <p className="mt-1 text-xs leading-relaxed text-[#AAA5B5]">{description}</p>
         </div>
         <span className={`shrink-0 rounded-full px-2 py-1 text-[10px] ${configured ? "bg-emerald-500/10 text-emerald-300" : "bg-white/5 text-[#AAA5B5]"}`}>
-          {configured ? "Configured" : "Setup required"}
+          <TranslatedText>{configured ? "Configured" : "Setup required"}</TranslatedText>
         </span>
       </div>
 
       <label className="flex items-center justify-between gap-4 border-t border-white/5 pt-4">
         <span>
-          <span className="block text-xs text-[#F5F1E8]">Provider configured and tested in Supabase</span>
-          <span className="mt-1 block text-[11px] text-[#777184]">Mark this only after a successful end-to-end sign-in test.</span>
+          <span className="block text-xs text-[#F5F1E8]"><TranslatedText>Provider configured and tested in Supabase</TranslatedText></span>
+          <span className="mt-1 block text-[11px] text-[#777184]"><TranslatedText>Mark this only after a successful end-to-end sign-in test.</TranslatedText></span>
         </span>
         <Switch
           checked={configured}
@@ -45,8 +46,8 @@ function ProviderCard({ title, description, configured, enabled, icon: Icon, onC
 
       <label className="flex items-center justify-between gap-4">
         <span>
-          <span className="block text-xs text-[#F5F1E8]">Show {title} sign-in button</span>
-          <span className="mt-1 block text-[11px] text-[#777184]">Visible on both login and signup pages.</span>
+          <span className="block text-xs text-[#F5F1E8]"><TranslatedText>Show </TranslatedText>{title} <TranslatedText> sign-in button</TranslatedText></span>
+          <span className="mt-1 block text-[11px] text-[#777184]"><TranslatedText>Visible on both login and signup pages.</TranslatedText></span>
         </span>
         <Switch
           checked={enabled}
@@ -131,7 +132,7 @@ export default function SocialAuthSettings() {
   };
 
   if (loading) {
-    return <div className="h-48 animate-pulse rounded-2xl bg-[#171522]" role="status">Loading social sign-in settings…</div>;
+    return <div className="h-48 animate-pulse rounded-2xl bg-[#171522]" role="status"><TranslatedText>Loading social sign-in settings…</TranslatedText></div>;
   }
 
   return (
@@ -146,12 +147,13 @@ export default function SocialAuthSettings() {
       <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <KeyRound className="h-4 w-4 text-[#D6B56A]" aria-hidden="true" />
-          <h2 className="text-sm font-medium text-[#F5F1E8]">Supabase OAuth callback</h2>
+          <h2 className="text-sm font-medium text-[#F5F1E8]"><TranslatedText>Supabase OAuth callback</TranslatedText></h2>
         </div>
         <p className="text-xs leading-relaxed text-[#AAA5B5]">
+          <TranslatedText>
           Add this callback URL to the Google and Facebook developer consoles. Add your website’s URL and allowed redirect paths separately under Supabase Authentication → URL Configuration.
-        </p>
-        {callbackUrl ? (
+        </TranslatedText></p>
+      {callbackUrl ? (
           <div className="flex gap-2">
             <input aria-label="Supabase OAuth callback URL" readOnly value={callbackUrl} className={fieldClass} />
             <button type="button" onClick={copyCallback} className="shrink-0 rounded-lg border border-white/10 px-3 text-[#AAA5B5] hover:text-[#F5F1E8]" aria-label="Copy callback URL">
@@ -160,18 +162,19 @@ export default function SocialAuthSettings() {
           </div>
         ) : (
           <p role="alert" className="text-xs text-[#e0a0a0]">Set `VITE_SUPABASE_URL` in the app environment to show the callback URL.</p>
-        )}
+      )}
       </section>
 
       <p className="rounded-xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-3 text-xs leading-relaxed text-[#AAA5B5]">
+        <TranslatedText>
         Important: this panel only controls whether the app displays a provider button. It cannot enable OAuth or store provider credentials in Supabase. Enable the provider and add its Client ID and Secret in Supabase Authentication → Sign In / Providers first. If you see “Unsupported provider: provider is not enabled,” Supabase has not enabled that provider yet.
-      </p>
+      </TranslatedText></p>
 
-      {saveError && (
+      <TranslatedText>{saveError && (
         <p role="alert" className="rounded-xl border border-[#c97a7a]/30 bg-[#c97a7a]/5 p-3 text-xs text-[#e0a0a0]">
           {saveError}
         </p>
-      )}
+      )}</TranslatedText>
 
       <ProviderCard
         title="Google"
@@ -193,19 +196,21 @@ export default function SocialAuthSettings() {
       <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Instagram className="h-4 w-4 text-[#D889B8]" aria-hidden="true" />
-          <h2 className="text-sm font-medium text-[#F5F1E8]">Instagram</h2>
-          <span className="rounded-full bg-white/5 px-2 py-1 text-[10px] text-[#AAA5B5]">Not supported for Supabase Auth</span>
+          <h2 className="text-sm font-medium text-[#F5F1E8]"><TranslatedText>Instagram</TranslatedText></h2>
+          <span className="rounded-full bg-white/5 px-2 py-1 text-[10px] text-[#AAA5B5]"><TranslatedText>Not supported for Supabase Auth</TranslatedText></span>
         </div>
         <p className="text-xs leading-relaxed text-[#AAA5B5]">
+          <TranslatedText>
           Instagram is not a supported Supabase Auth OAuth provider, so this app will not show an Instagram sign-in button. For general user authentication, use Google, Facebook, or email. If you need Instagram for creator accounts, build a separate Meta Instagram API account-linking flow; it does not sign a user into RitualOS.
-        </p>
+        </TranslatedText></p>
         <a
           href="https://supabase.com/docs/guides/auth"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-1 text-xs text-[#D6B56A] hover:underline"
         >
-          Supabase Auth provider documentation <ExternalLink className="h-3 w-3" />
+          <TranslatedText>
+          Supabase Auth provider documentation </TranslatedText><ExternalLink className="h-3 w-3" />
         </a>
       </section>
 
@@ -215,8 +220,8 @@ export default function SocialAuthSettings() {
           disabled={saving || Boolean(loadError)}
           className="inline-flex items-center gap-2 rounded-xl bg-[#D6B56A] px-4 py-2.5 text-sm font-medium text-[#171522] disabled:opacity-50"
         >
-          {saving && <Loader2 className="h-4 w-4 animate-spin" />}
-          {saving ? "Saving…" : "Save social sign-in settings"}
+          <TranslatedText>{saving && <Loader2 className="h-4 w-4 animate-spin" />}</TranslatedText>
+          <TranslatedText>{saving ? "Saving…" : "Save social sign-in settings"}</TranslatedText>
         </button>
       </div>
     </form>

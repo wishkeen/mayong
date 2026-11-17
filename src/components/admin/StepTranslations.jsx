@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { LANGUAGES } from "@/lib/languages";
+import TranslatedText from "@/components/TranslatedText";
 
 export default function StepTranslations({ translations = [], onChange }) {
   const used = new Set(translations.map((t) => t.language));
@@ -23,7 +24,7 @@ export default function StepTranslations({ translations = [], onChange }) {
     <div className="rounded-xl border border-white/5 bg-[#08070D] p-3 space-y-3">
       <div className="flex items-center justify-between gap-2">
         <Label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">
-          Mantra per language
+          <TranslatedText>Mantra per language</TranslatedText>
         </Label>
         <button
           type="button"
@@ -31,13 +32,15 @@ export default function StepTranslations({ translations = [], onChange }) {
           disabled={!nextAvailable}
           className="inline-flex items-center gap-1 text-[11px] text-[#D6B56A] disabled:opacity-40"
         >
-          <Plus className="w-3 h-3" /> Add language
+          <Plus className="w-3 h-3" /> <TranslatedText>Add language</TranslatedText>
         </button>
       </div>
 
       {translations.length === 0 && (
         <p className="text-[11px] text-[#AAA5B5]">
-          No languages yet — the highlighted mantra needs at least one language.
+          <TranslatedText>
+            No languages yet — the highlighted mantra needs at least one language.
+          </TranslatedText>
         </p>
       )}
 

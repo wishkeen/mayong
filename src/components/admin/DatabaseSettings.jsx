@@ -8,6 +8,7 @@ import {
   validateRitualOSBackup,
 } from "@/api/databaseBackup";
 import { useBranding } from "@/lib/BrandingContext";
+import TranslatedText from "@/components/TranslatedText";
 
 function backupErrorMessage(error) {
   if (
@@ -161,23 +162,25 @@ export default function DatabaseSettings() {
       <section className="rounded-2xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-4 flex items-start gap-2.5">
         <ShieldCheck className="w-4 h-4 text-[#D6B56A] mt-0.5 shrink-0" />
         <div>
-          <p className="text-sm text-[#F5F1E8]">RitualOS Supabase database</p>
+          <p className="text-sm text-[#F5F1E8]"><TranslatedText>RitualOS Supabase database</TranslatedText></p>
           <p className="text-[11px] leading-relaxed text-[#AAA5B5] mt-1">
+            <TranslatedText>
             This app is connected directly to Supabase. External database connections and their former Base44
             functions are not available in this deployment.
-          </p>
+          </TranslatedText></p>
         </div>
         <Database className="w-4 h-4 text-[#D6B56A] ml-auto shrink-0" />
       </section>
 
       <section className="space-y-4 rounded-2xl border border-white/5 bg-[#171522] p-4">
         <div>
-          <h3 className="text-[11px] uppercase tracking-widest text-[#AAA5B5]">Backup & restore</h3>
+          <h3 className="text-[11px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Backup & restore</TranslatedText></h3>
           <p className="mt-1 text-[11px] leading-relaxed text-[#AAA5B5]">
+            <TranslatedText>
             Restore imports app content only. To migrate the provided Base44 export, use the separate legacy import:
             it stages activity because old owner IDs cannot be matched to Supabase accounts. It never imports
             credentials or grants access from historical orders.
-          </p>
+          </TranslatedText></p>
         </div>
 
         <div className="grid gap-2 sm:grid-cols-2">
@@ -187,7 +190,7 @@ export default function DatabaseSettings() {
             disabled={busy}
             className="w-full py-2.5 rounded-xl border border-[#D6B56A]/40 text-[#D6B56A] text-sm inline-flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            <Download className="w-4 h-4" /> {busy ? "Working…" : "Export backup"}
+            <Download className="w-4 h-4" /> <TranslatedText>{busy ? "Working…" : "Export backup"}</TranslatedText>
           </button>
           <button
             type="button"
@@ -195,8 +198,8 @@ export default function DatabaseSettings() {
             disabled={busy}
             className="w-full py-2.5 rounded-xl border border-[#8B6CCF]/40 text-[#B9A6E6] text-sm inline-flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            <Upload className="w-4 h-4" /> Choose backup file
-          </button>
+            <Upload className="w-4 h-4" /> <TranslatedText> Choose backup file
+          </TranslatedText></button>
         </div>
 
         <input
@@ -212,7 +215,7 @@ export default function DatabaseSettings() {
           disabled={busy}
           className="w-full rounded-xl border border-[#8B6CCF]/40 px-4 py-2.5 text-sm text-[#B9A6E6] inline-flex items-center justify-center gap-2 disabled:opacity-50"
         >
-          <Upload className="h-4 w-4" /> {busy ? "Importing…" : "Import legacy Base44 data"}
+          <Upload className="h-4 w-4" /> <TranslatedText>{busy ? "Importing…" : "Import legacy Base44 data"}</TranslatedText>
         </button>
         <input
           ref={legacyFileInputRef}
@@ -223,15 +226,15 @@ export default function DatabaseSettings() {
         />
 
         <label className="block">
-          <span className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Restore behavior</span>
+          <span className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Restore behavior</TranslatedText></span>
           <select
             value={restoreMode}
             onChange={(event) => setRestoreMode(event.target.value)}
             disabled={busy}
             className="mt-1 w-full rounded-lg border border-white/10 bg-[#08070D] px-3 py-2 text-sm text-[#F5F1E8]"
           >
-            <option value="merge">Merge backup into current content</option>
-            <option value="replace">Replace current content</option>
+            <option value="merge"><TranslatedText>Merge backup into current content</TranslatedText></option>
+            <option value="replace"><TranslatedText>Replace current content</TranslatedText></option>
           </select>
         </label>
 
@@ -243,8 +246,8 @@ export default function DatabaseSettings() {
           </p>
         )}
 
-        {error && <p role="alert" className="text-xs text-[#e0a0a0]">{error}</p>}
-        {status && <p role="status" className="text-xs text-[#D6B56A]">{status}</p>}
+        <TranslatedText>{error && <p role="alert" className="text-xs text-[#e0a0a0]">{error}</p>}</TranslatedText>
+        <TranslatedText>{status && <p role="status" className="text-xs text-[#D6B56A]">{status}</p>}</TranslatedText>
       </section>
 
       {pendingRestore && (
