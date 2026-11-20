@@ -8,15 +8,31 @@ import TranslatedText from "@/components/TranslatedText";
 import { useLanguage } from "@/lib/LanguageContext";
 import { translateRitualField } from "@/lib/languages";
 
-export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) {
+export default function MockPaymentDialog({ open, ritual, mode = "current", requestStatus = "", onClose, onSuccess }) {
   const { user } = useAuth();
   const { language } = useLanguage();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
   if (!ritual) return null;
   const isFree = Number(ritual.price) === 0;
+  const isApproval = mode === "approval";
+  const isPending = isApproval && requestStatus === "pending";
 
   const pay = async () => {
+    if (isApproval) {
+      if (isPending) return;
+      setProcessing(true);
+      setError("");
+      try {
+        await supabaseEntities.UnlockRequest.create({ user_id: user.id, ritual_id: ritual.id });
+        onSuccess?.("requested");
+      } catch (e) {
+        setError(e.code === "23505" ? "An access request is already pending." : e.message || "Could not send your request. Please try again.");
+      } finally {
+        setProcessing(false);
+      }
+      return;
+    }
     if (!isFree) return;
     setProcessing(true);
     setError("");
@@ -45,54 +61,39 @@ export default function MockPaymentDialog({ open, ritual, onClose, onSuccess }) 
             <DialogTitle className="font-display text-xl text-[#F5F1E8]"><TranslatedText>{isFree ? "Unlock ritual" : "Paid checkout"}</TranslatedText></DialogTitle>
           </div>
           <DialogDescription className="text-[#AAA5B5]">
-            <TranslatedText>{isFree
+              <TranslatedText>{isApproval
+              ? isPending ? "Your request is awaiting administrator review." : "Send an access request to the administrator. You will be able to perform this ritual after approval."
+              : isFree
               ? "This ritual is free. Unlock it for your account."
               : "Paid checkout is not configured. No charge or access will be created until a secure payment provider is connected."}</TranslatedText>
           </DialogDescription>
         </DialogHeader>
 
-        <TranslatedText>{isFree && <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
+        <TranslatedText>{!isApproval && isFree && <div className="rounded-xl border border-white/5 bg-[#08070D] p-4">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#AAA5B5]">
               {translateRitualField(ritual, "name", language)}
             </span>
             <span className="font-display text-2xl text-[#D6B56A]">{formatPrice(ritual.price)}</span>
           </div>
-          <div className="mt-4 space-y-3">
-            <div>
-              <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Card number</label>
-              <div className="mt-1 px-3 py-2.5 rounded-lg border border-white/10 bg-[#171522] text-sm text-[#AAA5B5] font-mono">
-                4111 1111 1111 1111
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">Expiry</label>
-                <div className="mt-1 px-3 py-2.5 rounded-lg border border-white/10 bg-[#171522] text-sm text-[#AAA5B5] font-mono">12/29</div>
-              </div>
-              <div>
-                <label className="text-[10px] uppercase tracking-widest text-[#AAA5B5]">CVV</label>
-                <div className="mt-1 px-3 py-2.5 rounded-lg border border-white/10 bg-[#171522] text-sm text-[#AAA5B5] font-mono">•••</div>
-              </div>
-            </div>
-          </div>
+          <p className="mt-3 text-[11px] leading-relaxed text-[#AAA5B5]">Free access is granted directly. Paid checkout is disabled until a secure payment provider is connected.</p>
         </div>}</TranslatedText>
 
         <button
           onClick={pay}
-          disabled={processing || !isFree}
+          disabled={processing || isPending || (!isApproval && !isFree)}
           className="mt-4 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide flex items-center justify-center gap-2 disabled:opacity-60 glow-gold"
         >
           <TranslatedText>{processing ? (
-            "Processing…"
+              "Processing…"
           ) : (
             <>
-              <Lock className="w-4 h-4" /> {isFree ? "Unlock free ritual" : "Paid checkout unavailable"}
+              <Lock className="w-4 h-4" /> {isApproval ? isPending ? "Request pending" : "Send unlock request" : isFree ? "Unlock free ritual" : "Paid checkout unavailable"}
             </>
           )}</TranslatedText>
         </button>
         <TranslatedText>{error && <p className="mt-3 text-center text-xs text-[#e0a0a0]" role="alert">{error}</p>}</TranslatedText>
-        <TranslatedText>{isFree && (
+        <TranslatedText>{!isApproval && isFree && (
           <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-[#AAA5B5]">
             <ShieldCheck className="w-3.5 h-3.5 text-[#D6B56A]" /> No payment required
           </p>
