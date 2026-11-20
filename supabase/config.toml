@@ -1,0 +1,2 @@
+[functions.payment-gateway]
+verify_jwt = false
