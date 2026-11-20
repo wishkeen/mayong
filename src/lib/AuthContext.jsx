@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { getSupabaseConfigurationError, isSupabaseConfigured, supabase } from "@/api/supabaseClient";
 import { supabaseEntities } from "@/api/supabaseData";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const AuthContext = createContext(null);
 
@@ -12,6 +13,10 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [appPublicSettings, setAppPublicSettings] = useState(null);
+  const profileRevision = useRealtimeTables(
+    user?.id ? [{ table: "profiles", filter: `id=eq.${user.id}` }] : [],
+    `signed-in-profile:${user?.id || "none"}`
+  );
 
   const clearAuthState = useCallback(() => {
     setUser(null);
@@ -133,6 +138,23 @@ export const AuthProvider = ({ children }) => {
     checkAppState();
     return () => subscription.unsubscribe();
   }, [checkAppState, clearAuthState, loadProfile]);
+
+  useEffect(() => {
+    if (!user?.id || profileRevision === 0) return undefined;
+    let active = true;
+    supabase.from("profiles")
+      .select("id, email, full_name, role, preferred_language, avatar_url, created_date")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (error) throw error;
+        if (active && data) {
+          setUser((current) => current?.id === data.id ? { ...current, ...data, email: current.email || data.email } : current);
+        }
+      })
+      .catch((error) => console.error("Could not refresh profile data:", error));
+    return () => { active = false; };
+  }, [profileRevision, user?.id]);
 
   const logout = async (shouldRedirect = true) => {
     setUser(null);

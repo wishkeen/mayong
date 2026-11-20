@@ -52,8 +52,9 @@ export default function PrivacyPolicy() {
           </p>
           <p>
             The app stores your sign-in session and language preferences in your browser or device storage. We do not
-            use the app to collect precise location, contacts, or payment card details. Paid checkout is not currently
-            available.
+            use the app to collect precise location or contacts. If paid checkout is enabled, the payment provider
+            receives transaction details such as your email, the ritual name, and the amount. Card and bank details
+            are entered directly with Razorpay or Instamojo and are not stored by RitualOS.
           </p>
         </PolicySection>
 
@@ -69,7 +70,9 @@ export default function PrivacyPolicy() {
           <p>
             Account and app records are stored using Supabase, which provides our authentication, database, and file
             storage services. Google or Facebook processes sign-in when you choose one of those options, under that
-            provider’s own privacy terms. We do not sell personal information or use it for targeted advertising.
+            provider’s own privacy terms. If online payments are active, Razorpay or Instamojo processes your
+            transaction under its own privacy terms. We do not sell personal information or use it for targeted
+            advertising.
           </p>
           <p>
             Profile photos are stored in the app’s media storage. The current storage configuration makes media

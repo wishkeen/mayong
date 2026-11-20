@@ -9,6 +9,7 @@ import RitualCard from "@/components/RitualCard";
 import TranslatedText from "@/components/TranslatedText";
 import { useLanguage } from "@/lib/LanguageContext";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 function greeting() {
   const h = new Date().getHours();
@@ -24,6 +25,11 @@ export default function Home() {
   const { language } = useLanguage();
   const { branding } = useBranding();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([
+    { table: "categories" },
+    { table: "rituals" },
+    ...(user?.id ? [{ table: "ritual_sessions", filter: `user_id=eq.${user.id}` }] : []),
+  ], `home:${user?.id || "public"}`);
   const [categories, setCategories] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -55,7 +61,7 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, [isAuthenticated, user?.id, refreshKey]);
+  }, [isAuthenticated, user?.id, refreshKey, liveRevision]);
 
   return (
     <div className="space-y-8 pt-1">

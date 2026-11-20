@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Clock, Gem, Heart, BookOpen, ShieldQuestion, Info } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
 import { useAuth } from "@/lib/AuthContext";
 import RitualCover from "@/components/RitualCover";
-import MockPaymentDialog from "@/components/MockPaymentDialog";
+import UnlockDialog from "@/components/UnlockDialog";
 import { formatPrice, difficultyColor, PRACTICE_LABELS, PRACTICE_NOTE } from "@/lib/rituals";
 import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText";
 import { translateRitualField } from "@/lib/languages";
 import { useLanguage } from "@/lib/LanguageContext";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeUnlocks from "@/hooks/useRealtimeUnlocks";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 import { supabase } from "@/api/supabaseClient";
 
 export default function RitualDetail() {
@@ -18,6 +20,14 @@ export default function RitualDetail() {
   const { isAuthenticated, user } = useAuth();
   const { language } = useLanguage();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([
+    { table: "rituals", filter: `id=eq.${id}` },
+    { table: "categories" },
+    { table: "ritual_steps", filter: `ritual_id=eq.${id}` },
+    ...(user?.id ? [{ table: "favorites", filter: `user_id=eq.${user.id}` }] : []),
+    { table: "ritual_unlock_settings" },
+    { table: "payment_gateway_runtime" },
+  ], `ritual-detail:${id}:${user?.id || "public"}`);
   const backLabel = useTranslatedValue("Back");
   const [ritual, setRitual] = useState(null);
   const [category, setCategory] = useState(null);
@@ -25,6 +35,11 @@ export default function RitualDetail() {
   const [entitled, setEntitled] = useState(false);
   const [unlockMode, setUnlockMode] = useState("current");
   const [requestStatus, setRequestStatus] = useState("");
+  const [paymentGateway, setPaymentGateway] = useState({ enabled: false });
+  const [paymentMessage, setPaymentMessage] = useState("");
+  const paymentReturnHandled = useRef("");
+  const paymentVerified = useRef(false);
+  const unlockLoadVersion = useRef(0);
   const [fav, setFav] = useState(null);
   const [loading, setLoading] = useState(true);
   const [payOpen, setPayOpen] = useState(false);
@@ -36,6 +51,37 @@ export default function RitualDetail() {
         language
       )
     : "";
+
+  const syncUnlockState = useCallback(async () => {
+    if (!isAuthenticated || !user?.id) return;
+    const version = ++unlockLoadVersion.current;
+    try {
+      const [entitlements, requests] = await Promise.all([
+        supabaseEntities.Entitlement.filter({ user_id: user.id, ritual_id: id }),
+        supabaseEntities.UnlockRequest.filter({ user_id: user.id, ritual_id: id }, "-created_at", 1),
+      ]);
+      if (version !== unlockLoadVersion.current) return;
+      const hasAccess = entitlements.length > 0 || paymentVerified.current;
+      setEntitled(hasAccess);
+      setRequestStatus(requests[0]?.status || "");
+      if (hasAccess) setPayOpen(false);
+    } catch (error) {
+      console.error("Could not refresh ritual access:", error);
+    }
+  }, [id, isAuthenticated, user?.id]);
+
+  const handleUnlockRealtime = useCallback((payload) => {
+    if (payload?.table === "entitlements" && payload.eventType === "INSERT") {
+      setEntitled(true);
+      setPayOpen(false);
+    }
+    if (payload?.table === "ritual_unlock_requests" && payload.new?.status) {
+      setRequestStatus(payload.new.status);
+    }
+    syncUnlockState();
+  }, [syncUnlockState]);
+
+  useRealtimeUnlocks(user?.id, handleUnlockRealtime);
 
   useEffect(() => {
     (async () => {
@@ -50,6 +96,13 @@ export default function RitualDetail() {
         } catch (error) {
           console.error("Could not load ritual access settings:", error);
         }
+        if (isAuthenticated) {
+          const { data: gateway, error: gatewayError } = await supabase.functions.invoke("payment-gateway", { body: { action: "public_status" } });
+          if (gatewayError) {
+            console.error("Could not load payment availability:", gatewayError);
+            setPaymentGateway({ enabled: false });
+          } else setPaymentGateway(gateway || { enabled: false });
+        }
         if (r.category_id) {
           try {
             const c = await supabaseEntities.Category.get(r.category_id);
@@ -60,10 +113,7 @@ export default function RitualDetail() {
         setSteps(all.sort((a, b) => a.order - b.order));
 
         if (isAuthenticated && user?.id) {
-          const ent = await supabaseEntities.Entitlement.filter({ user_id: user.id, ritual_id: id });
-          setEntitled(ent.length > 0);
-          const requests = await supabaseEntities.UnlockRequest.filter({ user_id: user.id, ritual_id: id }, "-created_at", 1);
-          setRequestStatus(requests[0]?.status || "");
+          await syncUnlockState();
           const favs = await supabaseEntities.Favorite.filter({ user_id: user.id, ritual_id: id });
           setFav(favs[0] || null);
         }
@@ -71,7 +121,40 @@ export default function RitualDetail() {
         setLoading(false);
       }
     })();
-  }, [id, isAuthenticated, user?.id, refreshKey]);
+  }, [id, isAuthenticated, user?.id, refreshKey, liveRevision, syncUnlockState]);
+
+  useEffect(() => {
+    if (!isAuthenticated || !user?.id) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("payment_provider") !== "instamojo") return;
+    const orderId = params.get("order_id");
+    const paymentId = params.get("payment_id");
+    const paymentRequestId = params.get("payment_request_id");
+    if (!orderId || paymentReturnHandled.current === orderId) return;
+    paymentReturnHandled.current = orderId;
+    (async () => {
+      try {
+        if (params.get("payment_status") !== "Credit") {
+          setPaymentMessage("Payment was not completed. You can try again when ready.");
+          return;
+        }
+        if (!paymentId || !paymentRequestId) throw new Error("The payment provider returned incomplete confirmation details.");
+        const { data, error } = await supabase.functions.invoke("payment-gateway", {
+          body: { action: "verify_payment", orderId, paymentId, paymentRequestId },
+        });
+        if (error) throw new Error(data?.error || error.message);
+        if (data?.error) throw new Error(data.error);
+        paymentVerified.current = true;
+        setEntitled(true);
+        setPaymentMessage("Payment confirmed. This ritual is now unlocked.");
+      } catch (error) {
+        console.error("Instamojo payment verification failed:", error);
+        setPaymentMessage("Payment confirmation is still pending. If money was deducted, contact the administrator with your payment reference.");
+      } finally {
+        navigate(`/ritual/${id}`, { replace: true });
+      }
+    })();
+  }, [id, isAuthenticated, user?.id, navigate]);
 
   const toggleFav = async () => {
     if (!isAuthenticated) {
@@ -196,7 +279,7 @@ export default function RitualDetail() {
           <BookOpen className="w-4 h-4 text-[#D6B56A] mt-0.5 flex-shrink-0" />
           <div>
             <div className="text-[10px] uppercase tracking-widest text-[#AAA5B5]"><TranslatedText>Structure</TranslatedText></div>
-            <p className="text-xs text-[#F5F1E8] mt-0.5"><TranslatedText>{`${steps.length} guided steps`}</TranslatedText></p>
+            <p className="text-xs text-[#F5F1E8] mt-0.5"><TranslatedText>{steps.length || entitled ? `${steps.length} guided steps` : "Guided steps available after unlock"}</TranslatedText></p>
           </div>
         </div>
       </div>
@@ -214,12 +297,14 @@ export default function RitualDetail() {
           <p className="text-center text-xs text-[#AAA5B5] mt-2"><TranslatedText>Sign in to purchase & perform.</TranslatedText></p>
         )}</TranslatedText>
       </div>
+      {paymentMessage && <p role="status" className="mt-3 rounded-xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-3 text-center text-xs text-[#D6B56A]">{paymentMessage}</p>}
 
-      <MockPaymentDialog
+      <UnlockDialog
         open={payOpen}
         ritual={ritual}
         mode={unlockMode}
         requestStatus={requestStatus}
+        paymentGateway={paymentGateway}
         onClose={() => setPayOpen(false)}
         onSuccess={(result) => {
           setPayOpen(false);

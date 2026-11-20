@@ -6,10 +6,15 @@ import JourneyRitualCard from "@/components/journey/JourneyRitualCard";
 import AchievedRitualCard from "@/components/journey/AchievedRitualCard";
 import TranslatedText from "@/components/TranslatedText";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 export default function Journey() {
   const { user } = useAuth();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([
+    ...(user?.id ? [{ table: "ritual_sessions", filter: `user_id=eq.${user.id}` }] : []),
+    { table: "rituals" },
+  ], `journey:${user?.id || "signed-out"}`);
   const [sessions, setSessions] = useState([]);
   const [rituals, setRituals] = useState({});
   const [loading, setLoading] = useState(true);
@@ -38,7 +43,7 @@ export default function Journey() {
         setLoading(false);
       }
     })();
-  }, [user?.id, refreshKey]);
+  }, [user?.id, refreshKey, liveRevision]);
 
   const groups = {};
   sessions.forEach((s) => {

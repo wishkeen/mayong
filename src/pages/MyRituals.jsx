@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, Check } from "lucide-react";
 import { supabaseEntities } from "@/api/supabaseData";
@@ -9,6 +9,8 @@ import TranslatedText from "@/components/TranslatedText";
 import { useLanguage } from "@/lib/LanguageContext";
 import { translateRitualField } from "@/lib/languages";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeUnlocks from "@/hooks/useRealtimeUnlocks";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const TABS = [
   { key: "purchased", label: "Purchased" },
@@ -21,23 +23,52 @@ export default function MyRituals() {
   const { user } = useAuth();
   const { language } = useLanguage();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([
+    ...(user?.id ? [
+      { table: "ritual_sessions", filter: `user_id=eq.${user.id}` },
+      { table: "favorites", filter: `user_id=eq.${user.id}` },
+    ] : []),
+    { table: "rituals" },
+  ], `my-rituals:${user?.id || "signed-out"}`);
   const [tab, setTab] = useState("purchased");
   const [rituals, setRituals] = useState({});
   const [entitlements, setEntitlements] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const entitlementLoadVersion = useRef(0);
+
+  const refreshEntitlements = useCallback(async () => {
+    if (!user?.id) return;
+    const version = ++entitlementLoadVersion.current;
+    try {
+      const rows = await supabaseEntities.Entitlement.filter({ user_id: user.id });
+      if (version === entitlementLoadVersion.current) setEntitlements(rows);
+    } catch (error) {
+      console.error("Could not refresh unlocked rituals:", error);
+    }
+  }, [user?.id]);
+
+  const handleUnlockRealtime = useCallback((payload) => {
+    if (payload?.table === "entitlements" && payload.eventType === "INSERT" && payload.new?.ritual_id) {
+      entitlementLoadVersion.current += 1;
+      setEntitlements((current) => current.some((row) => row.id === payload.new.id) ? current : [...current, payload.new]);
+      return;
+    }
+    refreshEntitlements();
+  }, [refreshEntitlements]);
+
+  useRealtimeUnlocks(user?.id, handleUnlockRealtime);
 
   useEffect(() => {
     (async () => {
       try {
-        const [ents, sess, favs, allRituals] = await Promise.all([
-          supabaseEntities.Entitlement.filter({ user_id: user.id }),
+        const [sess, favs, allRituals] = await Promise.all([
           supabaseEntities.RitualSession.filter({ user_id: user.id }, "-created_date", 50),
           supabaseEntities.Favorite.filter({ user_id: user.id }),
           supabaseEntities.Ritual.list("-created_date", 100),
         ]);
-        setEntitlements(ents);
+        await refreshEntitlements();
         setSessions(sess);
         setFavorites(favs);
         const map = {};
@@ -47,7 +78,7 @@ export default function MyRituals() {
         setLoading(false);
       }
     })();
-  }, [user?.id, refreshKey]);
+  }, [user?.id, refreshKey, refreshEntitlements, liveRevision]);
 
   const ritualOf = (id) => rituals[id];
   const completedSessions = sessions.filter((s) => s.status === "completed");

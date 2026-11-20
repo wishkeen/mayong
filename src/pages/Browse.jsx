@@ -4,10 +4,12 @@ import { supabaseEntities } from "@/api/supabaseData";
 import RitualCard from "@/components/RitualCard";
 import TranslatedText from "@/components/TranslatedText";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 export default function Browse() {
   const { category: activeSlug } = useParams();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([{ table: "categories" }, { table: "rituals" }], "browse-catalog");
   const [categories, setCategories] = useState([]);
   const [rituals, setRituals] = useState([]);
   const [catMap, setCatMap] = useState({});
@@ -28,7 +30,7 @@ export default function Browse() {
         setLoading(false);
       }
     })();
-  }, [refreshKey]);
+  }, [refreshKey, liveRevision]);
 
   const filtered = activeSlug ? rituals.filter((r) => r.category_slug === activeSlug) : rituals;
   const activeCat = categories.find((c) => c.slug === activeSlug);

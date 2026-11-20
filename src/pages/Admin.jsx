@@ -5,11 +5,12 @@ import { useAuth } from "@/lib/AuthContext";
 import AdminGuard from "@/components/admin/AdminGuard";
 import RitualForm from "@/components/admin/RitualForm";
 import StepEditor from "@/components/admin/StepEditor";
-import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette, KeyRound, LockKeyhole } from "lucide-react";
+import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette, KeyRound, LockKeyhole, CreditCard } from "lucide-react";
 import DatabaseSettings from "@/components/admin/DatabaseSettings";
 import BrandingSettings from "@/components/admin/BrandingSettings";
 import SocialAuthSettings from "@/components/admin/SocialAuthSettings";
 import RitualAccessSettings from "@/components/admin/RitualAccessSettings";
+import PaymentGatewaySettings from "@/components/admin/PaymentGatewaySettings";
 import BrandLogo from "@/components/BrandLogo";
 import { useBranding } from "@/lib/BrandingContext";
 import { formatPrice, difficultyColor, PRACTICE_LABELS } from "@/lib/rituals";
@@ -18,6 +19,8 @@ import CategoryForm from "@/components/admin/CategoryForm";
 import RitualCover from "@/components/RitualCover";
 import TranslatedText from "@/components/TranslatedText";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import { supabase } from "@/api/supabaseClient";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const TABS = [
   { key: "overview", label: "Overview", icon: Moon },
@@ -26,6 +29,7 @@ const TABS = [
   { key: "users", label: "Users", icon: Users },
   { key: "orders", label: "Purchases", icon: ShoppingBag },
   { key: "ritual-access", label: "Ritual access", icon: LockKeyhole },
+  { key: "payments", label: "Payments", icon: CreditCard },
   { key: "sessions", label: "Completions", icon: CheckCircle },
   { key: "reminders", label: "Reminders", icon: Bell },
   { key: "social-auth", label: "Social sign-in", icon: KeyRound },
@@ -37,6 +41,13 @@ function AdminInner() {
   const { user } = useAuth();
   const { branding } = useBranding();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables([
+    { table: "categories" },
+    { table: "rituals" },
+    { table: "profiles" },
+    { table: "orders" },
+    { table: "ritual_sessions" },
+  ], "admin-dashboard-data");
   const [tab, setTab] = useState("overview");
   const [rituals, setRituals] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -79,7 +90,7 @@ function AdminInner() {
     }
   }, []);
 
-  useEffect(() => { loadAll(); }, [loadAll, tab, refreshKey]);
+  useEffect(() => { loadAll(); }, [loadAll, tab, refreshKey, liveRevision]);
 
   const runAdminAction = async (action) => {
     setActionError("");
@@ -142,6 +153,15 @@ function AdminInner() {
     if (!confirm(`Delete category "${cat.name}"? Rituals in it will remain but lose their category link.`)) return;
     await supabaseEntities.Category.delete(cat.id);
     loadAll();
+  };
+
+  const recordRefund = async (order) => {
+    const reason = prompt("Enter a note for the completed full refund (3–500 characters):");
+    if (reason === null) return;
+    if (!confirm("Record this payment as fully refunded and revoke the user's ritual access? First complete the refund in the payment provider dashboard.")) return;
+    const { error } = await supabase.rpc("record_manual_payment_refund", { local_order_id: order.id, reason });
+    if (error) throw error;
+    await loadAll();
   };
 
   const completedCount = sessions.length;
@@ -310,21 +330,26 @@ function AdminInner() {
         </div>
       ) : tab === "orders" ? (
         <div className="space-y-2">
+          <p className="rounded-xl border border-[#D6B56A]/20 bg-[#D6B56A]/5 p-3 text-xs leading-relaxed text-[#AAA5B5]">Issue refunds in the gateway dashboard first. Then record the completed full refund here to revoke access and update the order record.</p>
           {orders.length === 0 ? <p className="text-sm text-[#AAA5B5]">No purchases yet.</p> : orders.map((o) => (
-            <div key={o.id} className="rounded-xl border border-white/5 bg-[#171522] px-4 py-3 flex items-center justify-between">
+            <div key={o.id} className="rounded-xl border border-white/5 bg-[#171522] px-4 py-3 flex items-center justify-between gap-3">
               <div>
                 <p className="text-sm text-[#F5F1E8]">{o.ritual_name || "—"}</p>
                 <p className="text-xs text-[#AAA5B5]">{userMap[o.created_by_id]?.email || "—"} · {new Date(o.created_date).toLocaleDateString()}</p>
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p className="text-sm text-[#D6B56A]">{formatPrice(o.amount)}</p>
                 <p className="text-[10px] text-[#AAA5B5] uppercase">{o.payment_mode} · {o.status}</p>
+                {o.status === "paid" && ["razorpay", "instamojo"].includes(o.payment_mode) && <button onClick={() => runAdminAction(() => recordRefund(o))} className="mt-1 text-[10px] text-[#e2a0a0] underline underline-offset-2">Record full refund</button>}
+                {o.status === "refunded" && <p className="mt-1 max-w-48 text-[10px] text-[#777184]">{o.refund_note}</p>}
               </div>
             </div>
           ))}
         </div>
       ) : tab === "ritual-access" ? (
         <RitualAccessSettings users={users} rituals={rituals} />
+      ) : tab === "payments" ? (
+        <PaymentGatewaySettings />
       ) : tab === "sessions" ? (
         <div className="space-y-2">
           {sessions.length === 0 ? <p className="text-sm text-[#AAA5B5]">No completed rituals yet.</p> : sessions.map((s) => (

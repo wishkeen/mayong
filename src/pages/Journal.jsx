@@ -7,6 +7,7 @@ import StarRating from "@/components/StarRating";
 import TranslatedText from "@/components/TranslatedText";
 import { useLanguage } from "@/lib/LanguageContext";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const MOOD_EMOJI = {
   peaceful: "🌙",
@@ -20,6 +21,10 @@ export default function Journal() {
   const { user } = useAuth();
   const { language } = useLanguage();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables(
+    user?.id ? [{ table: "journal_entries", filter: `user_id=eq.${user.id}` }] : [],
+    `journal:${user?.id || "signed-out"}`
+  );
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +37,7 @@ export default function Journal() {
         setLoading(false);
       }
     })();
-  }, [user?.id, refreshKey]);
+  }, [user?.id, refreshKey, liveRevision]);
 
   return (
     <div className="pt-1 space-y-5">

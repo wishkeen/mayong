@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/api/supabaseClient";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 export const DEFAULT_BRANDING = Object.freeze({
   app_name: "RitualOS",
@@ -42,6 +43,7 @@ export function BrandingProvider({ children }) {
   const [loadError, setLoadError] = useState("");
   const originalTitle = useMemo(() => document.title, []);
   const originalFavicon = useMemo(() => document.querySelector('link[rel="icon"]')?.href || "", []);
+  const liveRevision = useRealtimeTables([{ table: "app_branding" }], "public-branding");
 
   const refreshBranding = useCallback(async () => {
     if (!supabase) {
@@ -102,7 +104,7 @@ export function BrandingProvider({ children }) {
 
   useEffect(() => {
     refreshBranding();
-  }, [refreshBranding]);
+  }, [refreshBranding, liveRevision]);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--brand-accent", branding.accent_color);

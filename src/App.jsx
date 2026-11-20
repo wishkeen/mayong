@@ -32,6 +32,7 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
 import { Navigate } from 'react-router-dom';
 import TranslatedText from '@/components/TranslatedText';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -149,23 +150,31 @@ const AuthenticatedApp = () => {
 };
 
 
-function App() {
-
+function AppProviders() {
   return (
     <AuthProvider>
       <LanguageProvider>
         <QueryClientProvider client={queryClientInstance}>
           <BrandingProvider>
-            <Router>
-              <ScrollToTop />
-              <AuthenticatedApp />
-            </Router>
+            <ScrollToTop />
+            <AuthenticatedApp />
           </BrandingProvider>
           <Toaster />
         </QueryClientProvider>
       </LanguageProvider>
     </AuthProvider>
   )
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="*" element={<AppProviders />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App
