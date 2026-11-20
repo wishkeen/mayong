@@ -10,6 +10,7 @@ const entityTables = {
   JournalEntry: "journal_entries",
   Order: "orders",
   User: "profiles",
+  UnlockRequest: "ritual_unlock_requests",
 };
 
 function getTable(entityName) {

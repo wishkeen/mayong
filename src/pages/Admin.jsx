@@ -5,10 +5,11 @@ import { useAuth } from "@/lib/AuthContext";
 import AdminGuard from "@/components/admin/AdminGuard";
 import RitualForm from "@/components/admin/RitualForm";
 import StepEditor from "@/components/admin/StepEditor";
-import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette, KeyRound } from "lucide-react";
+import { Plus, Pencil, ListTree, Trash2, ExternalLink, Moon, Users, ShoppingBag, CheckCircle, Bell, Tags, GripVertical, Database, Palette, KeyRound, LockKeyhole } from "lucide-react";
 import DatabaseSettings from "@/components/admin/DatabaseSettings";
 import BrandingSettings from "@/components/admin/BrandingSettings";
 import SocialAuthSettings from "@/components/admin/SocialAuthSettings";
+import RitualAccessSettings from "@/components/admin/RitualAccessSettings";
 import BrandLogo from "@/components/BrandLogo";
 import { useBranding } from "@/lib/BrandingContext";
 import { formatPrice, difficultyColor, PRACTICE_LABELS } from "@/lib/rituals";
@@ -24,6 +25,7 @@ const TABS = [
   { key: "categories", label: "Categories", icon: Tags },
   { key: "users", label: "Users", icon: Users },
   { key: "orders", label: "Purchases", icon: ShoppingBag },
+  { key: "ritual-access", label: "Ritual access", icon: LockKeyhole },
   { key: "sessions", label: "Completions", icon: CheckCircle },
   { key: "reminders", label: "Reminders", icon: Bell },
   { key: "social-auth", label: "Social sign-in", icon: KeyRound },
@@ -321,6 +323,8 @@ function AdminInner() {
             </div>
           ))}
         </div>
+      ) : tab === "ritual-access" ? (
+        <RitualAccessSettings users={users} rituals={rituals} />
       ) : tab === "sessions" ? (
         <div className="space-y-2">
           {sessions.length === 0 ? <p className="text-sm text-[#AAA5B5]">No completed rituals yet.</p> : sessions.map((s) => (

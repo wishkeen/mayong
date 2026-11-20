@@ -22,6 +22,7 @@ export default function RitualPlayer() {
   const [session, setSession] = useState(null);
   const [idx, setIdx] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [progressLog, setProgressLog] = useState([]);
   const [stepMetrics, setStepMetrics] = useState({});
@@ -31,6 +32,13 @@ export default function RitualPlayer() {
     (async () => {
       try {
         const r = await supabaseEntities.Ritual.get(id);
+        if (user?.role !== "admin") {
+          const access = await supabaseEntities.Entitlement.filter({ user_id: user.id, ritual_id: id }, undefined, 1);
+          if (access.length === 0) {
+            setAccessDenied(true);
+            return;
+          }
+        }
         setRitual(r);
         const all = await supabaseEntities.RitualStep.filter({ ritual_id: id });
         const sorted = all.sort((a, b) => a.order - b.order);
@@ -190,6 +198,14 @@ export default function RitualPlayer() {
     );
   }
   if (!ritual || steps.length === 0) {
+    if (accessDenied) {
+      return (
+        <div className="min-h-screen bg-mystic flex flex-col items-center justify-center text-[#AAA5B5] px-6 text-center">
+          <p><TranslatedText>This ritual is locked. Request access or unlock it from the ritual page.</TranslatedText></p>
+          <button onClick={() => navigate(`/ritual/${id}`)} className="mt-4 text-[#D6B56A] text-sm"><TranslatedText>View ritual access</TranslatedText></button>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-mystic flex flex-col items-center justify-center text-[#AAA5B5] px-6 text-center">
         <p><TranslatedText>This ritual has no steps yet.</TranslatedText></p>

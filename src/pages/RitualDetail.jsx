@@ -10,6 +10,7 @@ import TranslatedText, { useTranslatedValue } from "@/components/TranslatedText"
 import { translateRitualField } from "@/lib/languages";
 import { useLanguage } from "@/lib/LanguageContext";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import { supabase } from "@/api/supabaseClient";
 
 export default function RitualDetail() {
   const { id } = useParams();
@@ -22,6 +23,8 @@ export default function RitualDetail() {
   const [category, setCategory] = useState(null);
   const [steps, setSteps] = useState([]);
   const [entitled, setEntitled] = useState(false);
+  const [unlockMode, setUnlockMode] = useState("current");
+  const [requestStatus, setRequestStatus] = useState("");
   const [fav, setFav] = useState(null);
   const [loading, setLoading] = useState(true);
   const [payOpen, setPayOpen] = useState(false);
@@ -39,6 +42,14 @@ export default function RitualDetail() {
       try {
         const r = await supabaseEntities.Ritual.get(id);
         setRitual(r);
+        try {
+          const { data: unlockSettings, error: settingsError } = await supabase
+            .from("ritual_unlock_settings").select("mode").eq("id", 1).maybeSingle();
+          if (settingsError) throw settingsError;
+          setUnlockMode(unlockSettings?.mode || "current");
+        } catch (error) {
+          console.error("Could not load ritual access settings:", error);
+        }
         if (r.category_id) {
           try {
             const c = await supabaseEntities.Category.get(r.category_id);
@@ -51,6 +62,8 @@ export default function RitualDetail() {
         if (isAuthenticated && user?.id) {
           const ent = await supabaseEntities.Entitlement.filter({ user_id: user.id, ritual_id: id });
           setEntitled(ent.length > 0);
+          const requests = await supabaseEntities.UnlockRequest.filter({ user_id: user.id, ritual_id: id }, "-created_at", 1);
+          setRequestStatus(requests[0]?.status || "");
           const favs = await supabaseEntities.Favorite.filter({ user_id: user.id, ritual_id: id });
           setFav(favs[0] || null);
         }
@@ -81,6 +94,8 @@ export default function RitualDetail() {
     }
     if (entitled) {
       navigate(`/player/${id}`);
+    } else if (unlockMode === "approval" && requestStatus === "pending") {
+      return;
     } else {
       setPayOpen(true);
     }
@@ -189,10 +204,12 @@ export default function RitualDetail() {
       <div className="mt-6">
         <button
           onClick={onPrimary}
-          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide glow-gold"
+          disabled={!entitled && unlockMode === "approval" && requestStatus === "pending"}
+          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D6B56A] to-[#8B6CCF] text-[#08070D] font-semibold tracking-wide glow-gold disabled:opacity-70"
         >
-          {entitled ? <TranslatedText>Perform This Ritual</TranslatedText> : <TranslatedText>{`Unlock for ${formatPrice(ritual.price)}`}</TranslatedText>}
+          {entitled ? <TranslatedText>Perform This Ritual</TranslatedText> : requestStatus === "pending" && unlockMode === "approval" ? <TranslatedText>Unlock request pending</TranslatedText> : unlockMode === "approval" ? <TranslatedText>Request ritual access</TranslatedText> : <TranslatedText>{`Unlock for ${formatPrice(ritual.price)}`}</TranslatedText>}
         </button>
+        {unlockMode === "approval" && requestStatus === "pending" && <p role="status" className="text-center text-xs text-[#AAA5B5] mt-2"><TranslatedText>Unlock requested. Contact the administrator if you need an update; access will appear here after approval.</TranslatedText></p>}
         <TranslatedText>{!isAuthenticated && (
           <p className="text-center text-xs text-[#AAA5B5] mt-2"><TranslatedText>Sign in to purchase & perform.</TranslatedText></p>
         )}</TranslatedText>
@@ -201,11 +218,16 @@ export default function RitualDetail() {
       <MockPaymentDialog
         open={payOpen}
         ritual={ritual}
+        mode={unlockMode}
+        requestStatus={requestStatus}
         onClose={() => setPayOpen(false)}
-        onSuccess={() => {
+        onSuccess={(result) => {
           setPayOpen(false);
-          setEntitled(true);
-          navigate(`/player/${id}`);
+          if (result === "requested") setRequestStatus("pending");
+          else {
+            setEntitled(true);
+            navigate(`/player/${id}`);
+          }
         }}
       />
     </div>
