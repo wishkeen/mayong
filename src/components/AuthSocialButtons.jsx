@@ -5,6 +5,7 @@ import { getAuthProviderSettings } from "@/api/authProviders";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/components/GoogleIcon";
 import TranslatedText from "@/components/TranslatedText";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const PROVIDERS = [
   { id: "google", label: "Google", icon: GoogleIcon },
@@ -19,6 +20,7 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
   const [settings, setSettings] = useState(null);
   const [loadingProvider, setLoadingProvider] = useState("");
   const [authError, setAuthError] = useState("");
+  const liveRevision = useRealtimeTables([{ table: "auth_provider_settings" }], "social-auth-buttons");
 
   useEffect(() => {
     let active = true;
@@ -33,7 +35,7 @@ export default function AuthSocialButtons({ returnTo = "/" }) {
     return () => {
       active = false;
     };
-  }, []);
+  }, [liveRevision]);
 
   const signIn = async (provider) => {
     setAuthError("");

@@ -65,6 +65,9 @@ export default function Layout() {
 
         <main className="flex-1 px-5 pb-24">
           <Outlet />
+          <footer className="mt-8 border-t border-white/5 pt-4 pb-2 text-center text-xs text-[#8F899C]">
+            <Link to="/privacy" className="hover:text-[#D6B56A] hover:underline">Privacy Policy</Link>
+          </footer>
         </main>
 
         <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/5 bg-[#08070D]/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">

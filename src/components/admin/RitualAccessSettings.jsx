@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Check, Clock3, X } from "lucide-react";
 import { supabase } from "@/api/supabaseClient";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 export default function RitualAccessSettings({ users, rituals }) {
   const [mode, setMode] = useState("current");
@@ -10,6 +11,10 @@ export default function RitualAccessSettings({ users, rituals }) {
   const [busyId, setBusyId] = useState("");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const liveRevision = useRealtimeTables([
+    { table: "ritual_unlock_settings" },
+    { table: "ritual_unlock_requests" },
+  ], "admin-ritual-access-mode");
   const userMap = Object.fromEntries(users.map((user) => [user.id, user]));
   const ritualMap = Object.fromEntries(rituals.map((ritual) => [ritual.id, ritual]));
 
@@ -32,7 +37,7 @@ export default function RitualAccessSettings({ users, rituals }) {
     }
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { load(); }, [load, liveRevision]);
 
   const saveMode = async (nextMode) => {
     setSaving(true);
@@ -81,9 +86,9 @@ export default function RitualAccessSettings({ users, rituals }) {
           <h2 className="font-display text-xl text-[#F5F1E8]">Ritual access</h2>
           <p className="mt-1 text-xs leading-relaxed text-[#AAA5B5]">Choose how users request access to locked rituals. This applies to new unlock attempts.</p>
         </div>
-        <label className="flex items-start gap-3 rounded-xl border border-white/10 p-3 cursor-pointer">
+          <label className="flex items-start gap-3 rounded-xl border border-white/10 p-3 cursor-pointer">
           <input type="radio" name="unlock-mode" value="current" checked={mode === "current"} disabled={saving} onChange={() => saveMode("current")} className="mt-1 accent-[#D6B56A]" />
-          <span><span className="block text-sm text-[#F5F1E8]">Current unlock flow</span><span className="mt-1 block text-xs leading-relaxed text-[#AAA5B5]">Free rituals can be unlocked directly. Paid checkout remains unavailable until a secure payment provider is configured.</span></span>
+          <span><span className="block text-sm text-[#F5F1E8]">Current unlock flow</span><span className="mt-1 block text-xs leading-relaxed text-[#AAA5B5]">Free rituals unlock directly. Paid rituals use the active gateway configured under Admin → Payments. If both gateways are inactive, paid checkout stays unavailable.</span></span>
         </label>
         <label className="flex items-start gap-3 rounded-xl border border-white/10 p-3 cursor-pointer">
           <input type="radio" name="unlock-mode" value="approval" checked={mode === "approval"} disabled={saving} onChange={() => saveMode("approval")} className="mt-1 accent-[#D6B56A]" />

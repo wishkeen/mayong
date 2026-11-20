@@ -5,6 +5,7 @@ import { getUserProfileSummary } from "@/api/supabaseData";
 import TranslatedText from "@/components/TranslatedText";
 import { useLanguage } from "@/lib/LanguageContext";
 import useRefreshOnFocus from "@/hooks/useRefreshOnFocus";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const metrics = [
   { key: "ritualsCompleted", label: "Completed", icon: Sparkles },
@@ -17,6 +18,10 @@ const metrics = [
 export default function ProfileActivityCard({ userId }) {
   const { language } = useLanguage();
   const refreshKey = useRefreshOnFocus();
+  const liveRevision = useRealtimeTables(
+    userId ? ["ritual_sessions", "entitlements", "favorites", "journal_entries", "orders"].map((table) => ({ table, filter: `user_id=eq.${userId}` })) : [],
+    `profile-activity:${userId || "none"}`
+  );
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -33,7 +38,7 @@ export default function ProfileActivityCard({ userId }) {
       })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [userId, refreshKey]);
+  }, [userId, refreshKey, liveRevision]);
 
   return (
     <section className="rounded-2xl border border-white/5 bg-[#171522] p-5 space-y-4">

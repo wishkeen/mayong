@@ -11,6 +11,7 @@ import {
 } from "@/api/authProviders";
 import GoogleIcon from "@/components/GoogleIcon";
 import TranslatedText from "@/components/TranslatedText";
+import useRealtimeTables from "@/hooks/useRealtimeTables";
 
 const fieldClass = "mt-1 w-full rounded-lg border border-white/10 bg-[#100F18] px-3 py-2 font-mono text-xs text-[#F5F1E8]";
 
@@ -68,6 +69,7 @@ export default function SocialAuthSettings() {
   const [saveError, setSaveError] = useState("");
   const [copied, setCopied] = useState(false);
   const callbackUrl = getSupabaseAuthCallbackUrl();
+  const liveRevision = useRealtimeTables([{ table: "auth_provider_settings" }], "admin-social-auth");
 
   useEffect(() => {
     let active = true;
@@ -91,7 +93,7 @@ export default function SocialAuthSettings() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [liveRevision]);
 
   const updateProvider = (provider, field, value) => {
     const key = `${provider}_${field}`;
